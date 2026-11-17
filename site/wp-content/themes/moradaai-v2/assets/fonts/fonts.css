@@ -1,0 +1,69 @@
+/*
+ * Self-hosted webfonts. Paths are relative to this file.
+ * Lato uses the Latin subset (LatoLatin) so the SemiBold (600) weight,
+ * which the Google Fonts Lato build does not ship, is available.
+ */
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: url('lato/LatoLatin-Light.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('lato/LatoLatin-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('lato/LatoLatin-Semibold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('lato/LatoLatin-Bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('inter/inter-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Outfit';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('outfit/outfit-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Outfit';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('outfit/outfit-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Outfit';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('outfit/outfit-latin-700-normal.woff2') format('woff2');
+}

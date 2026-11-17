@@ -1,0 +1,39 @@
+MORADA.AI — cópia do HTML da home (https://morada.ai), tirada em 17/11/2026
+
+site/index.html
+    Cópia que abre offline (duplo clique). HTML + CSS, JS, imagens, vídeos e ícones
+    do tema: 132 arquivos, 40 MB, caminhos relativos. Conferida no Chrome contra o
+    site no ar: mesma altura de página, mesmas fontes, nenhum erro de JS.
+
+fonte/index-original.html
+    O HTML exatamente como o servidor entrega, sem nenhuma alteração
+    (links absolutos para morada.ai). Bom para copiar e colar código.
+
+fonte/espelhar.mjs
+    Script que gerou a pasta site/.
+
+
+O QUE MUDA NA CÓPIA DE site/ EM RELAÇÃO AO ORIGINAL
+
+- Arquivos do site (wp-content, wp-includes) apontam para caminho relativo.
+  Links para outras páginas (Quem somos, Conteúdo, cases...) continuam indo para o
+  morada.ai no ar; as âncoras da própria home (#funcoesV2 etc.) rolam na cópia.
+- Rastreadores desligados, para que abrir a cópia não conte visita no analytics:
+  Google Tag Manager, GA4, PostHog, Contentsquare, LinkedIn Insight, HubSpot tracking
+  e Jetpack Stats. O código continua lá, marcado com
+      type="text/plain" data-desligado-na-copia="rastreamento"
+  e volta a funcionar se você tirar esses dois atributos.
+- Ícones SVG usados como máscara CSS (orquestração, tabela comparativa, valores)
+  foram embutidos como data:, porque máscara não carrega de arquivo local.
+- Swiper e AOS, que vinham de CDN, foram baixados para site/_cdn/.
+
+AINDA DEPENDE DE INTERNET
+- Fontes (Adobe Fonts/Typekit e Google Fonts), formulário do HubSpot, vídeo do Vimeo
+  e o widget da Mia.
+- O balão de saudação da Mia não abre na cópia: a API dela só responde ao domínio
+  morada.ai. O botão do chat aparece normalmente.
+
+
+PARA ATUALIZAR A CÓPIA (Terminal, dentro desta pasta)
+    curl -sL -o /tmp/morada.html https://morada.ai
+    node fonte/espelhar.mjs /tmp/morada.html site

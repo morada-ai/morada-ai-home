@@ -1,0 +1,187 @@
+/* Immersive chat overlay for the Home hero CTA. The theme owns this frame;
+   the embedded Mia widget renders its thread inside #miaChatMount. */
+
+.miaChatLock { overflow: hidden; }
+
+.miaChatOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 900; /* below the fixed site header (.MainNavSiteHome is z-index:1000) */
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none; /* don't capture clicks until open (e.g. during fade-out) */
+    transition: opacity 280ms ease;
+}
+/* Closed: fully removed from layout so it never intercepts page clicks.
+   More specific than `.miaChatOverlay`, so it wins over `display: flex`. */
+.miaChatOverlay[hidden] { display: none; }
+.miaChatOverlay.is-open { opacity: 1; pointer-events: auto; }
+
+.miaChatOverlay__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 19, 42, 0.72); /* tint of --v2-bg-deep (#00132A) */
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+}
+/* Engines without backdrop-filter get a denser tint so the page behind the
+   overlay stays legibly obscured. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .miaChatOverlay__backdrop { background: rgba(0, 19, 42, 0.92); }
+}
+
+.miaChatOverlay__panel {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: min(880px, 100%);
+    height: 100%;
+    padding-top: var(--home-header-h, 72px); /* clear the fixed site header */
+}
+
+.miaChatOverlay__bar {
+    flex: 0 0 auto;
+    padding: 1rem 1.25rem 0;
+}
+.miaChatOverlay__back {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--v2-border-on-deep, rgba(255, 255, 255, 0.12));
+    color: var(--v2-fg-on-deep, #fff);
+    font-family: var(--v2-ff-body, 'Lato', sans-serif);
+    font-size: 0.9375rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--v2-radius-pill, 999px);
+    cursor: pointer;
+    transition: background 200ms ease;
+}
+.miaChatOverlay__back:hover,
+.miaChatOverlay__back:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.miaChatOverlay__stage {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 1rem;
+    display: flex;
+}
+.miaChatOverlay__mount {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+}
+
+/* Centered greeting shown only while the widget connects (.is-loading). */
+.miaChatOverlay__greeting {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    pointer-events: none;
+}
+.miaChatOverlay.is-loading .miaChatOverlay__greeting { display: flex; }
+.miaChatOverlay__greetingTitle {
+    font-family: var(--v2-ff-display, 'Outfit', sans-serif);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    color: var(--v2-fg-on-deep, #fff);
+}
+
+/* ── Theme the embedded widget thread to the dark hero palette ───────────
+   The widget sets per-message bubble colours via inline CSS custom props,
+   so these overrides use !important to beat the inline declarations. */
+.miaChatOverlay #chat-application-id.embedded .main-container {
+    background: transparent;
+    font-family: var(--v2-ff-body, 'Lato', sans-serif);
+}
+/* chatscope's ChatContainer ships a solid white background in the widget
+   bundle; clear it so the dark backdrop shows through (otherwise Mia's
+   light-text bubbles render white-on-white and disappear). */
+.miaChatOverlay #chat-application-id.embedded .cs-chat-container {
+    background: transparent !important;
+}
+.miaChatOverlay #chat-application-id.embedded .cs-conversation-header {
+    background: transparent;
+    border-bottom: 1px solid var(--v2-border-on-deep, rgba(255, 255, 255, 0.12));
+    color: var(--v2-fg-on-deep, #fff);
+}
+.miaChatOverlay #chat-application-id.embedded .cs-message-list {
+    background: transparent;
+}
+/* Mia (incoming) — dark glass bubble, light text */
+.miaChatOverlay #chat-application-id.embedded .cs-message--incoming .cs-message__content {
+    --message-bg-color: rgba(255, 255, 255, 0.08) !important;
+    color: var(--v2-fg-on-deep, #fff) !important;
+}
+/* User (outgoing) — brand royal blue */
+.miaChatOverlay #chat-application-id.embedded .cs-message--outgoing .cs-message__content {
+    --message-bg-color: var(--v2-accent-royal, #0074FF) !important;
+    --message-text-color: #fff !important;
+}
+/* Input pill on dark. !important because this selector ties on specificity
+   with the widget's own .input-row rule, and the widget's bundle.css is
+   injected at runtime (after this stylesheet), so source-order would lose. */
+.miaChatOverlay #chat-application-id.embedded .input-row {
+    background: rgba(255, 255, 255, 0.10) !important;
+}
+.miaChatOverlay #chat-application-id.embedded .cs-message-input__content-editor {
+    color: var(--v2-fg-on-deep, #fff) !important;
+}
+/* Placeholder ("Type message here") is rendered by chatscope as a ::before
+   pseudo with its own color, so the editor's color rule above doesn't reach it. */
+.miaChatOverlay #chat-application-id.embedded .cs-message-input__content-editor[data-placeholder]:empty::before {
+    color: rgb(255 255 255 / 38%) !important;
+}
+/* The avatar wrapper is a fixed 36px white circle, but chatscope can render the
+   inner <img> smaller than the wrapper (grouped messages), leaving a white ring
+   around the logo. Force the image to fill and clip to the circle. !important to
+   beat the widget's runtime bundle. */
+.miaChatOverlay #chat-application-id.embedded .cs-avatar {
+    overflow: hidden !important;
+}
+
+.miaChatOverlay #chat-application-id.embedded .cs-avatar.cs-avatar--sm {
+    width: 36px;
+    height: 36px;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+
+.cs-input-toolbox {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .miaChatOverlay__panel { width: 100%; }
+
+    /* The CookieYes revisit pill and the WhatsApp FAB are fixed to the screen
+       corners above the overlay's stacking order, so on small screens they
+       cover the widget's input controls. Hide them while the chat is open
+       (body.miaChatLock is toggled by js/chatOverlay.js). !important beats the
+       plugins' own inline/runtime display rules. */
+    body.miaChatLock .cky-btn-revisit-wrapper,
+    body.miaChatLock .morada-wa-fab-novo {
+        display: none !important;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .miaChatOverlay { transition: none; }
+    .miaChatOverlay__backdrop {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: rgba(0, 19, 42, 0.92);
+    }
+}
