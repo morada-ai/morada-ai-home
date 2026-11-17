@@ -1,48 +1,83 @@
-MORADA.AI — cópia do HTML da home (https://morada.ai), tirada em 17/11/2026
+MORADA.AI — cópia estática do site (https://morada.ai), tirada em 17/11/2026
 
 NO AR
     Vercel (time morada-back):  https://morada-ai-home.vercel.app
     GitHub (público):           https://github.com/morada-ai/morada-ai-home
     Push na main publica sozinho. A Vercel serve só a pasta site/ e manda
     "X-Robots-Tag: noindex" (vercel.json), para o Google não indexar uma
-    segunda home da Morada. Commits com o e-mail noreply da GhortD9:
+    segunda cópia do site da Morada. Commits com o e-mail noreply da GhortD9:
     commit com outro e-mail faz a Vercel bloquear o deploy.
 
-site/index.html
-    Cópia que abre offline (duplo clique). HTML + CSS, JS, imagens, vídeos e ícones
-    do tema: 132 arquivos, 40 MB, caminhos relativos. Conferida no Chrome contra o
-    site no ar: mesma altura de página, mesmas fontes, nenhum erro de JS.
 
-fonte/index-original.html
-    O HTML exatamente como o servidor entrega, sem nenhuma alteração
+PÁGINAS COPIADAS (as dos menus do site)
+
+    Home ..................... site/index.html
+    Soluções
+      Morada Vendas .......... site/morada-vendas/index.html
+      Morada Relacionamento .. site/morada-relacionamento/index.html
+    Resultados (cases da home)
+      Conbral ................ site/conbral/index.html
+      Direcional ............. site/direcional/index.html
+      Fraiha ................. site/fraiha/index.html
+    Conteúdo ................. site/conteudo/index.html
+      (Eventos, Ferramentas, Materiais ricos, Academy e Podcast são seções dela)
+      Blog ................... site/blog/index.html
+    Sobre
+      Quem Somos ............. site/quem-somos/index.html
+
+    Na Vercel cada uma abre no mesmo endereço do site original
+    (ex.: morada-ai-home.vercel.app/quem-somos/).
+
+    Continuam indo para o site no ar: Morada OS (os.morada.ai) e Parceiros
+    (partners.morada.ai), que são outros sites; Carreiras (plataforma da TOTVS);
+    os 149 posts do blog (a listagem está copiada, cada post abre no morada.ai);
+    Política de Privacidade e demais páginas fora dos menus.
+
+site/
+    Cópia que abre offline (duplo clique em qualquer index.html) e é a que vai para a
+    Vercel. 9 páginas + 527 arquivos do tema (CSS, JS, imagens, vídeos, ícones),
+    146 MB, caminhos relativos. Os links entre as páginas copiadas navegam dentro da cópia.
+
+fonte/originais/
+    O HTML de cada página exatamente como o servidor entrega, sem nenhuma alteração
     (links absolutos para morada.ai). Bom para copiar e colar código.
 
 fonte/espelhar.mjs
-    Script que gerou a pasta site/.
+    Script que gera a pasta site/.
 
 
 O QUE MUDA NA CÓPIA DE site/ EM RELAÇÃO AO ORIGINAL
 
 - Arquivos do site (wp-content, wp-includes) apontam para caminho relativo.
-  Links para outras páginas (Quem somos, Conteúdo, cases...) continuam indo para o
-  morada.ai no ar; as âncoras da própria home (#funcoesV2 etc.) rolam na cópia.
+- Links <a> para páginas copiadas apontam para a cópia; os demais seguem para o site.
+  Dados estruturados, canonical e og:url continuam com o endereço original.
 - Rastreadores desligados, para que abrir a cópia não conte visita no analytics:
   Google Tag Manager, GA4, PostHog, Contentsquare, LinkedIn Insight, HubSpot tracking
   e Jetpack Stats. O código continua lá, marcado com
       type="text/plain" data-desligado-na-copia="rastreamento"
   e volta a funcionar se você tirar esses dois atributos.
-- Ícones SVG usados como máscara CSS (orquestração, tabela comparativa, valores)
-  foram embutidos como data:, porque máscara não carrega de arquivo local.
+- Ícones SVG usados como máscara CSS foram embutidos como data:, porque máscara
+  não carrega de arquivo local.
 - Swiper e AOS, que vinham de CDN, foram baixados para site/_cdn/.
 
 AINDA DEPENDE DE INTERNET
-- Fontes (Adobe Fonts/Typekit e Google Fonts), formulário do HubSpot, vídeo do Vimeo
-  e o widget da Mia.
+- Fontes (Adobe Fonts/Typekit e Google Fonts), formulários do HubSpot, vídeos do
+  Vimeo/YouTube e o widget da Mia.
+- Os formulários continuam ligados ao HubSpot de verdade: quem preencher na cópia
+  vira contato no CRM.
 - O balão de saudação da Mia abre na Vercel, mas não quando a cópia é aberta direto
-  do disco (file://): a API dela recusa página sem domínio. O botão do chat aparece
-  nos dois casos.
+  do disco (file://): a API dela recusa página sem domínio.
 
 
 PARA ATUALIZAR A CÓPIA (Terminal, dentro desta pasta)
-    curl -sL -o /tmp/morada.html https://morada.ai
-    node fonte/espelhar.mjs /tmp/morada.html site
+
+    O WordPress do morada.ai devolve "503" para o seu IP se receber páginas demais em
+    sequência (some em alguns minutos). Por isso as páginas são baixadas devagar, uma
+    vez, e o script trabalha com os arquivos já baixados:
+
+    mkdir -p /tmp/morada && cd /tmp/morada
+    curl -s --rate 15/m -o home.html https://morada.ai/ -o morada-vendas.html https://morada.ai/morada-vendas/ -o morada-relacionamento.html https://morada.ai/morada-relacionamento/ -o conbral.html https://morada.ai/conbral/ -o direcional.html https://morada.ai/direcional/ -o fraiha.html https://morada.ai/fraiha/ -o conteudo.html https://morada.ai/conteudo/ -o blog.html https://morada.ai/blog/ -o quem-somos.html https://morada.ai/quem-somos/
+    cd -
+    node fonte/espelhar.mjs site fonte/originais https://morada.ai/=/tmp/morada/home.html https://morada.ai/morada-vendas/=/tmp/morada/morada-vendas.html https://morada.ai/morada-relacionamento/=/tmp/morada/morada-relacionamento.html https://morada.ai/conbral/=/tmp/morada/conbral.html https://morada.ai/direcional/=/tmp/morada/direcional.html https://morada.ai/fraiha/=/tmp/morada/fraiha.html https://morada.ai/conteudo/=/tmp/morada/conteudo.html https://morada.ai/blog/=/tmp/morada/blog.html https://morada.ai/quem-somos/=/tmp/morada/quem-somos.html
+
+    Depois: git add -A && git commit -m "atualiza a cópia" && git push

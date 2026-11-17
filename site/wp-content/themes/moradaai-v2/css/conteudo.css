@@ -1,0 +1,700 @@
+/* Hub de Conteúdo — scoped styles. Every rule lives under .hubConteudo. */
+
+.hubConteudo {
+	--hub-primary: #0073ff;
+	--hub-blue: #0d4d9b;
+	--hub-blue-deep: #0e2f5d;
+	--hub-ink: #0a0f1f;
+	--hub-surface: #f3f4f7;
+	--hub-cyan: #83dbff;
+	--hub-text: #1d212b;
+	--hub-text-soft: #333b4c;
+	--hub-muted: #7a8498;
+	--hub-radius: 24px;
+	--hub-maxw: 1200px;
+
+	font-family: 'Lato', sans-serif;
+	color: var(--hub-text);
+	background: var(--hub-blue);
+	overflow-x: hidden;
+}
+
+.hubConteudo *,
+.hubConteudo *::before,
+.hubConteudo *::after {
+	box-sizing: border-box;
+}
+
+.hubConteudo .hubSection {
+	padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 44px);
+}
+
+.hubConteudo .hubInner {
+	width: 100%;
+	max-width: var(--hub-maxw);
+	margin-inline: auto;
+}
+
+/* Lateral gutters for the sections that wrap content in a bare .hubInner
+   (podcast / ferramentas / materiais) so they don't touch the screen edge,
+   especially on mobile. Hero and artigos manage their own side spacing. */
+.hubConteudo .hubPodcast,
+.hubConteudo .hubEventos,
+.hubConteudo .hubFerramentas,
+.hubConteudo .hubMateriais {
+	padding-left: clamp(20px, 4vw, 44px);
+	padding-right: clamp(20px, 4vw, 44px);
+}
+
+/* Section header (eyebrow / title / subtitle) */
+.hubConteudo .hubSectionHeader {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	text-align: center;
+	margin-inline: auto;
+	margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.hubConteudo .hubEyebrow {
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--hub-primary);
+	margin: 0;
+}
+.hubConteudo .hubEyebrow--light { color: var(--hub-cyan); }
+
+.hubConteudo .hubSectionTitle {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 700;
+	font-size: clamp(2rem, 4vw, 3rem);
+	line-height: 1.1;
+	letter-spacing: -0.04em;
+	color: var(--hub-blue);
+	margin: 0;
+}
+.hubConteudo .hubSectionTitle--light { color: #fff; }
+
+.hubConteudo .hubSectionSubtitle {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 1.6;
+	color: var(--hub-text);
+	max-width: 680px;
+	margin: 0;
+}
+.hubConteudo .hubSectionSubtitle--light { color: rgba(255, 255, 255, 0.85); }
+
+/* Buttons */
+.hubConteudo .hubBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	border-radius: 999px;
+	padding: 14px 24px;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1;
+	text-decoration: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+.hubConteudo .hubBtn:hover { transform: translateY(-1px); }
+.hubConteudo .hubBtn--primary { background: var(--hub-primary); color: #fff; }
+.hubConteudo .hubBtn--primary:hover { background: #005fd6; }
+.hubConteudo .hubBtn--outline { background: transparent; border-color: var(--hub-primary); color: var(--hub-primary); }
+.hubConteudo .hubBtn--outline:hover { background: rgba(0, 115, 255, 0.08); }
+.hubConteudo .hubBtn--ghost { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.25); color: #fff; }
+.hubConteudo .hubBtn--ghost:hover { background: rgba(255, 255, 255, 0.16); }
+
+/* Visually-hidden labels */
+.hubConteudo .hub-sr-only {
+	position: absolute;
+	width: 1px; height: 1px;
+	padding: 0; margin: -1px;
+	overflow: hidden; clip: rect(0, 0, 0, 0);
+	white-space: nowrap; border: 0;
+}
+
+/* Hero — Radar do Mercado */
+.hubConteudo .hubHero {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* Floored at 640px (so screens up to ~1600px are unchanged) and scaling
+	   with viewport width above that, so wide screens don't look letterboxed. */
+	min-height: clamp(640px, 40vw, 1040px);
+	padding: clamp(116px, 13vw, 168px) clamp(20px, 4vw, 44px) clamp(56px, 7vw, 80px);
+	overflow: hidden;
+	/* Backdrop the cityscape multiplies into (matches the Figma blend). */
+	background-color: var(--hub-blue);
+}
+.hubConteudo .hubHeroBg {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+/* Night cityscape, deep brand-blue and softly blurred so the white headline
+   stays legible. The blur + #0d4d9b multiply are BAKED into this image — no
+   runtime mix-blend-mode / filter on this full-viewport layer, which on iOS
+   Safari was costly to composite per scroll frame and intermittently
+   swallowed the hero→next-section scroll gesture. */
+.hubConteudo .hubHeroBgImg {
+	position: absolute;
+	inset: 0;
+	background-image: url('../assets/conteudo/hero-radar-blend.jpg');
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+/* Bottom fade to solid blue so the hero dissolves into the page below
+   (transparent until ~82%, then to #0d4d9b at the bottom edge). */
+.hubConteudo .hubHeroBgFade {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom, rgba(13, 77, 155, 0) 0%, rgba(13, 77, 155, 0) 82%, var(--hub-blue) 100%);
+}
+.hubConteudo .hubHeroInner {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(24px, 4vw, 44px);
+	text-align: center;
+}
+.hubConteudo .hubHeroTitle {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 700;
+	font-size: clamp(2.5rem, 6vw, 4.75rem);
+	line-height: 1.05;
+	letter-spacing: -0.045em;
+	color: #fff;
+	margin: 0;
+	max-width: 1100px;
+}
+.hubConteudo .hubHeroSubtitle {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	font-size: clamp(1rem, 1.4vw, 1.125rem);
+	line-height: 1.62;
+	color: #fff;
+	margin: 0;
+	max-width: 740px;
+}
+
+/* Search */
+.hubConteudo .hubSearch {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	width: min(720px, 100%);
+	background: rgba(255, 255, 255, 0.16);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	border-radius: 16px;
+	padding: 8px 8px 8px 24px;
+	backdrop-filter: blur(6px);
+}
+.hubConteudo .hubSearchField {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.hubConteudo .hubSearchIcon { display: inline-flex; color: rgba(255, 255, 255, 0.85); flex: 0 0 auto; }
+.hubConteudo .hubSearchInput {
+	flex: 1 1 auto;
+	min-width: 0;
+	background: transparent;
+	border: 0;
+	outline: none;
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+}
+.hubConteudo .hubSearchInput::placeholder { color: rgba(255, 255, 255, 0.8); }
+.hubConteudo .hubSearchBtn {
+	flex: 0 0 auto;
+	border: 0;
+	cursor: pointer;
+	background: var(--hub-primary);
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	padding: 14px 24px;
+	border-radius: 999px;
+	transition: background-color 0.18s ease;
+}
+.hubConteudo .hubSearchBtn:hover { background: #005fd6; }
+
+/* Mobile: stack the search into a standalone input field + full-width button. */
+@media (max-width: 560px) {
+	.hubConteudo .hubSearch {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 12px;
+		padding: 0;
+		background: transparent;
+		border: 0;
+		border-radius: 0;
+		backdrop-filter: none;
+	}
+	.hubConteudo .hubSearchField {
+		width: 100%;
+		height: 56px;
+		gap: 12px;
+		padding: 0 20px;
+		background: rgba(255, 255, 255, 0.13);
+		border: 1px solid rgba(255, 255, 255, 0.35);
+		border-radius: 14px;
+		backdrop-filter: blur(8px);
+	}
+	.hubConteudo .hubSearchInput { font-size: 14px; }
+	.hubConteudo .hubSearchInput::placeholder { color: rgba(255, 255, 255, 0.45); }
+	.hubConteudo .hubSearchBtn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 52px;
+		font-size: 15px;
+		font-weight: 600;
+	}
+}
+
+/* Artigos — recent blog posts (light container) */
+.hubConteudo .hubArtigos {
+	padding: clamp(4px, 1vw, 12px) 0 clamp(32px, 5vw, 64px);
+}
+.hubConteudo .hubArtigosInner {
+	/* Break out of the 1200px container to span ~90% of the viewport. */
+	max-width: min(90vw, 1760px);
+	background: var(--hub-surface);
+	border-radius: var(--hub-radius);
+	padding: clamp(32px, 5vw, 64px) clamp(24px, 4vw, 72px);
+}
+.hubConteudo .hubArtigosInner .hubSectionTitle { color: var(--hub-blue); }
+.hubConteudo .hubArtigosInner .hubSectionSubtitle { color: var(--hub-text); }
+
+.hubConteudo .hubArtigosGrid {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	/* minmax(0, 1fr) — not 1fr — so tracks may shrink below their content's
+	   min-content size. With bare 1fr the cards refused to shrink and the
+	   grid overflowed (and got clipped) on anything below a wide desktop. */
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: clamp(16px, 2vw, 24px);
+}
+.hubConteudo .hubArtigosGrid > li { margin: 0; width: auto; }
+/* The shared .imagemBlocoPost carries min-height: 200px, which combines with
+   its aspect-ratio to transfer a ~300px minimum WIDTH onto each card — the
+   real reason the tracks would not shrink. Drop the floor here; the
+   aspect-ratio still sizes the thumbnail proportionally to the track. */
+.hubConteudo .hubArtigosGrid .imagemBlocoPost { min-height: 0; }
+
+.hubConteudo .hubArtigosEmpty {
+	text-align: center;
+	color: var(--hub-text-soft);
+	font-family: 'Lato', sans-serif;
+}
+
+.hubConteudo .hubArtigosCta {
+	display: flex;
+	justify-content: center;
+	margin-top: clamp(28px, 4vw, 48px);
+}
+
+/* Four columns get cramped well before the old 900px step, so drop to two
+   columns earlier — keeps the thumbnails a usable size on tablets/laptops. */
+@media (max-width: 1100px) {
+	.hubConteudo .hubArtigosGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+	.hubConteudo .hubArtigosGrid { grid-template-columns: 1fr; }
+
+	/* Mobile: strip animations/hover effects from the artigos section. On iOS
+	   the post card's sticky :hover scale(1.05) spilled cards past the white
+	   container and the transform/AOS layers fought scrolling. Clip to the
+	   rounded container as a safety net, and hold cards static. */
+	.hubConteudo .hubArtigosInner { overflow: hidden; }
+	.hubConteudo .hubArtigos [data-aos] {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+	.hubConteudo .hubArtigosGrid > li a { transition: none; }
+	.hubConteudo .hubArtigosGrid > li a:hover { transform: none; background-color: #f3fafb; }
+}
+
+/* Eventos */
+.hubConteudo .hubEventos {
+	padding-top: clamp(56px, 6vw, 88px);
+	padding-bottom: clamp(56px, 6vw, 88px);
+}
+.hubConteudo .hubEventosGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: clamp(20px, 2.5vw, 28px);
+}
+.hubConteudo .hubEventoCard {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border-radius: 20px;
+	background: var(--hub-surface);
+	border: 1px solid rgba(255, 255, 255, 0.9);
+	transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.hubConteudo .hubEventoCard:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+.hubConteudo .hubEventoThumb {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background-color: rgba(13, 77, 155, 0.12);
+	background-size: cover;
+	background-position: center;
+}
+.hubConteudo .hubEventoBody {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	flex: 1 1 auto;
+	padding: clamp(20px, 2.5vw, 28px);
+}
+.hubConteudo .hubEventoTitle {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	color: var(--hub-text);
+	margin: 0;
+}
+.hubConteudo .hubEventoDesc {
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--hub-text-soft);
+	margin: 0;
+	flex: 1 1 auto;
+}
+.hubConteudo .hubEventoLink {
+	font-family: 'Lato', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--hub-primary);
+	text-decoration: none;
+}
+.hubConteudo .hubEventosCta {
+	display: flex;
+	justify-content: center;
+	margin-top: clamp(28px, 4vw, 48px);
+}
+
+@media (max-width: 860px) {
+	.hubConteudo .hubEventosGrid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+}
+
+/* Podcast — Café no Estande */
+.hubConteudo .hubPodcastCard {
+	position: relative;
+	isolation: isolate;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 20px;
+	padding: clamp(32px, 4vw, 48px) clamp(28px, 4vw, 56px);
+	border-radius: var(--hub-radius);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	background: linear-gradient(144deg, #0b101f 0%, #060a14 77%);
+	overflow: hidden;
+}
+/* Warm amber glows — one bleeding from the top, one from the bottom-right —
+   recreating the decorative ellipses from the Figma card with pure CSS. */
+.hubConteudo .hubPodcastCard::before,
+.hubConteudo .hubPodcastCard::after {
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	z-index: 0;
+}
+.hubConteudo .hubPodcastCard::before {
+	top: -180px;
+	left: 30%;
+	width: 720px;
+	height: 420px;
+	background: radial-gradient(ellipse at center, rgba(232, 146, 53, 0.45) 0%, rgba(232, 146, 53, 0) 62%);
+}
+.hubConteudo .hubPodcastCard::after {
+	right: -160px;
+	bottom: -160px;
+	width: 760px;
+	height: 480px;
+	background: radial-gradient(ellipse at center, rgba(232, 146, 53, 0.42) 0%, rgba(232, 146, 53, 0) 60%);
+}
+/* Keep all card content above the decorative glows. */
+.hubConteudo .hubPodcastCard > * {
+	position: relative;
+	z-index: 1;
+}
+.hubConteudo .hubPodcastLabel {
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 11px;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	color: #83dbff;
+}
+.hubConteudo .hubPodcastTitle {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 700;
+	font-size: clamp(2rem, 4vw, 3.25rem);
+	letter-spacing: -0.04em;
+	line-height: 1.05;
+	color: #fff;
+	margin: 0;
+	max-width: 900px;
+}
+.hubConteudo .hubPodcastDesc {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	font-size: 17px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.7);
+	margin: 0;
+	max-width: 720px;
+}
+.hubConteudo .hubPodcastBtns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+/* Episode grid — 3-up on desktop, collapses to 2 / 1 on narrower viewports. */
+.hubConteudo .hubPodcastEpisodes {
+	width: 100%;
+	margin-top: 8px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 28px;
+}
+.hubConteudo .hubPodcastEpisode {
+	position: relative;
+	isolation: isolate;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	min-height: 229px;
+	padding: 24px;
+	border-radius: 16px;
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	overflow: hidden;
+	background-color: #0b101f;
+	background-size: cover;
+	background-position: center;
+	text-decoration: none;
+	transition: transform 0.18s ease;
+}
+/* Dark scrim so the play button and title read against the thumbnail. */
+.hubConteudo .hubPodcastEpisode::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(38, 38, 38, 0.54);
+	pointer-events: none;
+	z-index: 0;
+	transition: background-color 0.18s ease;
+}
+.hubConteudo .hubPodcastEpisode:hover { transform: translateY(-2px); }
+.hubConteudo .hubPodcastEpisode:hover::before { background: rgba(38, 38, 38, 0.42); }
+.hubConteudo .hubPlayBtn {
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 64px; height: 64px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	color: #fff;
+	backdrop-filter: blur(2px);
+	transition: transform 0.18s ease, background-color 0.18s ease;
+}
+.hubConteudo a.hubPodcastEpisode:hover .hubPlayBtn { transform: scale(1.08); background: rgba(255, 255, 255, 0.22); }
+
+@media (max-width: 860px) {
+	.hubConteudo .hubPodcastEpisodes { gap: 16px; }
+}
+
+/* Ferramentas Gratuitas */
+.hubConteudo .hubFerramentas {
+	padding-top: clamp(56px, 6vw, 88px);
+	padding-bottom: clamp(56px, 6vw, 88px);
+}
+.hubConteudo .hubFerramentasGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+}
+.hubConteudo .hubToolCard {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 14px;
+	padding: clamp(24px, 3vw, 36px) clamp(20px, 2.5vw, 32px);
+	background: var(--hub-surface);
+	border: 1px solid rgba(255, 255, 255, 0.9);
+	border-radius: 20px;
+	text-decoration: none;
+	transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.hubConteudo .hubToolCard:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+.hubConteudo .hubToolIcon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px; height: 48px;
+	border-radius: 12px;
+	background: rgba(30, 166, 255, 0.1);
+	border: 1px solid rgba(30, 166, 255, 0.3);
+	color: var(--hub-primary);
+}
+.hubConteudo .hubToolTitle {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 700;
+	font-size: 22px;
+	letter-spacing: -0.03em;
+	color: var(--hub-text);
+	margin: 0;
+}
+.hubConteudo .hubToolDesc {
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	line-height: 1.6;
+	color: #292f3d;
+	margin: 0;
+}
+.hubConteudo .hubToolLink {
+	font-family: 'Lato', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--hub-primary);
+	margin-top: 4px;
+}
+
+@media (max-width: 860px) {
+	.hubConteudo .hubFerramentasGrid { grid-template-columns: 1fr; }
+}
+
+/* Materiais ricos */
+.hubConteudo .hubMateriais {
+	background: var(--hub-blue-deep);
+	padding-top: clamp(56px, 6vw, 88px);
+	padding-bottom: clamp(56px, 6vw, 88px);
+}
+.hubConteudo .hubMateriaisGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: clamp(20px, 3vw, 56px);
+}
+.hubConteudo .hubMaterialCard {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 20px;
+	border-radius: 12px;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.04);
+}
+.hubConteudo .hubMaterialThumb {
+	width: 100%;
+	aspect-ratio: 500 / 350;
+	border-radius: 8px;
+	background-color: rgba(255, 255, 255, 0.08);
+	background-size: cover;
+	background-position: center;
+}
+.hubConteudo .hubMaterialTitle {
+	font-family: 'Outfit', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 1.25;
+	color: #fff;
+	margin: 0;
+}
+.hubConteudo .hubMaterialDesc {
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.85);
+	margin: 0;
+	flex: 1 1 auto;
+}
+.hubConteudo .hubMaterialBtn { width: 100%; }
+.hubConteudo .hubMateriaisCta {
+	display: flex;
+	justify-content: center;
+	margin-top: clamp(28px, 4vw, 48px);
+}
+
+@media (max-width: 860px) {
+	.hubConteudo .hubMateriaisGrid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+}
+
+/* MIA FAB */
+.hubConteudo .hubFab {
+	position: fixed;
+	/* Stacked above the site-wide WhatsApp button (60px circle at 1rem). */
+	right: clamp(16px, 3vw, 20px);
+	bottom: calc(1rem + 60px + 14px);
+	z-index: 199;
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 26px 16px 22px;
+	border-radius: 999px;
+	background: var(--hub-surface);
+	color: var(--hub-primary);
+	font-family: 'Lato', sans-serif;
+	font-weight: 600;
+	font-size: 15px;
+	text-decoration: none;
+	box-shadow: 0 0 8px #7fb5ff, 0 0 18px rgba(64, 143, 232, 0.7), 0 0 36px rgba(127, 181, 255, 0.3);
+	transition: transform 0.18s ease;
+}
+.hubConteudo .hubFab:hover { transform: translateY(-2px); }
+.hubConteudo .hubFabIcon { display: inline-flex; }
+
+@media (max-width: 560px) {
+	.hubConteudo .hubFab { padding: 14px; }
+	.hubConteudo .hubFab span:not(.hubFabIcon) { display: none; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.hubConteudo .hubBtn,
+	.hubConteudo .hubToolCard,
+	.hubConteudo .hubEventoCard,
+	.hubConteudo .hubFab { transition: none; }
+	.hubConteudo .hubBtn:hover,
+	.hubConteudo .hubToolCard:hover,
+	.hubConteudo .hubEventoCard:hover,
+	.hubConteudo .hubFab:hover { transform: none; }
+}
