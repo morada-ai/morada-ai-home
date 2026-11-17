@@ -2,7 +2,7 @@ MORADA.AI — cópia do HTML da home (https://morada.ai), tirada em 17/11/2026
 
 NO AR
     Vercel (time morada-back):  https://morada-ai-home.vercel.app
-    GitHub (privado):           https://github.com/morada-ai/morada-ai-home
+    GitHub (público):           https://github.com/morada-ai/morada-ai-home
     Push na main publica sozinho. A Vercel serve só a pasta site/ e manda
     "X-Robots-Tag: noindex" (vercel.json), para o Google não indexar uma
     segunda home da Morada. Commits com o e-mail noreply da GhortD9:
