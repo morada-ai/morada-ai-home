@@ -126,6 +126,15 @@ else:
     html = html[:dif.start()] + man.group(0) + entre + dif.group(0) + html[man.end():]
     feito('ordem: manifesto antes da diferenciação')
 
+# 7. Funções em carrossel: script da cópia no fim do <body>
+if 'copia/carrossel.js' in html:
+    pulado('funções: carrossel')
+else:
+    if html.count('</body>') != 1:
+        sys.exit('ERRO: </body> não encontrado uma única vez na home')
+    html = html.replace('</body>', '<script src="copia/carrossel.js" defer></script>\n</body>')
+    feito('funções: carrossel')
+
 html_p.write_text(html, encoding='utf-8')
 print('Alterações da cópia:')
 print('\n'.join(relato))
