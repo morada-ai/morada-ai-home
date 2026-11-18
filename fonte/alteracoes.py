@@ -142,6 +142,13 @@ else:
     html = html.replace('</body>', '<script src="copia/comparativo.js" defer></script>\n</body>')
     feito('diferenciação: antes e depois interativo')
 
+# 9. Cases: placar + palco (script da cópia no fim do <body>)
+if 'copia/cases.js' in html:
+    pulado('cases: placar e palco')
+else:
+    html = html.replace('</body>', '<script src="copia/cases.js" defer></script>\n</body>')
+    feito('cases: placar e palco')
+
 html_p.write_text(html, encoding='utf-8')
 print('Alterações da cópia:')
 print('\n'.join(relato))
