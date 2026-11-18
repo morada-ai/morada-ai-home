@@ -19,6 +19,16 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
       dissolve o topo da foto desceu de 16% para 36,7% (a foto nova é mais panorâmica,
       2,36:1 contra 1,78:1). O arquivo antigo continua na pasta, sem uso.
 
+    18/11/2026 · Home, topo (imagem principal)
+      A faixa da cidade do topo virou um recorte da mesma panorâmica (tira 4,16:1, igual
+      à original, a partir de y=260 de 2688: céu, serra e cidade, sem o mato da frente).
+      Gravada por cima dos dois arquivos originais, sem mudar CSS nem HTML:
+        site/wp-content/themes/moradaai-v2/assets/home-v2/hero/img-belo-horizonte-layer-size.webp (2880 px)
+        site/wp-content/themes/moradaai-v2/assets/home-v2/hero/img-belo-horizonte-layer-size-mobile.webp (2160 px)
+      O céu da foto foi fundido no azul do fim do degradê do topo (#A1E4FF), opaco na
+      primeira linha e sumindo até 20% da altura. Sem isso aparece uma linha reta onde a
+      faixa encontra o degradê. A atualização da cópia baixa os .webp originais de novo.
+
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa o style.css do site de
     novo e desfaz as alterações desta lista. Reaplicar depois de atualizar.
 
