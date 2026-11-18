@@ -1,4 +1,5 @@
 MORADA.AI — cópia estática do site (https://morada.ai), tirada em 17/11/2026
+             e atualizada em 18/11/2026 (home, Relacionamento e Quem Somos reformuladas)
 
 NO AR
     Vercel (time morada-back):  https://morada-ai-home.vercel.app
@@ -47,8 +48,8 @@ PÁGINAS COPIADAS (as dos menus do site)
 
 site/
     Cópia que abre offline (duplo clique em qualquer index.html) e é a que vai para a
-    Vercel. 9 páginas + 527 arquivos do tema (CSS, JS, imagens, vídeos, ícones),
-    146 MB, caminhos relativos. Os links entre as páginas copiadas navegam dentro da cópia.
+    Vercel. 9 páginas + 534 arquivos do tema (CSS, JS, imagens, vídeos, ícones),
+    161 MB, caminhos relativos. Os links entre as páginas copiadas navegam dentro da cópia.
 
 fonte/originais/
     O HTML de cada página exatamente como o servidor entrega, sem nenhuma alteração
@@ -61,7 +62,8 @@ fonte/espelhar.mjs
 O QUE MUDA NA CÓPIA DE site/ EM RELAÇÃO AO ORIGINAL
 
 - Arquivos do site (wp-content, wp-includes) apontam para caminho relativo.
-- Links <a> para páginas copiadas apontam para a cópia; os demais seguem para o site.
+- Links <a> para páginas copiadas apontam para a cópia; os demais seguem para o site
+  (inclusive os relativos, como "/politica-de-privacidade/", que viram o endereço completo).
   Dados estruturados, canonical e og:url continuam com o endereço original.
 - Rastreadores desligados, para que abrir a cópia não conte visita no analytics:
   Google Tag Manager, GA4, PostHog, Contentsquare, LinkedIn Insight, HubSpot tracking

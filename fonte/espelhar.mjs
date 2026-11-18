@@ -125,7 +125,13 @@ for (const pg of pages.values()) {
     const u = toURL(href, pg.url);
     if (!u || !SITE_HOSTS.includes(u.hostname)) return m;
     const target = pages.get(normPath(u.pathname));
-    if (!target) return m;
+    if (!target) {
+      // página não copiada: link absoluto fica como está; relativo (ex.: "/politica-de-privacidade/")
+      // vira o endereço do site no ar, senão quebra na cópia
+      if (/^(https?:)?\/\//i.test(href)) return m;
+      c.links++;
+      return `${pre}${q}${u.href}${q}`;
+    }
     c.links++;
     if (target === pg && u.hash) return `${pre}${q}${u.hash}${q}`;
     return `${pre}${q}${path.posix.relative(dir || '.', target.local)}${u.hash}${q}`;
