@@ -65,13 +65,21 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         cima, com foco de teclado, fora da tela e pelo botão; setas e deslize trocam.
         Quem pede menos movimento no sistema não tem troca automática.
         Arquivos: site/copia/carrossel.js + seção 13 da camada.
+      - Diferenciação ("Nossa IA trabalha. Não só conversa.") virou um antes e depois
+        interativo: seletor [Outras soluções | Com a Morada.ai] (4 colunas) e um painel
+        de 10 colunas com as 4 linhas pareadas; ao trocar, o painel passa de vidro a
+        branco com a faixa da marca e cada linha troca o ✕ e o problema pelo ✓ e a
+        resposta, em cascata. Vira sozinho uma vez quando a seção aparece; clique,
+        toque e setas trocam. Menos movimento: começa em "Com a Morada", sem animação.
+        Sem JS, os dois cartões originais continuam. O texto vem das listas do HTML.
+        Arquivos: site/copia/comparativo.js + seção 14 da camada.
 
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode
         python3 fonte/alteracoes.py
     que reaplica tudo (foto da chamada final, faixas do topo, capa do manifesto, link
-    da camada de grid, o formulário na chamada final, a ordem das seções e o script
-    do carrossel) e pula o
+    da camada de grid, o formulário na chamada final, a ordem das seções e os scripts
+    do carrossel e do comparativo) e pula o
     que já está aplicado.
     A camada site/copia/grid-proporcao.css não é tocada pela atualização.
 

@@ -135,6 +135,13 @@ else:
     html = html.replace('</body>', '<script src="copia/carrossel.js" defer></script>\n</body>')
     feito('funções: carrossel')
 
+# 8. Diferenciação: antes e depois interativo (script da cópia no fim do <body>)
+if 'copia/comparativo.js' in html:
+    pulado('diferenciação: antes e depois interativo')
+else:
+    html = html.replace('</body>', '<script src="copia/comparativo.js" defer></script>\n</body>')
+    feito('diferenciação: antes e depois interativo')
+
 html_p.write_text(html, encoding='utf-8')
 print('Alterações da cópia:')
 print('\n'.join(relato))

@@ -769,3 +769,178 @@ body.home main.homeV2 .copia-foco > .f3-b { --foco-obj: 42% 50%; }
 body.home main.homeV2 .copia-foco > .f3-c { --foco-obj: 62% 50%; }
 /* o trilho vai de ponta a ponta da tela; a seção não pode gerar rolagem lateral */
 body.home main.homeV2 .sectionWrap.funcoesV2 { overflow-x: clip; }
+
+/* ---------- 14. Diferenciação: antes e depois interativo (com site/copia/comparativo.js) ----------
+   Seletor [Outras soluções | Com a Morada.ai] e um painel de 10 colunas: cada linha troca
+   o problema pela resposta da Morada, em cascata. O fundo passa de vidro a branco com a
+   faixa da marca. Sem JS, a versão original (.d3-vs) continua. */
+body.home main.homeV2 #diferenciacaoV2.copia-comp-on .d3-vs { display: none; }
+
+body.home main.homeV2 .copiaComp {
+  --dur: .45s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 10 + 9 * var(--g-gutter));   /* 10 colunas */
+  margin: 0 auto;
+}
+
+/* seletor (4 colunas) */
+body.home main.homeV2 .copiaComp__seletor {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 4 + 3 * var(--g-gutter));
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  border-radius: var(--r-pill);
+  background: rgba(2, 16, 60, .32);
+  border: 1px solid rgba(255, 255, 255, .16);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+}
+body.home main.homeV2 .copiaComp__polegar {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: var(--r-pill);
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .45);
+  transition: transform .5s cubic-bezier(.65, 0, .35, 1);
+}
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__polegar { transform: translateX(100%); }
+body.home main.homeV2 .copiaComp__opcao {
+  position: relative;
+  z-index: 1;
+  height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: none;
+  font: 600 var(--fs-body)/1 Outfit, sans-serif;
+  color: rgba(255, 255, 255, .78);
+  cursor: pointer;
+  transition: color .4s ease;
+}
+body.home main.homeV2 .copiaComp__opcao:hover { color: #FFFFFF; }
+body.home main.homeV2 .copiaComp__opcao[aria-checked="true"] { color: #0B1E3A; }
+body.home main.homeV2 .copiaComp__opcao:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+
+/* painel: vidro (antes) e branco com a faixa da marca (depois) */
+body.home main.homeV2 .copiaComp__painel {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 40px 16px;
+  border-radius: var(--r-card);
+  text-align: left;                 /* a seção é centralizada; o painel lê da esquerda */
+  box-shadow: 0 0 0 rgba(0, 24, 90, 0);
+  transition: box-shadow .7s ease;
+}
+body.home main.homeV2 .copiaComp__painel::before,
+body.home main.homeV2 .copiaComp__painel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+body.home main.homeV2 .copiaComp__painel::before {
+  z-index: -2;
+  background: rgba(2, 16, 60, .28);
+  border: 1px solid rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+}
+body.home main.homeV2 .copiaComp__painel::after {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, #2aa3e6 0%, #67e0c6 25%, #7f67c8 50%, #8f77bd 75%, #ffed6b 100%) top / 100% 4px no-repeat,
+    #FFFFFF;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__painel { box-shadow: 0 48px 96px -40px rgba(0, 24, 90, .75); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__painel::after { opacity: 1; }
+
+/* cabeçalho do painel: o rótulo troca junto */
+body.home main.homeV2 .copiaComp__cab { display: grid; align-items: center; height: 72px; }
+body.home main.homeV2 .copiaComp__cab > * { grid-area: 1 / 1; justify-self: start; transition: opacity var(--dur) ease, transform var(--dur) ease; }
+body.home main.homeV2 .copiaComp__cabEles {
+  font: 600 var(--fs-micro)/var(--lh-micro) Outfit, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .62);
+}
+body.home main.homeV2 img.copiaComp__cabNos { display: block; height: 24px; width: auto; }
+body.home main.homeV2 .copiaComp__cabNos { opacity: 0; transform: translateY(8px); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__cabEles { opacity: 0; transform: translateY(-8px); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__cabNos { opacity: 1; transform: none; }
+
+/* linhas */
+body.home main.homeV2 .copiaComp__linhas { list-style: none; margin: 0; padding: 0; }
+body.home main.homeV2 .copiaComp__linha {
+  --atraso: calc(var(--i) * 120ms + 150ms);
+  display: grid;
+  grid-template-columns: 32px 32px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 16px;
+  min-height: 80px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  transition: border-color .7s ease;
+}
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__linha { border-top-color: #E3EAF5; }
+body.home main.homeV2 .copiaComp__num {
+  font: 600 var(--fs-micro)/1 Outfit, sans-serif;
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, .42);
+  transition: color .7s ease;
+}
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__num { color: #8EA0BC; }
+body.home main.homeV2 .copiaComp__icone { position: relative; width: 32px; height: 32px; }
+body.home main.homeV2 .copiaComp__x,
+body.home main.homeV2 .copiaComp__v {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  transition: opacity var(--dur) ease var(--atraso), transform var(--dur) cubic-bezier(.2, .7, .2, 1.2) var(--atraso);
+}
+body.home main.homeV2 .copiaComp__x { border: 1px solid rgba(255, 255, 255, .24); color: rgba(255, 255, 255, .55); }
+body.home main.homeV2 .copiaComp__v { background: #0074FF; color: #FFFFFF; opacity: 0; transform: scale(.5); box-shadow: 0 6px 16px -6px rgba(0, 116, 255, .8); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__x { opacity: 0; transform: scale(.5); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__v { opacity: 1; transform: none; }
+body.home main.homeV2 .copiaComp__texto { display: grid; }
+body.home main.homeV2 .copiaComp__texto > * {
+  grid-area: 1 / 1;
+  align-self: center;              /* problema e resposta podem ter alturas diferentes */
+  transition: opacity var(--dur) ease var(--atraso), transform var(--dur) ease var(--atraso);
+}
+body.home main.homeV2 .copiaComp__eles { font: 400 var(--fs-lead)/var(--lh-lead) Lato, sans-serif; color: rgba(255, 255, 255, .72); }
+body.home main.homeV2 .copiaComp__nos { font: 600 var(--fs-lead)/var(--lh-lead) Outfit, sans-serif; color: #0B1E3A; opacity: 0; transform: translateY(12px); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__eles { opacity: 0; transform: translateY(-12px); }
+body.home main.homeV2 .copiaComp[data-estado="nos"] .copiaComp__nos { opacity: 1; transform: none; }
+
+body.home main.homeV2 .copiaComp__pe { display: flex; justify-content: center; }
+
+/* menos movimento: troca sem animação */
+body.home main.homeV2 .copiaComp.is-sem-movimento *,
+body.home main.homeV2 .copiaComp.is-sem-movimento *::before,
+body.home main.homeV2 .copiaComp.is-sem-movimento *::after { transition: none !important; }
+
+@media (max-width: 767px) {
+  body.home main.homeV2 .copiaComp { gap: 24px; }
+  body.home main.homeV2 .copiaComp__seletor { width: 100%; }
+  body.home main.homeV2 .copiaComp__painel { padding: 4px 20px 8px; }
+  body.home main.homeV2 .copiaComp__cab { height: 56px; }
+  body.home main.homeV2 .copiaComp__linha { grid-template-columns: 32px minmax(0, 1fr); column-gap: 12px; min-height: 72px; padding: 12px 0; box-sizing: border-box; }
+  body.home main.homeV2 .copiaComp__num { display: none; }
+  body.home main.homeV2 .copiaComp__eles,
+  body.home main.homeV2 .copiaComp__nos { font-size: 16px; line-height: 24px; }
+}
