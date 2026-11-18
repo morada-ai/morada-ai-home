@@ -29,6 +29,21 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
       primeira linha e sumindo até 20% da altura. Sem isso aparece uma linha reta onde a
       faixa encontra o degradê. A atualização da cópia baixa os .webp originais de novo.
 
+    18/11/2026 · Home, grid e proporção (site/copia/grid-proporcao.css)
+      Camada separada, ligada só na home por uma linha no <head> de site/index.html:
+        <link rel="stylesheet" id="copia-grid-css" href="copia/grid-proporcao.css" media="all" />
+      Nada do tema é editado; para desfazer, tire essa linha.
+      - Grid: container de 1200 px, 12 colunas de 78, gutter 24. Margem 32 / 24 / 20.
+        Uma borda só em todas as larguras (1440: 120–1320; celular: 20–370), do menu
+        ao rodapé. Componentes em colunas inteiras: vídeo e comparativo em 10,
+        bloco de título em 8, Integrações 7 + 5, Origem 6 + 6, Orquestração 4 + 4 + 4,
+        rodapé com a marca em 1–4 e os links em 7, 9 e 11.
+      - Ritmo: 128 px por seção (96 no tablet, 72 no celular); sobretítulo, 16, título,
+        24, apoio, 64, conteúdo.
+      - Tipo: 12 13 15 18 24 32 48 72 (antes eram 32 tamanhos); títulos Outfit 600.
+      - Raios: 8, 12, 20 e pílula (antes eram 14 valores).
+      A atualização da cópia regera o index.html sem essa linha: reinserir.
+
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa o style.css do site de
     novo e desfaz as alterações desta lista. Reaplicar depois de atualizar.
 

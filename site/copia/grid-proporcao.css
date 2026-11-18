@@ -1,0 +1,381 @@
+/* =========================================================================
+   Cópia genérica · camada de grid e proporção da home (18/11/2026)
+   Entra só na home (link no <head> de site/index.html). Nada do tema é
+   editado: esta camada ganha por especificidade (body.home main.homeV2 …).
+   Para desfazer, tire o <link id="copia-grid-css">.
+
+   Sistema
+   - Grid: container de 1200 px, 12 colunas de 78 px, gutter 24.
+     Margem mínima 32 (desktop), 24 (tablet), 20 (celular).
+   - Espaço: 4 8 12 16 24 32 48 64 96 128.
+   - Tipo: 12 13 15 18 24 32 48 72 (um degrau abaixo no tablet e celular).
+   - Raio: 8 (miniaturas), 12 (elementos internos), 20 (cartões), pílula.
+   ========================================================================= */
+
+:root {
+  --g-max: 1200px;
+  --g-gutter: 24px;
+  --g-pad: 32px;
+  --sec-y: 128px;
+  --sec-y-compact: 96px;
+  --cab-gap: 64px;
+
+  --fs-badge: 12px;   --lh-badge: 16px;
+  --fs-micro: 13px;   --lh-micro: 18px;
+  --fs-body: 15px;    --lh-body: 24px;
+  --fs-lead: 18px;    --lh-lead: 28px;
+  --fs-h4: 24px;      --lh-h4: 30px;
+  --fs-h3: 32px;      --lh-h3: 38px;
+  --fs-h2: 48px;      --lh-h2: 52px;
+  --fs-stat: 48px;    --lh-stat: 52px;
+  --fs-display: 72px; --lh-display: 76px;
+
+  --r-thumb: 8px;
+  --r-inner: 12px;
+  --r-card: 20px;
+  --r-pill: 999px;
+
+  --btn-h: 48px;
+}
+@media (max-width: 991px) {
+  :root {
+    --g-pad: 24px;
+    --sec-y: 96px;
+    --sec-y-compact: 72px;
+    --cab-gap: 48px;
+    --fs-h4: 22px;      --lh-h4: 28px;
+    --fs-h3: 28px;      --lh-h3: 34px;
+    --fs-h2: 40px;      --lh-h2: 44px;
+    --fs-stat: 40px;    --lh-stat: 44px;
+    --fs-display: 56px; --lh-display: 60px;
+  }
+}
+@media (max-width: 767px) {
+  :root {
+    --g-gutter: 16px;
+    --g-pad: 20px;
+    --sec-y: 72px;
+    --sec-y-compact: 56px;
+    --cab-gap: 40px;
+    --fs-lead: 17px;    --lh-lead: 26px;
+    --fs-h4: 20px;      --lh-h4: 26px;
+    --fs-h3: 24px;      --lh-h3: 30px;
+    --fs-h2: 32px;      --lh-h2: 38px;
+    --fs-stat: 36px;    --lh-stat: 40px;
+    --fs-display: 40px; --lh-display: 44px;
+  }
+}
+
+/* ---------- 1. Container único: as mesmas bordas em toda a página ---------- */
+body.home .MainNavSiteHome .siteHeader,
+body.home main.homeV2 .sectionInner,
+body.home main.homeV2 .h3.h3-in,
+body.home .preFooter .postPostContent {
+  box-sizing: content-box;
+  max-width: var(--g-max);
+  margin-inline: auto;
+  padding-inline: var(--g-pad);
+}
+
+/* ---------- 2. Ritmo vertical ---------- */
+body.home main.homeV2 .h3.h3-in { padding-block: var(--sec-y); }
+body.home main.homeV2 .sectionWrap.ecossistemaV2 { padding-block: var(--sec-y); }
+body.home main.homeV2 .sectionWrap.socialProofV2 { padding-block: var(--sec-y-compact); }
+body.home main.homeV2 .sectionWrap.finalCtaV2 { padding-top: var(--sec-y); }
+body.home .preFooter { padding-block: var(--sec-y-compact); }
+
+/* Bloco de título: sobretítulo → 16 → título → 24 → apoio → 64 → conteúdo */
+body.home main.homeV2 .h3-cab,
+body.home main.homeV2 .ecossistemaV2Header {
+  max-width: 792px;                       /* 8 colunas */
+  margin: 0 auto var(--cab-gap);
+}
+body.home main.homeV2 .h3-eb,
+body.home main.homeV2 .v2Kicker {
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  letter-spacing: .14em;
+}
+body.home main.homeV2 .h3-eb { margin: 0 0 16px; }
+body.home main.homeV2 .ecossistemaV2Header .v2Kicker { display: inline-block; margin-bottom: 16px; }
+
+/* ---------- 3. Escala tipográfica ---------- */
+body.home main.homeV2 .heroV2 h1 {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  font-weight: 600;
+  letter-spacing: -.03em;
+}
+body.home main.homeV2 .h3-h2,
+body.home main.homeV2 .v2Headline,
+body.home main.homeV2 .finalCtaV2Headline,
+body.home .preFooter h2 {
+  font-family: Outfit, sans-serif;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+body.home .preFooter h2 b { font-weight: 600; }
+body.home .preFooter h2 { font-weight: 400; }
+
+body.home main.homeV2 .h3-lead,
+body.home main.homeV2 .d3-lead,
+body.home main.homeV2 .m3-sub,
+body.home main.homeV2 .v2Subheadline,
+body.home main.homeV2 .finalCtaV2Sub,
+body.home .preFooter h3 {
+  font-family: Lato, sans-serif;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  font-weight: 400;
+  max-width: 58ch;
+  margin-inline: auto;
+}
+body.home main.homeV2 .h3-lead,
+body.home main.homeV2 .d3-lead,
+body.home main.homeV2 .m3-sub,
+body.home main.homeV2 .v2Subheadline { margin-top: 24px; }
+body.home main.homeV2 .heroV2Description {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+/* títulos de cartão: 32 (destaque) e 24 (padrão) */
+body.home main.homeV2 .f3-a .f3-frase,
+body.home main.homeV2 .cr3-meta .cr3-h3,
+body.home main.homeV2 .o3-h2,
+body.home main.homeV2 .ecossistemaV2Card--hub .ecossistemaV2CardTitle {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+}
+body.home main.homeV2 .f3-frase,
+body.home main.homeV2 .cr3-h3,
+body.home main.homeV2 .i3-h3 {
+  font-size: var(--fs-h4);
+  line-height: var(--lh-h4);
+}
+body.home main.homeV2 .f3-a .f3-frase,
+body.home main.homeV2 .cr3-meta .cr3-h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+
+/* números grandes */
+body.home main.homeV2 .c3-kpi strong,
+body.home main.homeV2 .socialProofV2StatNumber {
+  font-size: var(--fs-stat);
+  line-height: var(--lh-stat);
+}
+
+/* corpo de cartão: 15/24 */
+body.home main.homeV2 .c3-fato,
+body.home main.homeV2 .cr3-p,
+body.home main.homeV2 .ecossistemaV2CardDesc,
+body.home main.homeV2 .d3-vs li span {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+body.home main.homeV2 .o3-p {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+/* rótulos e legendas: 13/18; selos dentro de pílulas e telas: 12/16 */
+body.home main.homeV2 .socialProofV2StatLabel,
+body.home main.homeV2 .orq3-rot,
+body.home main.homeV2 .d3-rot,
+body.home main.homeV2 .cr3-tag,
+body.home main.homeV2 .cr3-quem,
+body.home main.homeV2 .i3-rot,
+body.home main.homeV2 .ecossistemaV2CardTag,
+body.home main.homeV2 .ecoAcademyTag,
+body.home main.homeV2 .orq3-diagrama small,
+body.home main.homeV2 .mos-con__sub,
+body.home main.homeV2 .finalCtaV2Note {
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+}
+body.home main.homeV2 .orq3-diagrama em,
+body.home main.homeV2 .mos-con__grupo,
+body.home main.homeV2 .mos-con__add,
+body.home main.homeV2 .mos-ok,
+body.home main.homeV2 .mos-beta {
+  font-size: var(--fs-badge);
+  line-height: var(--lh-badge);
+}
+
+/* textos de botão e link de ação: 15, peso 600 */
+body.home main.homeV2 .m3-play__txt,
+body.home main.homeV2 .cr3-pr__txt,
+body.home main.homeV2 .ecossistemaV2CardCtaLabel,
+body.home main.homeV2 .c3-ini {
+  font-size: var(--fs-body);
+}
+
+/* ---------- 4. Gutters e colunas ---------- */
+body.home main.homeV2 .f3-bento,
+body.home main.homeV2 .c3-bento,
+body.home main.homeV2 .cr3-bento,
+body.home main.homeV2 .i3-grade,
+body.home main.homeV2 .ecossistemaV2Bento,
+body.home main.homeV2 .socialProofV2Stats {
+  gap: var(--g-gutter);
+}
+@media (min-width: 992px) {
+  /* Integrações: 7 + 5 colunas */
+  body.home main.homeV2 .i3-grade {
+    grid-template-columns: calc((100% - 11 * var(--g-gutter)) / 12 * 7 + 6 * var(--g-gutter)) minmax(0, 1fr);
+  }
+  /* Vídeo do manifesto e comparativo: 10 colunas, centrados */
+  body.home main.homeV2 .m3-quadro,
+  body.home main.homeV2 .d3-vs {
+    max-width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 10 + 9 * var(--g-gutter));
+  }
+  /* Diagrama de orquestração: 4 + 4 + 4 */
+  body.home main.homeV2 .orq3-diagrama {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--g-gutter);
+  }
+  /* Feita em Minas: 6 + 6 */
+  body.home main.homeV2 .o3-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Divisória dos números: na largura do container, não da tela */
+body.home main.homeV2 .socialProofV2Divider {
+  width: 100%;
+  max-width: var(--g-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Faixa de logos: segue de ponta a ponta, mas some nas bordas em vez de cortar */
+body.home main.homeV2 .partnersMarquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+
+/* ---------- 5. Raios ---------- */
+body.home main.homeV2 .h3-card,
+body.home main.homeV2 .m3-quadro,
+body.home main.homeV2 .d3-col,
+body.home main.homeV2 .c3-t,
+body.home main.homeV2 .cr3-b,
+body.home main.homeV2 .orq3-no,
+body.home main.homeV2 .mos-app,
+body.home main.homeV2 .mos-con,
+body.home main.homeV2 .ecossistemaV2Card,
+body.home main.homeV2 .ecoAcademy {
+  border-radius: var(--r-card);
+}
+body.home main.homeV2 .cr3-selo,
+body.home main.homeV2 .cr3-checks li,
+body.home main.homeV2 .cr3-fundo__logo,
+body.home main.homeV2 .cr3-pr__it,
+body.home main.homeV2 .cr3-pr__logo,
+body.home main.homeV2 .cr3-veic a,
+body.home main.homeV2 .mos-perg,
+body.home main.homeV2 .mos-cruz,
+body.home main.homeV2 .mos-acao,
+body.home main.homeV2 .mos-entrada,
+body.home main.homeV2 .mos-con__card,
+body.home main.homeV2 .mos-con__mcp,
+body.home main.homeV2 .mos-novo,
+body.home main.homeV2 .mos-met li,
+body.home main.homeV2 .mos-tab {
+  border-radius: var(--r-inner);
+}
+body.home main.homeV2 .orq3-logos i,
+body.home main.homeV2 .mos-app__lado li,
+body.home main.homeV2 .mos-con__card .mos-logo {
+  border-radius: var(--r-thumb);
+}
+
+/* ---------- 6. Ajustes finos da escala (2ª passada) ---------- */
+/* menu e rodapé */
+body.home .MainNavSiteHome .primary-menu > li > a,
+body.home .MainNavSiteHome .siteHeaderActions a span { font-size: var(--fs-body); }
+body.home .MainNavSiteHome .siteHeaderActions a,
+body.home .MainNavSiteHome .primary-menu a { border-radius: var(--r-pill); }
+body.home .footerHomeV2ColTitle { font-size: var(--fs-micro); line-height: var(--lh-micro); }
+
+/* apoio do Ecossistema (o tema usa seletor mais específico) */
+body.home main.homeV2 .ecossistemaV2 .ecossistemaV2Header .v2Subheadline {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  font-weight: 400;
+}
+/* títulos dos cartões pequenos do Ecossistema: 15/20 em negrito
+   (o tema limita a duas linhas numa caixa de 42 px) */
+body.home main.homeV2 .ecossistemaV2Card:not(.ecossistemaV2Card--hub) .ecossistemaV2CardTitle {
+  font-size: var(--fs-body);
+  line-height: 20px;
+}
+body.home main.homeV2 .ecossistemaV2CardTag { border-radius: var(--r-pill); }
+
+/* botões e chamadas */
+body.home main.homeV2 .heroV2 .ctaPrimary { font-size: var(--fs-lead); }
+body.home main.homeV2 .ecoAcademyCta { font-size: var(--fs-body); font-weight: 600; }
+
+/* citações */
+body.home main.homeV2 .c3-t blockquote { font-size: var(--fs-lead); line-height: var(--lh-lead); }
+body.home main.homeV2 .cr3-citacao { font-size: var(--fs-h4); line-height: var(--lh-h4); }
+
+/* números da Credibilidade */
+body.home main.homeV2 .cr3-num strong { font-size: var(--fs-stat); line-height: var(--lh-stat); }
+body.home main.homeV2 .cr3-b figcaption strong { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+
+/* Orquestração: títulos dos nós 15/600 */
+body.home main.homeV2 .orq3-diagrama b { font-size: var(--fs-body); line-height: 20px; }
+
+/* Funções: numeração das etiquetas */
+body.home main.homeV2 .f3-tag b { font-size: var(--fs-badge); }
+
+/* Integrações: tela de conectores e cartão da MIA */
+body.home main.homeV2 .mos-con__card b { font-size: var(--fs-micro); line-height: var(--lh-micro); }
+body.home main.homeV2 .mos-con__card span { font-size: var(--fs-badge); line-height: var(--lh-badge); }
+body.home main.homeV2 .mos-con__mcp b { font-size: var(--fs-badge); }
+body.home main.homeV2 .i3-sub,
+body.home main.homeV2 .i3-chips li { font-size: var(--fs-micro); line-height: var(--lh-micro); }
+body.home main.homeV2 .i3-p { font-size: var(--fs-body); line-height: var(--lh-body); }
+
+/* Feita em Minas: valores */
+body.home main.homeV2 .o3-valores i { font-size: var(--fs-micro); }
+
+/* ---------- 7. Margem lateral única ---------- */
+/* As seções antigas também tinham respiro lateral próprio; o container já cuida disso. */
+body.home main.homeV2 .sectionWrap.socialProofV2,
+body.home main.homeV2 .sectionWrap.ecossistemaV2,
+body.home main.homeV2 .sectionWrap.finalCtaV2,
+body.home .preFooter {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* Topo: o conteúdo é posicionado em absoluto, com respiro lateral próprio do tema */
+body.home main.homeV2 .sectionWrap.heroV2 > .heroV2Inner {
+  box-sizing: content-box;
+  max-width: var(--g-max);
+  padding-left: var(--g-pad);
+  padding-right: var(--g-pad);
+}
+
+/* ---------- 8. Rodapé no mesmo grid ---------- */
+body.home .footerHomeV2 {
+  padding-left: var(--g-pad);
+  padding-right: var(--g-pad);
+}
+body.home .footerHomeV2 > .footerHomeV2Divider,
+body.home .footerHomeV2 > .footerHomeV2Row {
+  width: 100%;
+  max-width: var(--g-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 992px) {
+  body.home .footerHomeV2 > .footerHomeV2Row {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--g-gutter);
+    align-items: start;
+  }
+  body.home .footerHomeV2Row > .footerHomeV2Brand { grid-column: 1 / span 4; }
+  body.home .footerHomeV2Row > nav.footerHomeV2Col:nth-of-type(1) { grid-column: 7 / span 2; }
+  body.home .footerHomeV2Row > nav.footerHomeV2Col:nth-of-type(2) { grid-column: 9 / span 2; }
+  body.home .footerHomeV2Row > nav.footerHomeV2Col:nth-of-type(3) { grid-column: 11 / span 2; }
+}
