@@ -142,12 +142,45 @@ else:
     html = html.replace('</body>', '<script src="copia/comparativo.js" defer></script>\n</body>')
     feito('diferenciação: antes e depois interativo')
 
-# 9. Cases: placar + palco (script da cópia no fim do <body>)
+# 9. Cases: visor em tela cheia (script da cópia no fim do <body>)
 if 'copia/cases.js' in html:
-    pulado('cases: placar e palco')
+    pulado('cases: visor em tela cheia')
 else:
     html = html.replace('</body>', '<script src="copia/cases.js" defer></script>\n</body>')
-    feito('cases: placar e palco')
+    feito('cases: visor em tela cheia')
+
+# 10. Credibilidade: explorador (lista + palco) no lugar do mosaico
+if 'copia/credibilidade.js' in html:
+    pulado('credibilidade: explorador')
+else:
+    html = html.replace('</body>', '<script src="copia/credibilidade.js" defer></script>\n</body>')
+    feito('credibilidade: explorador')
+
+# 11. Lenis do tema exposto como window.copiaLenis (o encaixe assenta a rolagem por ele)
+LENIS = 'var l=new window.Lenis({lerp:0.1,wheelMultiplier:1,anchors:true});'
+if 'window.copiaLenis=l;' in html:
+    pulado('rolagem: Lenis exposto')
+elif html.count(LENIS) == 1:
+    html = html.replace(LENIS, LENIS + 'window.copiaLenis=l;')
+    feito('rolagem: Lenis exposto')
+else:
+    print('AVISO: inicialização do Lenis mudou no tema; o encaixe cai no scroll-snap do CSS')
+
+# 12. Encaixe por tela (cada seção cabe inteira no desktop)
+if 'copia/encaixe.js' in html:
+    pulado('encaixe por tela')
+else:
+    html = html.replace('</body>', '<script src="copia/encaixe.js" defer></script>\n</body>')
+    feito('encaixe por tela')
+
+# 13. Orquestração: sem a frase do manifesto no centro; vídeo do símbolo sem botões do navegador
+FRASE = '<p>Duas forças, um traço, um giro.</p></div>'
+VID = '<video class="orq3-hub__video" autoplay loop muted playsinline preload="metadata"'
+if FRASE in html or VID in html:
+    html = html.replace(FRASE, '</div>').replace(VID, '<video class="orq3-hub__video" autoplay loop muted playsinline disablepictureinpicture disableremoteplayback preload="metadata"')
+    feito('orquestração: centro sem a frase')
+else:
+    pulado('orquestração: centro sem a frase')
 
 html_p.write_text(html, encoding='utf-8')
 print('Alterações da cópia:')

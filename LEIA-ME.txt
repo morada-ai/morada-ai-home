@@ -74,21 +74,48 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         toque e setas trocam. Menos movimento: começa em "Com a Morada", sem animação.
         Sem JS, os dois cartões originais continuam. O texto vem das listas do HTML.
         Arquivos: site/copia/comparativo.js + seção 14 da camada.
-      - Cases ("Números que você pode mostrar para o seu sócio") viraram um explorador:
-        placar com os 4 clientes (logo, número e contexto; 3 colunas cada) e um palco
-        6+6 com a foto, o número grande que conta até o valor, o contexto e o
-        depoimento (texto leve em Outfit 300, aspas da marca penduradas, foto com anel).
-        A Simoplan, sem depoimento, mostra o dado de contratos. A Fraiha usa a fachada
-        aérea do 145 Vianna, da página do case. Abas com clique e setas; não troca
-        sozinho. O depoimento é ligado ao case pela empresa no cargo. Sem JS, os
-        cartões originais continuam. Arquivos: site/copia/cases.js + seção 15.
+      - Cases ("Números que você pode mostrar para o seu sócio") viraram um visor em
+        tela cheia: um cartão só, na largura do container, com a foto do case ocupando
+        tudo (véu escuro da esquerda, aproximação lenta ao trocar). Sobre o véu: o logo
+        do cliente em branco e "Ler o case" no canto, o número grande que conta até o
+        valor, o contexto e o depoimento (Outfit 300, aspas da marca penduradas). No pé
+        do cartão, os 4 clientes como capítulos (logo branco + número) numa barra de
+        vidro; o ativo ganha a linha da marca. Celular: capítulos deslizando no topo,
+        foto e texto embaixo. Logos brancos em site/copia/logos (gerados dos originais);
+        a Simoplan usa a foto de 1920 px do servidor; a Fraiha, a fachada aérea do 145
+        Vianna, da página do case. Abas com clique e setas; não troca sozinho. O
+        depoimento é ligado ao case pela empresa no cargo. Sem JS, os cartões originais
+        continuam. Arquivos: site/copia/cases.js + seção 15 da camada.
+      - Credibilidade virou explorador: os 5 destaques (Meta, 100 Open Startups,
+        Investimento, Cubo Itaú, Valor) numa lista de abas (4 colunas) e o palco com o
+        cartão escolhido (8 colunas); a imprensa ficou numa faixa de uma linha embaixo.
+        Arquivos: site/copia/credibilidade.js + seção 16 da camada.
+      - Orquestração ("Converte o seu cliente. Sincroniza a sua empresa.") no mesmo
+        idioma do resto: a etiqueta de cada cartão (Marketing, Vendas…) virou sobretítulo
+        em vez de pílula azul preenchida; fotos em quadrado de cantos suaves (como o
+        carrossel); logos dos sistemas num bloco 2×2 do mesmo tamanho da foto; rótulos
+        das colunas com fio fino até o centro. Saiu do centro a frase "Duas forças, um
+        traço, um giro." (é o título do manifesto, logo abaixo) e o vídeo do símbolo não
+        mostra mais os botões do navegador por cima. Seção 17 da camada + passo 13.
+      - Encaixe por tela (desktop, a partir de 992 x 600): cada seção cabe inteira entre
+        o menu e o pé da tela. Ritmo e títulos ficam fluidos pela altura; o script
+        encolhe a peça elástica de cada seção (cartão do carrossel, vídeo, linhas da
+        comparação, palco da Credibilidade, visor dos cases, avanço do formulário sobre a
+        foto) e, se ainda passar, reduz a seção por igual até 80%; se sobrar, centraliza.
+        Quando a rolagem para perto do começo de uma seção, no sentido em que a pessoa
+        rolava, a página desliza até ele (pelo Lenis do tema); no meio da seção a
+        rolagem fica livre. Celular: nada muda. Em telas de até 768 de altura algumas
+        seções ainda passam um pouco (o limite de 80% preserva a leitura).
+        Arquivos: site/copia/encaixe.js + seção 18 da camada; passo 11 expõe o Lenis
+        do tema como window.copiaLenis.
 
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode
         python3 fonte/alteracoes.py
     que reaplica tudo (foto da chamada final, faixas do topo, capa do manifesto, link
-    da camada de grid, o formulário na chamada final, a ordem das seções e os scripts
-    do carrossel, do comparativo e dos cases) e pula o
+    da camada de grid, o formulário na chamada final, a ordem das seções, os scripts
+    do carrossel, do comparativo, dos cases, da Credibilidade e do encaixe, o Lenis
+    exposto e o centro da Orquestração sem a frase) e pula o
     que já está aplicado.
     A camada site/copia/grid-proporcao.css não é tocada pela atualização.
 
