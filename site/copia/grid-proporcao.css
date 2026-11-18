@@ -578,15 +578,16 @@ body.home main.homeV2 .copiaCtaForm input.hs-button:focus-visible { outline: 3px
 
 /* ---------- 13. "O que a Morada resolve" em carrossel de foco (com site/copia/carrossel.js) ----------
    Pegada da referência: cartão grande no centro, vizinhos menores cortados pelas bordas da
-   tela, e embaixo só o nome, a frase e o link. Cartão central = 8 colunas, 3:2. */
+   tela, e embaixo só o nome, a frase e o link. Cartão central quadrado de 5 colunas
+   (486 px), cantos de 12 px. */
 :root {
-  --foco-w: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 8 + 7 * var(--g-gutter));  /* 792 */
-  --foco-h: calc(var(--foco-w) * 2 / 3);
+  --foco-w: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 5 + 4 * var(--g-gutter));  /* 486 */
+  --foco-h: var(--foco-w);
   --foco-escala: .72;
   --foco-vao: 32px;
 }
-@media (max-width: 1263px) { :root { --foco-w: min(66vw, 792px); } }
-@media (max-width: 767px)  { :root { --foco-w: 72vw; --foco-h: calc(var(--foco-w) * 5 / 4); --foco-escala: .8; --foco-vao: 12px; } }
+@media (max-width: 1263px) { :root { --foco-w: min(48vw, 486px); } }
+@media (max-width: 767px)  { :root { --foco-w: 72vw; --foco-escala: .8; --foco-vao: 12px; } }
 
 body.home main.homeV2 .f3-bento.copia-foco {
   position: relative;
@@ -604,7 +605,8 @@ body.home main.homeV2 .copia-foco > .f3-card {
   height: var(--foco-h);
   min-height: 0;
   margin: 0;
-  border-radius: var(--r-card);
+  border-radius: var(--r-inner);
+  overflow: hidden;
   --pos: 0;
   --esc: 1;
   transform: translateX(-50%) translateX(calc(var(--pos) * (var(--foco-w) * (1 + var(--foco-escala)) / 2 + var(--foco-vao)))) scale(var(--esc)) !important;

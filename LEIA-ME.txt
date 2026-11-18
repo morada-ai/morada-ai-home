@@ -58,8 +58,8 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
       - Ordem: o Manifesto (vídeo) passou para antes da Diferenciação ("Nossa IA
         trabalha. Não só conversa."): Orquestração → Manifesto → Diferenciação.
       - "O que a Morada resolve" virou carrossel de foco, na pegada do pin "Clean Motion
-        Design Idea" (Savee): cartão grande no centro (8 colunas, 3:2; retrato 4:5 no
-        celular), vizinhos a 72% e apagados, cortados pelas bordas da tela, e embaixo só o
+        Design Idea" (Savee): cartão quadrado no centro (5 colunas, 486 px; 72% da tela
+        no celular), cantos de 12 px, vizinhos a 72% e apagados, e embaixo só o
         nome da frente, a frase e o link. Gira a cada 6 s em círculo; clique no vizinho
         traz ao centro, clique no central abre a página da frente. Pausa com o mouse em
         cima, com foco de teclado, fora da tela e pelo botão; setas e deslize trocam.
