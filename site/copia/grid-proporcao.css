@@ -379,3 +379,199 @@ body.home .footerHomeV2 > .footerHomeV2Row {
   body.home .footerHomeV2Row > nav.footerHomeV2Col:nth-of-type(2) { grid-column: 9 / span 2; }
   body.home .footerHomeV2Row > nav.footerHomeV2Col:nth-of-type(3) { grid-column: 11 / span 2; }
 }
+
+/* =========================================================================
+   Limpeza (18/11/2026)
+   ========================================================================= */
+
+/* ---------- 9. Mia: só o botão; o balão de saudação não abre sozinho ---------- */
+body.home #chat-application-id .mia-wave { display: none !important; }
+
+/* ---------- 10. Credibilidade sem repetição ---------- */
+/* "Reconhecimentos" repetia Meta, 100 Open Startups e Cubo, que já estão nos cartões de cima */
+body.home main.homeV2 .cr3-premios { display: none; }
+/* imprensa: os 6 primeiros veículos, numa linha */
+body.home main.homeV2 .cr3-veic li:nth-child(n+7) { display: none; }
+@media (min-width: 992px) {
+  body.home main.homeV2 .cr3-veic { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+/* ---------- 11. Manifesto: capa nova com a marca do OS livre ---------- */
+/* o quadro inteiro continua clicável; o play vai para o canto inferior esquerdo */
+body.home main.homeV2 .m3-play {
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 32px;
+  background: linear-gradient(180deg, rgba(2, 10, 38, 0) 55%, rgba(2, 10, 38, .6) 100%);
+}
+body.home main.homeV2 .m3-play__bola {
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 0 0 8px rgba(0, 115, 255, .22), 0 16px 32px -12px rgba(0, 0, 0, .6);
+}
+body.home main.homeV2 .m3-play__bola svg { width: 22px; height: 22px; margin-left: 3px; }
+body.home main.homeV2 .m3-play:hover .m3-play__bola { box-shadow: 0 0 0 12px rgba(0, 115, 255, .22), 0 16px 32px -12px rgba(0, 0, 0, .6); }
+/* texto na altura do centro da bola */
+body.home main.homeV2 .m3-play__txt { line-height: 56px; }
+@media (max-width: 767px) {
+  body.home main.homeV2 .m3-play { padding: 16px; gap: 12px; }
+  body.home main.homeV2 .m3-play__bola { width: 48px; height: 48px; }
+  body.home main.homeV2 .m3-play__txt { line-height: 48px; }
+}
+
+/* ---------- 12. Fim: chamada final com o formulário ao lado ---------- */
+body.home main.homeV2 .copiaCtaTexto { display: flex; flex-direction: column; align-items: center; }
+body.home main.homeV2 .copiaCtaTexto .finalCtaV2Kicker { margin-bottom: 16px; }
+body.home main.homeV2 .copiaCtaTexto .finalCtaV2Headline { margin: 0; }
+body.home main.homeV2 .copiaCtaTexto .finalCtaV2Sub { margin: 24px 0 0; }
+body.home main.homeV2 .copiaCtaTexto .finalCtaV2Note { margin: 24px 0 0; }
+
+body.home main.homeV2 .copiaCtaForm {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 48px;
+  padding: 32px;
+  border-radius: var(--r-card);
+  background: #FFFFFF;
+  color: #00203C;
+  text-align: left;
+  box-shadow: 0 40px 90px -40px rgba(4, 18, 53, .5);
+}
+body.home main.homeV2 .copiaCtaForm__t {
+  margin: 0;
+  font: 600 var(--fs-h4)/var(--lh-h4) Outfit, sans-serif;
+  color: #00203C;
+}
+body.home main.homeV2 .copiaCtaForm__s {
+  margin: 8px 0 24px;
+  font: 400 var(--fs-body)/var(--lh-body) Lato, sans-serif;
+  color: #5B6B86;
+}
+body.home main.homeV2 .copiaCtaForm__lgpd {
+  margin: 16px 0 0;
+  font: 400 var(--fs-micro)/var(--lh-micro) Lato, sans-serif;
+  color: #7A879D;
+  text-align: center;
+}
+body.home main.homeV2 .copiaCtaForm__lgpd a { color: #00203C; text-decoration: underline; text-underline-offset: 2px; }
+
+/* formulário do HubSpot no cartão branco (mesmo desenho do modal "Fale com um especialista") */
+body.home main.homeV2 .copiaCtaForm .formWrapper { max-width: none; margin: 0; padding: 0; }
+body.home main.homeV2 .copiaCtaForm form.hs-form {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+body.home main.homeV2 .copiaCtaForm .hs-form-field { width: auto !important; margin: 0 !important; min-width: 0; }
+body.home main.homeV2 .copiaCtaForm [class*="hs_morada_last_touch"],
+body.home main.homeV2 .copiaCtaForm .hs_origem_da_conversao { display: none !important; }
+body.home main.homeV2 .copiaCtaForm .hs_tipo_da_empresa,
+body.home main.homeV2 .copiaCtaForm .hs_submit,
+body.home main.homeV2 .copiaCtaForm .hs_error_rollup,
+body.home main.homeV2 .copiaCtaForm .legal-consent-container { grid-column: 1 / -1; }
+body.home main.homeV2 .copiaCtaForm .hs_error_rollup { display: none; }
+body.home main.homeV2 .copiaCtaForm .hs-form-field > label {
+  display: block;
+  width: auto;
+  margin: 0 0 6px;
+  text-align: left;
+  font: 600 var(--fs-micro)/var(--lh-micro) Outfit, sans-serif;
+  color: #00203C;
+}
+body.home main.homeV2 .copiaCtaForm .hs-form-required { margin-left: 2px; color: #0074FF; }
+body.home main.homeV2 .copiaCtaForm .input { margin: 0; }
+body.home main.homeV2 .copiaCtaForm input.hs-input,
+body.home main.homeV2 .copiaCtaForm select.hs-input {
+  box-sizing: border-box;
+  width: 100% !important;
+  height: var(--btn-h);
+  margin: 0 !important;
+  padding: 0 14px !important;
+  right: auto !important;
+  border: 1.5px solid #D6DEEC !important;
+  border-radius: var(--r-inner) !important;
+  background-color: #F7F9FD;
+  color: #00203C;
+  font: 400 var(--fs-body)/1.2 Lato, sans-serif;
+}
+body.home main.homeV2 .copiaCtaForm select.hs-input {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 40px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2300203C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+body.home main.homeV2 .copiaCtaForm input.hs-input:focus,
+body.home main.homeV2 .copiaCtaForm select.hs-input:focus {
+  outline: none;
+  background-color: #FFFFFF;
+  border-color: #0074FF !important;
+  box-shadow: 0 0 0 4px rgba(0, 116, 255, .14);
+}
+body.home main.homeV2 .copiaCtaForm .hs-error-msgs { list-style: none; margin: 6px 0 0; padding: 0; }
+body.home main.homeV2 .copiaCtaForm .hs-error-msgs label,
+body.home main.homeV2 .copiaCtaForm .hs-error-msg { display: block; margin: 0; font: 500 var(--fs-badge)/var(--lh-badge) Lato, sans-serif; color: #D93036; }
+body.home main.homeV2 .copiaCtaForm .hs_submit { margin-top: 8px; }
+body.home main.homeV2 .copiaCtaForm .hs_submit .actions { margin: 0; padding: 0; }
+body.home main.homeV2 .copiaCtaForm input.hs-button {
+  display: block;
+  position: static;
+  width: 100% !important;
+  height: var(--btn-h);
+  margin: 0 !important;
+  padding: 0 24px;
+  border: 0;
+  border-radius: var(--r-pill) !important;
+  background: #0074FF;
+  color: #FFFFFF;
+  font: 600 var(--fs-body)/1 Outfit, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background .2s ease, transform .2s ease;
+}
+body.home main.homeV2 .copiaCtaForm input.hs-button:hover { background: #0062DB; transform: translateY(-1px); }
+body.home main.homeV2 .copiaCtaForm input.hs-button:focus-visible { outline: 3px solid rgba(0, 116, 255, .35); outline-offset: 3px; }
+
+@media (min-width: 768px) {
+  /* a foto vira uma faixa inteira embaixo; o conteúdo fica no céu e o cartão encosta nela */
+  body.home main.homeV2 .sectionWrap.finalCtaV2 {
+    container-type: inline-size;
+    aspect-ratio: auto;
+    padding-bottom: calc(100vw * 2688 / 6336 - 96px);
+  }
+  body.home main.homeV2 .finalCtaV2Scene {
+    top: auto;
+    bottom: 0;
+    height: calc(100cqw * 2688 / 6336 + 160px);
+    background-position: center bottom;
+    background-size: 100% auto;
+  }
+  body.home main.homeV2 .finalCtaV2Scene::after {
+    background: linear-gradient(180deg,
+      rgba(182, 234, 255, 0) 0,
+      rgba(182, 234, 255, 0) 120px,
+      rgb(182, 234, 255) 160px,
+      rgb(182, 234, 255) 176px,
+      rgba(161, 228, 255, 0) calc(160px + 100cqw * 2688 / 6336 * .24));
+  }
+}
+@media (min-width: 992px) {
+  /* texto nas colunas 1–6, cartão nas 8–12 */
+  body.home main.homeV2 .finalCtaV2Inner {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--g-gutter);
+    align-items: center;
+    text-align: left;
+  }
+  body.home main.homeV2 .copiaCtaTexto { grid-column: 1 / span 6; align-items: flex-start; }
+  body.home main.homeV2 .copiaCtaTexto .finalCtaV2Sub { margin-left: 0; }
+  body.home main.homeV2 .copiaCtaForm { grid-column: 8 / span 5; margin-top: 0; }
+}

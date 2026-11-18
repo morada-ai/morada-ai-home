@@ -1199,6 +1199,7 @@ html.lenis, html.lenis body { height:auto; }
 		<section id="finalCtaV2" class="sectionWrap finalCtaV2 onDeep">
 		<div class="finalCtaV2Scene" aria-hidden="true"></div>
 		<div class="sectionInner finalCtaV2Inner">
+			<div class="copiaCtaTexto">
 
 							<span class="v2Kicker finalCtaV2Kicker" data-aos="fade-down">A DECISÃO É SUA</span>
 			
@@ -1206,54 +1207,12 @@ html.lenis, html.lenis body { height:auto; }
 
 			<p class="finalCtaV2Sub" data-aos="fade-up" data-aos-delay="50">Em 30 minutos, mostramos onde a sua operação perde tempo e VGV, e como o Morada OS orquestra a virada.</p>
 
-			<div class="finalCtaV2CtaWrap" data-aos="fade-up" data-aos-delay="100">
-				<a class="h3-btn f3-cta-final" href="morada-vendas/index.html#diagnostico">Fazer o diagnóstico <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-			</div>
-
 			<p class="finalCtaV2Note" data-aos="fade-up" data-aos-delay="150">Sua operação nunca mais será uma caixa preta.</p>
-
-		</div>
-	</section>
-
-	<div class="h3-barra" data-h3-barra>
-		<a class="h3-barra__wa" href="https://wa.me/553180265682?text=Ol%C3%A1%21%20Vim%20pela%20home%20da%20Morada.ai%20e%20quero%20entender%20como%20a%20MIA%20funcionaria%20na%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" data-cta="home-barra-whatsapp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>WhatsApp da MIA</a>
-		<a class="h3-barra__diag" href="morada-vendas/index.html#diagnostico" data-cta="home-barra-diagnostico">Diagnóstico</a>
-	</div>
-	<style>
-	.h3-barra { display:none; }
-	@media (max-width:760px) {
-	  .h3-barra { position:fixed; left:12px; right:12px; bottom:12px; z-index:60; display:flex; gap:8px; padding:8px; border-radius:999px; background:rgba(3,10,36,.84); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 18px 40px -16px rgba(0,0,0,.7); transform:translateY(150%); transition:transform .35s cubic-bezier(.2,.7,.2,1); }
-	  .h3-barra.is-on { transform:none; }
-	  .h3-barra a { flex:1; display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; border-radius:999px; font:600 15px/1 Outfit, sans-serif; text-decoration:none; }
-	  .h3-barra__wa { background:#1F9D55; color:#FFFFFF; }
-	  .h3-barra__diag { background:#0073FF; color:#FFFFFF; }
-	  html.h3-barra-on #chat-application-id, html.h3-barra-on .morada-wa-fab-novo { transform:translateY(-74px); transition:transform .35s ease; }
-	}
-	@media (prefers-reduced-motion:reduce) { .h3-barra { transition:none; } }
-	</style>
-	<script>(function(){var b=document.querySelector('[data-h3-barra]');if(!b){return;}var hero=document.getElementById('heroV2');var fim=document.getElementById('finalCtaV2');var perto=false;
-	function atual(){var lim=hero?hero.offsetHeight*0.8:600;var passou=Math.max(0,window.scrollY-lim);var on=passou?!perto:false;b.classList.toggle('is-on',on);document.documentElement.classList.toggle('h3-barra-on',on);}
-	if(fim){if('IntersectionObserver' in window){new IntersectionObserver(function(es){perto=es[0].isIntersecting;atual();}).observe(fim);}}
-	window.addEventListener('scroll',atual,{passive:true});atual();})();</script>
-
-
-	</div>
-</main>
-
-    
-<section id="form" class="preFooter" style="background-color:#00203C; color:white;">   
-    
-    
-    <div class="postPostContent" data-aos="fade-up">
-                    <h2>Pronto para dar o <b>próximo passo?</b></h2>
-                            <h3>Descubra como a inteligência artificial pode revolucionar seus resultados no mercado imobiliário.</h3>
-                
-            </div>
-</section>
-
-
-<section style="background-color:#00203C; color:white;">   
-    <div class="formWrapper">
+			</div>
+			<div class="copiaCtaForm" id="form">
+				<p class="copiaCtaForm__t">Fale com um especialista</p>
+				<p class="copiaCtaForm__s">Preencha em menos de um minuto e a gente retorna para marcar a conversa.</p>
+				<div class="formWrapper">
         <div id="hubspot-form-container-proposta"></div>
 
         <script>
@@ -1309,9 +1268,38 @@ html.lenis, html.lenis body { height:auto; }
         });
         </script>
     </div>
-</section>
+				<p class="copiaCtaForm__lgpd">Ao enviar, você concorda com a nossa <a href="https://morada.ai/politica-de-privacidade/" target="_blank" rel="noopener">Política de privacidade</a>.</p>
+			</div>
+
+		</div>
+	</section>
+
+	<div class="h3-barra" data-h3-barra>
+		<a class="h3-barra__wa" href="https://wa.me/553180265682?text=Ol%C3%A1%21%20Vim%20pela%20home%20da%20Morada.ai%20e%20quero%20entender%20como%20a%20MIA%20funcionaria%20na%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" data-cta="home-barra-whatsapp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>WhatsApp da MIA</a>
+		<a class="h3-barra__diag" href="morada-vendas/index.html#diagnostico" data-cta="home-barra-diagnostico">Diagnóstico</a>
+	</div>
+	<style>
+	.h3-barra { display:none; }
+	@media (max-width:760px) {
+	  .h3-barra { position:fixed; left:12px; right:12px; bottom:12px; z-index:60; display:flex; gap:8px; padding:8px; border-radius:999px; background:rgba(3,10,36,.84); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 18px 40px -16px rgba(0,0,0,.7); transform:translateY(150%); transition:transform .35s cubic-bezier(.2,.7,.2,1); }
+	  .h3-barra.is-on { transform:none; }
+	  .h3-barra a { flex:1; display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; border-radius:999px; font:600 15px/1 Outfit, sans-serif; text-decoration:none; }
+	  .h3-barra__wa { background:#1F9D55; color:#FFFFFF; }
+	  .h3-barra__diag { background:#0073FF; color:#FFFFFF; }
+	  html.h3-barra-on #chat-application-id, html.h3-barra-on .morada-wa-fab-novo { transform:translateY(-74px); transition:transform .35s ease; }
+	}
+	@media (prefers-reduced-motion:reduce) { .h3-barra { transition:none; } }
+	</style>
+	<script>(function(){var b=document.querySelector('[data-h3-barra]');if(!b){return;}var hero=document.getElementById('heroV2');var fim=document.getElementById('finalCtaV2');var perto=false;
+	function atual(){var lim=hero?hero.offsetHeight*0.8:600;var passou=Math.max(0,window.scrollY-lim);var on=passou?!perto:false;b.classList.toggle('is-on',on);document.documentElement.classList.toggle('h3-barra-on',on);}
+	if(fim){if('IntersectionObserver' in window){new IntersectionObserver(function(es){perto=es[0].isIntersecting;atual();}).observe(fim);}}
+	window.addEventListener('scroll',atual,{passive:true});atual();})();</script>
 
 
+	</div>
+</main>
+
+    
 <style>
 					body{
 						font-family:"neulis-neue", sans-serif;
