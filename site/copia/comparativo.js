@@ -60,7 +60,7 @@
     var cab = document.createElement('div');
     cab.className = 'copiaComp__cab';
     cab.innerHTML = '<span class="copiaComp__cabEles">Outras soluções</span>' +
-      (logo ? '<img class="copiaComp__cabNos" src="' + logo.getAttribute('src') + '" alt="' + (logo.getAttribute('alt') || 'Com a Morada.ai') + '" width="127" height="23">' : '<span class="copiaComp__cabNos">Com a Morada.ai</span>');
+      (logo ? '<img class="copiaComp__cabNos" src="' + logo.getAttribute('src').replace('-dark.svg', '.svg') + '" alt="' + (logo.getAttribute('alt') || 'Com a Morada.ai') + '" width="127" height="23">' : '<span class="copiaComp__cabNos">Com a Morada.ai</span>');
     painel.appendChild(cab);
     var lista = document.createElement('ol');
     lista.className = 'copiaComp__linhas';

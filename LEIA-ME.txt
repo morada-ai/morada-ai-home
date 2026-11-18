@@ -67,8 +67,9 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         Arquivos: site/copia/carrossel.js + seção 13 da camada.
       - Diferenciação ("Nossa IA trabalha. Não só conversa.") virou um antes e depois
         interativo: seletor [Outras soluções | Com a Morada.ai] (4 colunas) e um painel
-        de 10 colunas com as 4 linhas pareadas; ao trocar, o painel passa de vidro a
-        branco com a faixa da marca e cada linha troca o ✕ e o problema pelo ✓ e a
+        de 10 colunas com as 4 linhas pareadas; ao trocar, o painel passa de vidro ao
+        azul royal da casa (com a faixa da marca e o logo branco) e cada linha troca o
+        ✕ e o problema pelo ✓ e a
         resposta, em cascata. Vira sozinho uma vez quando a seção aparece; clique,
         toque e setas trocam. Menos movimento: começa em "Com a Morada", sem animação.
         Sem JS, os dois cartões originais continuam. O texto vem das listas do HTML.
