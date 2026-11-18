@@ -3941,7 +3941,7 @@ section.MainNavSite {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background: url('assets/home-v2/final/belo-horizonte-sky-background.png') center bottom / 100% auto no-repeat;
+    background: url('assets/home-v2/final/belo-horizonte-panorama.jpg') center bottom / 100% auto no-repeat;
 }
 .homeV2 .finalCtaV2Scene::after {
     content: '';
@@ -3951,12 +3951,15 @@ section.MainNavSite {
        seam; the #B6EAFF band sits right where the photo begins (~16% down, fixed
        by the section/image aspect ratios) to dissolve its hard top edge, then
        fades out over the sky. */
+    /* Cópia: foto trocada em 18/11/2026 pela panorâmica (6336x2688, 2,36:1).
+       Na largura toda ela começa a 36,7% da seção (antes 16%) e o céu dela
+       acaba nas serras (~49%), então o véu desceu junto. */
     background: linear-gradient(180deg,
         rgba(182, 234, 255, 0) 0%,
-        rgba(182, 234, 255, 0) 12%,
-        rgb(182, 234, 255) 16%,
-        rgb(182, 234, 255) 18%,
-        rgba(161, 228, 255, 0) 47%);
+        rgba(182, 234, 255, 0) 32.7%,
+        rgb(182, 234, 255) 36.7%,
+        rgb(182, 234, 255) 38.7%,
+        rgba(161, 228, 255, 0) 52%);
     pointer-events: none;
 }
 .homeV2 .finalCtaV2Inner {

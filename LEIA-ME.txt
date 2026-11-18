@@ -9,6 +9,18 @@ NO AR
     commit com outro e-mail faz a Vercel bloquear o deploy.
 
 
+ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
+
+    18/11/2026 · Home, chamada final ("Pare de apenas conversar. Comece a operar.")
+      Foto de fundo trocada pela panorâmica enviada (IMAGEM.jxl, 6336x2688), salva em
+      site/wp-content/themes/moradaai-v2/assets/home-v2/final/belo-horizonte-panorama.jpg
+      (2880 px). No style.css, .finalCtaV2Scene aponta para ela e o véu azul que
+      dissolve o topo da foto desceu de 16% para 36,7% (a foto nova é mais panorâmica,
+      2,36:1 contra 1,78:1). O arquivo antigo continua na pasta, sem uso.
+
+    Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa o style.css do site de
+    novo e desfaz as alterações desta lista. Reaplicar depois de atualizar.
+
 PÁGINAS COPIADAS (as dos menus do site)
 
     Home ..................... site/index.html
