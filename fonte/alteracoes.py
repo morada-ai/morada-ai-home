@@ -112,6 +112,20 @@ else:
             + cartao + m2.group(3) + html[m2.end():])
     feito('fim: formulário dentro da chamada final (sem o botão de diagnóstico e sem o pré-rodapé)')
 
+# 6. Ordem: o vídeo do Manifesto vem antes da Diferenciação ("Nossa IA trabalha. Não só conversa.")
+dif = re.search(r'<section id="diferenciacaoV2"[\s\S]*?</section>', html)
+man = re.search(r'<section id="manifestoV2"[\s\S]*?</section>', html)
+if not dif or not man:
+    sys.exit('ERRO: seções Diferenciação/Manifesto não encontradas')
+if man.start() < dif.start():
+    pulado('ordem: manifesto antes da diferenciação')
+else:
+    entre = html[dif.end():man.start()]
+    if entre.strip():
+        sys.exit('ERRO: há conteúdo entre a Diferenciação e o Manifesto; troque à mão')
+    html = html[:dif.start()] + man.group(0) + entre + dif.group(0) + html[man.end():]
+    feito('ordem: manifesto antes da diferenciação')
+
 html_p.write_text(html, encoding='utf-8')
 print('Alterações da cópia:')
 print('\n'.join(relato))

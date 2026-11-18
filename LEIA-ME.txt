@@ -55,12 +55,15 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         na chamada final, num cartão nas colunas 8–12; saíram o botão "Fazer o
         diagnóstico" dessa seção e as duas seções azul-marinho do pré-rodapé. A foto
         virou uma faixa inteira embaixo do conteúdo.
+      - Ordem: o Manifesto (vídeo) passou para antes da Diferenciação ("Nossa IA
+        trabalha. Não só conversa."): Orquestração → Manifesto → Diferenciação.
 
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode
         python3 fonte/alteracoes.py
     que reaplica tudo (foto da chamada final, faixas do topo, capa do manifesto, link
-    da camada de grid e o formulário na chamada final) e pula o que já está aplicado.
+    da camada de grid, o formulário na chamada final e a ordem das seções) e pula o
+    que já está aplicado.
     A camada site/copia/grid-proporcao.css não é tocada pela atualização.
 
 PÁGINAS COPIADAS (as dos menus do site)
