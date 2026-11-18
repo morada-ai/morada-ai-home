@@ -576,156 +576,194 @@ body.home main.homeV2 .copiaCtaForm input.hs-button:focus-visible { outline: 3px
   body.home main.homeV2 .copiaCtaForm { grid-column: 8 / span 5; margin-top: 0; }
 }
 
-/* ---------- 13. "O que a Morada resolve" em carrossel (com site/copia/carrossel.js) ---------- */
-:root { --slide-h: 600px; }
-@media (max-width: 991px) { :root { --slide-h: 480px; } }
-@media (max-width: 767px) { :root { --slide-h: 440px; } }
+/* ---------- 13. "O que a Morada resolve" em carrossel de foco (com site/copia/carrossel.js) ----------
+   Pegada da referência: cartão grande no centro, vizinhos menores cortados pelas bordas da
+   tela, e embaixo só o nome, a frase e o link. Cartão central = 8 colunas, 3:2. */
+:root {
+  --foco-w: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 8 + 7 * var(--g-gutter));  /* 792 */
+  --foco-h: calc(var(--foco-w) * 2 / 3);
+  --foco-escala: .72;
+  --foco-vao: 32px;
+}
+@media (max-width: 1263px) { :root { --foco-w: min(66vw, 792px); } }
+@media (max-width: 767px)  { :root { --foco-w: 72vw; --foco-h: calc(var(--foco-w) * 5 / 4); --foco-escala: .8; --foco-vao: 12px; } }
 
-body.home main.homeV2 .f3-bento.copia-carrossel {
+body.home main.homeV2 .f3-bento.copia-foco {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: var(--slide-h);
-  gap: 0;
+  display: block;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: calc(var(--foco-h) + 96px);
+  overflow: hidden;
 }
-body.home main.homeV2 .copia-carrossel > .f3-card {
-  grid-column: 1 / -1 !important;
-  grid-row: 1 / 2 !important;
-  min-height: 0;
-  height: var(--slide-h);
-  opacity: 0 !important;
-  visibility: hidden;
-  transform: none !important;
-  filter: none !important;
-  transition: opacity .8s ease, visibility 0s linear .8s !important;
-}
-body.home main.homeV2 .copia-carrossel > .f3-card.is-ativo {
-  opacity: 1 !important;
-  visibility: visible;
-  z-index: 1;
-  transition: opacity .8s ease, visibility 0s !important;
-}
-/* a frase precisa de fundo também à esquerda na foto larga */
-body.home main.homeV2 .copia-carrossel > .f3-card::after {
-  background:
-    linear-gradient(90deg, rgba(2, 10, 38, .78) 0%, rgba(2, 10, 38, .35) 48%, rgba(2, 10, 38, 0) 72%),
-    linear-gradient(180deg, rgba(2, 10, 38, 0) 45%, rgba(2, 10, 38, .7) 100%);
-}
-body.home main.homeV2 .copia-carrossel .f3-tag { display: none; }   /* as abas já dizem a frente */
-body.home main.homeV2 .copia-carrossel .f3-txt {
-  right: auto;
-  width: 100%;
-  max-width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 7 + 6 * var(--g-gutter));   /* 7 colunas */
-  box-sizing: border-box;
-  gap: 16px;
-  padding: 48px;
-}
-body.home main.homeV2 .copia-carrossel .f3-frase {
-  font-size: var(--fs-h3);
-  line-height: var(--lh-h3);
-  max-width: 22ch;
-}
-@media (max-width: 767px) {
-  body.home main.homeV2 .copia-carrossel .f3-txt { padding: 24px; max-width: none; }
-  body.home main.homeV2 .copia-carrossel > .f3-card::after {
-    background: linear-gradient(180deg, rgba(2, 10, 38, 0) 25%, rgba(2, 10, 38, .6) 55%, rgba(2, 10, 38, .94) 100%);
-  }
-}
-
-/* botão de pausa no canto do slide */
-body.home main.homeV2 .copiaCarrosselPausa {
+body.home main.homeV2 .copia-foco > .f3-card {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, .24);
-  border-radius: var(--r-pill);
-  background: rgba(2, 10, 38, .45);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: background .2s ease;
+  top: 48px;
+  left: 50%;
+  width: var(--foco-w);
+  height: var(--foco-h);
+  min-height: 0;
+  margin: 0;
+  border-radius: var(--r-card);
+  --pos: 0;
+  --esc: 1;
+  transform: translateX(-50%) translateX(calc(var(--pos) * (var(--foco-w) * (1 + var(--foco-escala)) / 2 + var(--foco-vao)))) scale(var(--esc)) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  visibility: visible;
+  transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity .9s ease, box-shadow .9s ease !important;
+  /* a sombra cabe nos 48 px abaixo do cartão; maior que isso o trilho corta reto */
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, .6);
 }
-body.home main.homeV2 .copiaCarrosselPausa:hover { background: rgba(2, 10, 38, .7); }
-body.home main.homeV2 .copiaCarrosselPausa:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="0"]  { --pos: 0;  --esc: 1; z-index: 2; cursor: pointer; }
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="1"]  { --pos: 1;  --esc: var(--foco-escala); z-index: 1; opacity: .5 !important; box-shadow: none; cursor: pointer; }
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="-1"] { --pos: -1; --esc: var(--foco-escala); z-index: 1; opacity: .5 !important; box-shadow: none; cursor: pointer; }
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="2"]  { --pos: 2;  --esc: var(--foco-escala); opacity: 0 !important; }
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="-2"] { --pos: -2; --esc: var(--foco-escala); opacity: 0 !important; }
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="1"]:hover,
+body.home main.homeV2 .copia-foco > .f3-card[data-pos="-1"]:hover { opacity: .75 !important; }
+/* quem atravessa de um lado para o outro some e reaparece, sem cruzar o centro */
+body.home main.homeV2 .copia-foco > .f3-card.is-salto {
+  transition: opacity .9s ease !important;
+  animation: copia-reaparece .9s ease;
+}
+@keyframes copia-reaparece { 0%, 45% { opacity: 0; } }
+/* cartão só com a foto */
+body.home main.homeV2 .copia-foco .f3-txt { display: none; }
+body.home main.homeV2 .copia-foco > .f3-card::after { background: none; }
+body.home main.homeV2 .copia-foco .f3-img { object-position: var(--foco-obj, 50% 50%); }
 
-/* abas com barra de progresso: 4 + 4 + 4 colunas */
-body.home main.homeV2 .copiaCarrosselNav {
+/* legenda centralizada embaixo do cartão */
+body.home main.homeV2 .copiaFocoLegenda {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--g-gutter);
-  margin-top: 24px;
+  max-width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 8 + 7 * var(--g-gutter));
+  margin: 8px auto 0;
+  text-align: center;
 }
-body.home main.homeV2 .copiaCarrosselTab {
-  position: relative;
+body.home main.homeV2 .copiaFocoLegenda__item {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease, visibility 0s linear .5s;
+}
+body.home main.homeV2 .copiaFocoLegenda__item.is-ativo {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .6s ease .25s, transform .6s ease .25s, visibility 0s;
+}
+body.home main.homeV2 .copiaFocoLegenda__nome {
+  margin: 0;
+  font: 600 var(--fs-h3)/var(--lh-h3) Outfit, sans-serif;
+  letter-spacing: -.02em;
+  color: #FFFFFF;
+}
+body.home main.homeV2 .copiaFocoLegenda__frase {
+  margin: 12px auto 0;
+  max-width: 44ch;
+  font: 400 var(--fs-lead)/var(--lh-lead) Lato, sans-serif;
+  color: rgba(255, 255, 255, .82);
+}
+body.home main.homeV2 .copiaFocoLegenda__rod {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  padding: 16px 0 0;
+  gap: 8px 24px;
+  margin: 16px 0 0;
+  font: 400 var(--fs-micro)/var(--lh-micro) Lato, sans-serif;
+  color: rgba(255, 255, 255, .62);
+}
+body.home main.homeV2 .copiaFocoLegenda__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 var(--fs-body)/20px Outfit, sans-serif;
+  color: #9FD6FF;
+  text-decoration: none;
+}
+body.home main.homeV2 .copiaFocoLegenda__link:hover { color: #FFFFFF; }
+body.home main.homeV2 .copiaFocoLegenda__link:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; border-radius: 4px; }
+body.home main.homeV2 .copiaFocoLegenda__link .h3-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* traços de progresso + pausa */
+body.home main.homeV2 .copiaFocoControles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+body.home main.homeV2 .copiaFocoTracos { display: flex; gap: 8px; }
+body.home main.homeV2 .copiaFocoTraco {
+  position: relative;
+  width: 48px;
+  height: 44px;            /* área de toque; o traço visível tem 2 px */
+  padding: 0;
   border: 0;
   background: none;
-  color: rgba(255, 255, 255, .62);
-  text-align: left;
-  font: 600 var(--fs-body)/20px Outfit, sans-serif;
   cursor: pointer;
-  transition: color .3s ease;
 }
-body.home main.homeV2 .copiaCarrosselTab::before {
+body.home main.homeV2 .copiaFocoTraco::before {
   content: "";
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
+  top: 21px;
   height: 2px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .24);
 }
-body.home main.homeV2 .copiaCarrosselTab__barra {
+body.home main.homeV2 .copiaFocoTraco__barra {
   position: absolute;
-  top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
+  top: 21px;
   height: 2px;
   border-radius: 2px;
   background: #FFFFFF;
   transform: scaleX(0);
   transform-origin: left center;
 }
-body.home main.homeV2 .copiaCarrosselTab__num {
+body.home main.homeV2 .copiaFocoTraco.is-ativo .copiaFocoTraco__barra { animation: copia-progresso var(--intervalo, 6000ms) linear forwards; }
+body.home main.homeV2 .copiaFocoControles.is-pausado .copiaFocoTraco.is-ativo .copiaFocoTraco__barra { animation-play-state: paused; }
+body.home main.homeV2 .copiaFocoTraco:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; border-radius: 4px; }
+@keyframes copia-progresso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* mouse em cima do carrossel pausa (só com mouse; no toque o :hover gruda) */
+@media (hover: hover) {
+  body.home main.homeV2 .copia-foco:hover ~ .copiaFocoControles .copiaFocoTraco.is-ativo .copiaFocoTraco__barra,
+  body.home main.homeV2 .copiaFocoLegenda:hover ~ .copiaFocoControles .copiaFocoTraco.is-ativo .copiaFocoTraco__barra,
+  body.home main.homeV2 .copiaFocoControles:hover .copiaFocoTraco.is-ativo .copiaFocoTraco__barra { animation-play-state: paused; }
+}
+body.home main.homeV2 .copiaFocoPausa {
   display: grid;
   place-items: center;
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .28);
   border-radius: var(--r-pill);
-  border: 1px solid rgba(255, 255, 255, .3);
-  font: 600 var(--fs-badge)/1 Outfit, sans-serif;
+  background: transparent;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background .2s ease;
 }
-body.home main.homeV2 .copiaCarrosselTab:hover { color: #FFFFFF; }
-body.home main.homeV2 .copiaCarrosselTab.is-ativo { color: #FFFFFF; }
-body.home main.homeV2 .copiaCarrosselTab.is-ativo .copiaCarrosselTab__num { background: #FFFFFF; border-color: #FFFFFF; color: #0074FF; }
-body.home main.homeV2 .copiaCarrosselTab.is-ativo .copiaCarrosselTab__barra {
-  animation: copia-progresso var(--intervalo, 6000ms) linear forwards;
-}
-body.home main.homeV2 .copiaCarrosselNav.is-pausado .copiaCarrosselTab.is-ativo .copiaCarrosselTab__barra { animation-play-state: paused; }
-/* mouse em cima do slide ou das abas pausa (só em aparelhos com mouse; no toque o :hover gruda) */
-@media (hover: hover) {
-  body.home main.homeV2 .copia-carrossel:hover + .copiaCarrosselNav .copiaCarrosselTab.is-ativo .copiaCarrosselTab__barra,
-  body.home main.homeV2 .copiaCarrosselNav:hover .copiaCarrosselTab.is-ativo .copiaCarrosselTab__barra { animation-play-state: paused; }
-}
-body.home main.homeV2 .copiaCarrosselTab:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; border-radius: 4px; }
-@keyframes copia-progresso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@media (prefers-reduced-motion: reduce) {
-  body.home main.homeV2 .copia-carrossel > .f3-card { transition: none !important; }
-}
+body.home main.homeV2 .copiaFocoPausa:hover { background: rgba(255, 255, 255, .1); }
+body.home main.homeV2 .copiaFocoPausa:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+
 @media (max-width: 767px) {
-  body.home main.homeV2 .copiaCarrosselTab { font-size: var(--fs-micro); line-height: var(--lh-micro); gap: 8px; align-items: flex-start; }
-  body.home main.homeV2 .copiaCarrosselTab__num { width: 24px; height: 24px; }
+  body.home main.homeV2 .f3-bento.copia-foco { height: calc(var(--foco-h) + 64px); }
+  body.home main.homeV2 .copia-foco > .f3-card { top: 24px; box-shadow: 0 16px 32px -16px rgba(0, 0, 0, .6); }
+  body.home main.homeV2 .copiaFocoControles { margin-top: 24px; }
 }
+@media (prefers-reduced-motion: reduce) {
+  body.home main.homeV2 .copia-foco > .f3-card,
+  body.home main.homeV2 .copiaFocoLegenda__item { transition: none !important; animation: none !important; }
+}
+/* enquadramento de cada foto quando o cartão fica em retrato (celular) */
+body.home main.homeV2 .copia-foco > .f3-a { --foco-obj: 26% 50%; }
+body.home main.homeV2 .copia-foco > .f3-b { --foco-obj: 42% 50%; }
+body.home main.homeV2 .copia-foco > .f3-c { --foco-obj: 62% 50%; }
+/* o trilho vai de ponta a ponta da tela; a seção não pode gerar rolagem lateral */
+body.home main.homeV2 .sectionWrap.funcoesV2 { overflow-x: clip; }

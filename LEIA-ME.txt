@@ -57,11 +57,14 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         virou uma faixa inteira embaixo do conteúdo.
       - Ordem: o Manifesto (vídeo) passou para antes da Diferenciação ("Nossa IA
         trabalha. Não só conversa."): Orquestração → Manifesto → Diferenciação.
-      - "O que a Morada resolve" virou carrossel (site/copia/carrossel.js + seção 13 da
-        camada): um slide por vez (1200x600; 480 no tablet; 440 no celular), troca a
-        cada 6 s, abas 4+4+4 com barra de progresso. Pausa com o mouse em cima, com foco
-        de teclado, fora da tela e pelo botão de pausa; setas trocam de aba; no celular,
-        deslize. Quem pede menos movimento no sistema não tem troca automática.
+      - "O que a Morada resolve" virou carrossel de foco, na pegada do pin "Clean Motion
+        Design Idea" (Savee): cartão grande no centro (8 colunas, 3:2; retrato 4:5 no
+        celular), vizinhos a 72% e apagados, cortados pelas bordas da tela, e embaixo só o
+        nome da frente, a frase e o link. Gira a cada 6 s em círculo; clique no vizinho
+        traz ao centro, clique no central abre a página da frente. Pausa com o mouse em
+        cima, com foco de teclado, fora da tela e pelo botão; setas e deslize trocam.
+        Quem pede menos movimento no sistema não tem troca automática.
+        Arquivos: site/copia/carrossel.js + seção 13 da camada.
 
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode
