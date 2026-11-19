@@ -1,0 +1,188 @@
+/* =========================================================================
+   Cópia genérica · grid e linguagem das páginas internas (19/11/2026)
+   Entra em Vendas, Relacionamento, Conteúdo, Blog, Quem Somos e nos três cases
+   (link no <head> de cada uma; a home tem a própria camada, grid-proporcao.css).
+   Mesmo sistema da home:
+   - Grid: container de 1200 px, 12 colunas de 78, gutter 24; margem 32/24/20.
+   - Toda caixa que fica direto no grid da página começa e termina numa coluna
+     (divisões em 12: 7+5, 6+6, 5+7, 3×4, 4×3…). O miolo de um cartão segue o
+     próprio respiro do cartão.
+   - Sobretítulo Outfit 600 13 px em caixa alta; título Outfit 600; apoio Lato 18;
+     botão pílula Outfit 600 16; raios 12 (interno) e 20 (cartão).
+   As divisões só valem a partir de 992 px; abaixo disso cada página mantém o
+   empilhamento dela. Para desfazer, tire o <link id="copia-paginas-css">.
+   ========================================================================= */
+
+:root {
+  --g-max: 1200px;
+  --g-gutter: 24px;
+  --g-pad: 32px;
+  --r-inner: 12px;
+  --r-card: 20px;
+  --r-pill: 999px;
+  /* larguras de n colunas; o % vale para o elemento onde a variável é usada */
+  --s1: calc((100% - 11 * var(--g-gutter)) / 12);
+  --s4: calc((100% - 11 * var(--g-gutter)) / 12 * 4 + 3 * var(--g-gutter));
+  --s5: calc((100% - 11 * var(--g-gutter)) / 12 * 5 + 4 * var(--g-gutter));
+  --s6: calc((100% - 11 * var(--g-gutter)) / 12 * 6 + 5 * var(--g-gutter));
+  --s7: calc((100% - 11 * var(--g-gutter)) / 12 * 7 + 6 * var(--g-gutter));
+  --s8: calc((100% - 11 * var(--g-gutter)) / 12 * 8 + 7 * var(--g-gutter));
+  --s10: calc((100% - 11 * var(--g-gutter)) / 12 * 10 + 9 * var(--g-gutter));
+  /* vão de uma coluna inteira entre dois blocos (1 coluna + 2 gutters) */
+  --vao1: calc((100% - 11 * var(--g-gutter)) / 12 + 2 * var(--g-gutter));
+}
+@media (max-width: 991px) { :root { --g-pad: 24px; } }
+@media (max-width: 767px) { :root { --g-gutter: 16px; --g-pad: 20px; } }
+
+/* ---------- 1. Containers: conteúdo sempre em 1200 ---------- */
+:root body .mv-wrap,
+:root body .mv3-in,
+:root body .mr3-wrap,
+:root body .mr3-hero__grid,
+:root body .hubInner,
+:root body .q3-wrap { max-width: var(--g-max); box-sizing: border-box; margin-left: auto; margin-right: auto; }
+/* containers com respiro lateral próprio: o respiro vira a margem do sistema */
+:root body .mt-wrap,
+:root body .mc2 .w {
+  max-width: calc(var(--g-max) + 2 * var(--g-pad));
+  padding-left: var(--g-pad);
+  padding-right: var(--g-pad);
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* cartões que eram mais largos que o container voltam às 12 colunas */
+:root body #artigos .hubInner { max-width: var(--g-max); }
+
+/* ---------- 2. Divisões em colunas inteiras (desktop) ---------- */
+@media (min-width: 992px) {
+  /* Morada Vendas */
+  :root body #o-que-e .mv-wrap { grid-template-columns: var(--s5) var(--s6); column-gap: var(--vao1); }
+  :root body #funil .mv3-bento { grid-template-columns: var(--s7) minmax(0, 1fr); gap: var(--g-gutter); }
+  :root body #como-resolve .mv3-bento,
+  :root body #time .mv3-bento,
+  :root body #agentes .mv3-duo { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body #base .mv3-bento { grid-template-columns: var(--s5) minmax(0, 1fr); gap: var(--g-gutter); }
+  :root body .mv3-cases { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .mv-stats { width: var(--s10); max-width: none; box-sizing: border-box; margin-left: auto; margin-right: auto; }
+  :root body #faq .mv-wrap { max-width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 10 + 9 * var(--g-gutter)); }
+  :root body .mv-ask { width: var(--s6); max-width: 100%; box-sizing: border-box; }
+
+  /* cena fixa do celular ("Toque do lead"): estilo inline de 1136 px e vão de 56 */
+  :root body .mv-landing div[style*="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"][style*="gap:56px"] {
+    max-width: calc(var(--g-max) + 2 * var(--g-pad)) !important;
+    padding: 0 var(--g-pad) !important;
+    box-sizing: border-box;
+    gap: var(--g-gutter) !important;
+  }
+
+  /* Morada Relacionamento */
+  :root body .mr3-hero__grid { grid-template-columns: var(--s7) minmax(0, 1fr); column-gap: var(--g-gutter); }
+  :root body .mr3-nums__g { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .mr3-dor .mr3-wrap { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--g-gutter); }
+  :root body .mr3-frentes__g { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body #diagnostico-pos-venda .mr3-wrap { grid-template-columns: var(--s5) minmax(0, 1fr); column-gap: var(--g-gutter); }
+
+  :root body .mr3-os-telas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--g-gutter); }
+
+  /* Conteúdo */
+  :root body .hubCasesGrid,
+  :root body .hubFerramentasGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .hubMateriaisGrid,
+  :root body .hubEventosGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .blogPosts,
+  :root body .hubPodcastEpisodes { gap: var(--g-gutter); }
+  :root body .hubSearch { width: var(--s8); max-width: 100%; box-sizing: border-box; }
+
+  /* Blog */
+  :root body .mt-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .mt-quick { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g-gutter); }
+
+  /* Quem Somos */
+  :root body .q3-carta { grid-template-columns: calc(var(--s7) + var(--g-gutter)) minmax(0, 1fr); }
+  :root body .q3-bento,
+  :root body .q3-pilares { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .q3-stats,
+  :root body .q3-mosaico,
+  :root body .q3-eventos { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g-gutter); }
+  /* cinco líderes de 2 colunas cada, nas colunas 2–11 */
+  :root body .q3-lideres { width: var(--s10); margin-left: auto; margin-right: auto; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--g-gutter); }
+
+  /* Cases (Conbral, Direcional, Fraiha) */
+  :root body .mc2 .faixa-grade,
+  :root body .mc2 .historia,
+  :root body .mc2 .pvs,
+  :root body .mc2 .outros { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .mc2 .galeria { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .mc2 .atua3-grade { grid-template-columns: var(--s7) minmax(0, 1fr); gap: var(--g-gutter); }
+  :root body .mc2 .vira,
+  :root body .mc2 .voz,
+  :root body .mc2 .nums,
+  :root body .mc2 .midia { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .mc2 .opera,
+  :root body .mc2 .vid3-grade { grid-template-columns: var(--s7) var(--s4); column-gap: var(--vao1); }
+  :root body .mc2 .diag-grade { grid-template-columns: var(--s6) var(--s5); column-gap: var(--vao1); }
+  :root body .mc2 .faq { max-width: var(--s8); }
+}
+
+/* ---------- 3. Uma linguagem só ---------- */
+/* sobretítulos */
+:root body .mv-eyebrow, :root body .mv3-eb, :root body .mr3-kick, :root body .hubEyebrow, :root body .hubAcademyTag, :root body .hubPodcastLabel, :root body .q3-eyebrow, :root body .mc2 .olho {
+  font-family: Outfit, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+:root body .mv3-eb, :root body .mv3-eb--branco, :root body .mr3-kick, :root body .hubEyebrow--light, :root body .hubPodcastLabel, :root body .q3-eyebrow, :root body .mc2 .olho { color: #7FC0FF; }
+:root body .mv3-eb--escuro, :root body .hubEyebrow:not(.hubEyebrow--light), :root body .hubAcademyTag, :root body .q3-eyebrow--esc { color: #0050B3; }
+:root body .mr3-kick--os { color: #FFFFFF; }
+
+/* títulos de seção */
+:root body .mv-h2, :root body .mv3-h2, :root body .mr3-h2, :root body .hubSectionTitle, :root body .hubAcademyT, :root body .hubPodcastTitle, :root body .mt-h2, :root body .q3-h2, :root body .mc2 .h2 {
+  font-family: Outfit, sans-serif;
+  font-weight: 600;
+  font-size: clamp(32px, 2.4vw + 14px, 48px);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+:root body .mv3-h2--escuro, :root body .hubSectionTitle:not(.hubSectionTitle--light), :root body .hubAcademyT, :root body .mt-h2, :root body .q3-h2--esc { color: #0B1E3A; }
+
+/* apoio */
+:root body .mv3-lead, :root body .mr3-frase, :root body .hubSectionSubtitle, :root body .hubAcademySub, :root body .hubPodcastDesc, :root body .mt-desc, :root body .q3-lead, :root body .mc2 .sub {
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+}
+:root body .mr3-frase, :root body .hubSectionSubtitle:not(.hubSectionSubtitle--light), :root body .hubAcademySub, :root body .mt-desc { color: rgba(11, 30, 58, .78); }
+:root body .mv3-lead, :root body .hubSectionSubtitle--light, :root body .hubPodcastDesc, :root body .q3-lead { color: rgba(255, 255, 255, .86); }
+
+/* botões: pílula, Outfit 600 16 */
+:root body .mv-btn, :root body .mr-btn, :root body .hubBtn, :root body .hubAcademyBtn, :root body .q3-btn, :root body .mt-btn, :root body .mc2 .btn {
+  border-radius: var(--r-pill) !important;
+  font-family: Outfit, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+/* raios: cartões 20, peças internas 12 */
+:root body .mv3-foto, :root body .mv3-royal, :root body .mv3-claro, :root body .mv3-vidro, :root body .mv3-case, :root body .mv-stats, :root body .mv3-compara, :root body .mv3-prova, :root body .mos-app, :root body .mos-con,
+:root body .mr3-foto, :root body .mr3-royal, :root body .mr3-vidro, :root body .mr-form-card,
+:root body .hubPodcastCard, :root body .hubCase, :root body .hubEventoCard, :root body .hubToolCard, :root body .hubMaterialCard, :root body .mt-card,
+:root body .q3-nome, :root body .q3-hist, :root body .q3-os, :root body .q3-faq, :root body .q3-stats, :root body .q3-pilar, :root body .q3-tile, :root body .q3-ev-card, :root body .q3-lider, :root body .q3-vagas,
+:root body .mc2 .fx, :root body .mc2 .pv, :root body .mc2 .num, :root body .mc2 .video, :root body .mc2 .outro, :root body .mc2 .hist, :root body .mc2 .citacao, :root body .mc2 .form, :root body .mc2 .ficha2,
+:root body .mc2 .mapa3, :root body .mc2 .vira-a, :root body .mc2 .vira-b, :root body .mc2 .agente3 { border-radius: var(--r-card); }
+:root body .hubInner[class], :root body .mr3-wrap[class] { border-radius: var(--r-card); }
+:root body .mv-dash, :root body .mv-chatcard, :root body .mv3-tela, :root body .mv-mock, :root body .mr3-mock, :root body .mr-faq__item, :root body .imagemBlocoPost, :root body .hubAcademyItem, :root body .hubPodcastEpisode,
+:root body .mt-card-img, :root body .mc2 .mid, :root body .mc2 figure, :root body .mc2 details { border-radius: var(--r-inner); }
+
+/* ---------- 4. Mia: só o botão, como na home (o balão de saudação não abre sozinho) ---------- */
+#chat-application-id .mia-wave { display: none !important; }
+
+/* ---------- 5. Ajustes finos ---------- */
+/* Vendas · "Base": as quatro etapas do funil tinham largura fixa e passavam do cartão em
+   telas de ~1024 px; agora dividem o espaço do cartão */
+:root body .mv-pipe { grid-template-columns: repeat(4, minmax(0, 1fr)); }

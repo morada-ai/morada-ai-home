@@ -190,5 +190,22 @@ else:
     feito('faixa de logos: logos brancos')
 
 html_p.write_text(html, encoding='utf-8')
+
+# 15. Páginas internas: camada de grid e linguagem (site/copia/paginas.css) no <head>
+PAGINAS = ['morada-vendas', 'morada-relacionamento', 'conteudo', 'blog', 'quem-somos',
+           'conbral', 'direcional', 'fraiha']
+LINK_PAG = '<link rel="stylesheet" id="copia-paginas-css" href="../copia/paginas.css" media="all" />'
+for pag in PAGINAS:
+    pp = SITE / pag / 'index.html'
+    if not pp.exists():
+        print('AVISO: página não encontrada:', pag)
+        continue
+    ph = pp.read_text(encoding='utf-8')
+    if 'copia-paginas-css' in ph:
+        pulado(pag + ': camada das páginas')
+    elif '</head>' in ph:
+        pp.write_text(ph.replace('</head>', LINK_PAG + '\n</head>', 1), encoding='utf-8')
+        feito(pag + ': camada das páginas')
+
 print('Alterações da cópia:')
 print('\n'.join(relato))
