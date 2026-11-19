@@ -4,7 +4,8 @@
    1. Mede cada seção contra a altura útil (tela − menu).
    2. Se passar: encolhe a peça elástica da seção (cartão do carrossel, vídeo, linhas da
       comparação, palco da Credibilidade, visor dos cases, sobreposição do formulário).
-   3. Se ainda passar: reduz a seção inteira por igual (zoom, nunca abaixo de 80%).
+   3. Se ainda passar: a seção fica mais alta que a tela. (Até 19/11/2026 ela era reduzida
+      por igual com zoom, mas isso tirava os cartões das colunas do grid; desligado.)
    4. Se sobrar: centraliza o conteúdo, e a seção fica exatamente uma tela.
    Assentamento: quando a rolagem para perto do começo de uma seção (à frente, no sentido
    em que a pessoa rolava), a página desliza até ele; no meio da seção, nada acontece.
@@ -13,19 +14,25 @@
 (function () {
   'use strict';
   var MQ = '(min-width: 992px) and (min-height: 600px)';
-  var ZOOM_MIN = 0.8;
+  var ZOOM_MIN = 1;   // 1 = sem zoom: o grid de 12 colunas vale em todas as seções
   var PROXIMIDADE = 0.35;     // à frente (no sentido da rolagem): assenta se o começo da seção estiver a até 35% da tela
   var RECUO = 0.12;           // para trás: só puxa de volta se estiver bem perto (12%)
 
   // peça elástica de cada seção: variável CSS, faixa e quanto a altura muda por px da variável
+  // passos: larguras permitidas, sempre um número inteiro de colunas do grid (n × 102 − 24),
+  // para a peça encolher sem sair das colunas (19/11/2026)
   var ELASTICOS = {
-    funcoesV2:       { vars: ['--foco-w', '--foco-h'], max: 588, min: 280, fator: 1 },
-    manifestoV2:     { vars: ['--video-w'],            max: 996, min: 520, fator: 9 / 16 },
+    funcoesV2:       { vars: ['--foco-w', '--foco-h'], max: 588, min: 280, fator: 1, passos: [588, 384] },   // só número par de colunas fica centrado no grid
+    manifestoV2:     { vars: ['--video-w'],            max: 996, min: 520, fator: 9 / 16, passos: [996, 792, 588] },
     diferenciacaoV2: { vars: ['--linha-h'],            max: 80,  min: 52,  fator: 4 },
     credibilidadeV2: { vars: ['--cred-h'],             max: 480, min: 380, fator: 1 },
-    casesV2:         { vars: ['--cases-h'],            max: 640, min: 540, fator: 1 },
-    finalCtaV2:      { vars: ['--faixa-sobra'],        max: 96,  min: 96,  fator: -1, teto: function () { return Math.max(96, Math.min(innerWidth * 2688 / 6336, innerHeight * .56) - 120); } }
+    casesV2:         { vars: ['--cases-h'],            max: 640, min: 540, fator: 1 }
   };
+  // o passo mais próximo da largura que caberia (pode passar um pouco da tela; vale o grid)
+  function noPasso(e, v) {
+    if (!e.passos) return v;
+    return e.passos.reduce(function (m, p) { return Math.abs(p - v) < Math.abs(m - v) ? p : m; }, e.passos[0]);
+  }
   var SEM_PREENCHER = { heroV2: 1, socialProofV2: 1 };
 
   var raiz = document.documentElement;
@@ -57,7 +64,7 @@
     if (e && h > util + 1) {
       var excesso = h - util;
       if (e.fator > 0) {
-        var novo = Math.max(e.min, Math.round(e.max - excesso / e.fator));
+        var novo = noPasso(e, Math.max(e.min, Math.round(e.max - excesso / e.fator)));
         e.vars.forEach(function (v) { s.style.setProperty(v, novo + 'px'); });
         nota.push(e.vars[0] + '=' + novo);
       } else {   // finalCta: o cartão avança sobre a foto
@@ -68,7 +75,7 @@
       h = s.getBoundingClientRect().height;
     }
     var i = interno(s);
-    if (i && h > util + 1) {
+    if (i && h > util + 1 && ZOOM_MIN < 1) {
       var hi = i.getBoundingClientRect().height;
       var z = Math.max(ZOOM_MIN, (hi - (h - util)) / hi);
       i.style.zoom = z.toFixed(3);

@@ -1704,3 +1704,132 @@ body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaForm {
   body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 { --foto-h: 340px; padding-bottom: 210px !important; }
   body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene { background-size: cover; }
 }
+
+/* ---------- 20. Grid e linguagem unificados (19/11/2026) ----------
+   Revisão da página inteira: toda caixa começa e termina numa coluna do grid de 12
+   (1200 px, gutter 24), e cada tipo de peça tem um tratamento só:
+   - sobretítulo: Outfit 600 13 px, caixa alta, 0,14em; azul-claro no fundo escuro,
+     azul royal no fundo claro;
+   - título de seção: Outfit 600 (já igual); texto escuro sempre #0B1E3A;
+   - apoio: branco 86% no escuro, #0B1E3A 78% no claro;
+   - cartão escuro: azul-marinho em degradê, borda branca 12%, sombra longa;
+   - cartão claro: branco para azul-gelo, borda branca, sombra longa azulada;
+   - botão principal: pílula azul, Outfit 600 16 px. */
+:root {
+  --u-escuro: linear-gradient(160deg, #00203C 0%, #00132A 100%);
+  --u-escuro-borda: rgba(255, 255, 255, .12);
+  --u-escuro-sombra: 0 40px 80px -40px rgba(0, 0, 0, .65);
+  --u-claro: linear-gradient(180deg, #FFFFFF 0%, #EEF5FF 100%);
+  --u-claro-borda: rgba(255, 255, 255, .8);
+  --u-claro-sombra: 0 40px 80px -40px rgba(4, 18, 53, .45);
+  --u-texto: #0B1E3A;
+}
+
+/* sobretítulos */
+body.home main.homeV2 .h3-eb,
+body.home main.homeV2 .v2Kicker {
+  font-family: Outfit, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #7FC0FF;
+}
+body.home main.homeV2 #integracoesV2 .h3-eb,
+body.home main.homeV2 #ecossistemaV2 .v2Kicker,
+body.home main.homeV2 #finalCtaV2 .v2Kicker { color: #0050B3; }
+
+/* títulos e apoio em fundo claro */
+body.home main.homeV2 #integracoesV2 .h3-h2,
+body.home main.homeV2 #ecossistemaV2 .v2Headline,
+body.home main.homeV2 #finalCtaV2 .finalCtaV2Headline { color: var(--u-texto); }
+body.home main.homeV2 #ecossistemaV2 .v2Subheadline,
+body.home main.homeV2 #finalCtaV2 .finalCtaV2Sub,
+body.home main.homeV2 #finalCtaV2 .finalCtaV2Note { color: rgba(11, 30, 58, .78); }
+/* apoio em fundo escuro */
+body.home main.homeV2 .h3-lead,
+body.home main.homeV2 .m3-sub,
+body.home main.homeV2 .d3-lead,
+body.home main.homeV2 .o3-p { color: rgba(255, 255, 255, .86); }
+
+/* cartões escuros */
+body.home main.homeV2 .mos-con,
+body.home main.homeV2 .ecossistemaV2Card--tool {
+  background: var(--u-escuro);
+  border: 1px solid var(--u-escuro-borda);
+  box-shadow: var(--u-escuro-sombra);
+}
+body.home main.homeV2 .mos-con__card,
+body.home main.homeV2 .mos-con__add {
+  background: rgba(255, 255, 255, .05);
+  border-color: rgba(255, 255, 255, .1);
+}
+body.home main.homeV2 .mos-con__mcp { border-color: rgba(255, 255, 255, .22); }
+
+/* cartões claros */
+body.home main.homeV2 .i3-mia,
+body.home main.homeV2 .ecossistemaV2Card--library,
+body.home main.homeV2 .copiaCtaForm,
+body.home main.homeV2 .h3-claro {
+  background: var(--u-claro);
+  border: 1px solid var(--u-claro-borda);
+}
+body.home main.homeV2 .i3-mia,
+body.home main.homeV2 .ecossistemaV2Card,
+body.home main.homeV2 .copiaCtaForm,
+body.home main.homeV2 .h3-claro { box-shadow: var(--u-claro-sombra); }
+body.home main.homeV2 .ecossistemaV2Card--tool { box-shadow: var(--u-escuro-sombra); }
+/* o cartão do hub e o do podcast têm foto de fundo: só a borda e a sombra mudam */
+body.home main.homeV2 .ecossistemaV2Card--hub,
+body.home main.homeV2 .ecossistemaV2Card--podcast { border: 1px solid var(--u-claro-borda); }
+
+/* botão principal do topo no mesmo idioma dos outros */
+body.home main.homeV2 .heroV2Cta { font-family: Outfit, sans-serif; font-weight: 600; font-size: 16px; }
+
+@media (min-width: 992px) {
+  /* Feita em Minas: a foto começa na coluna 7 (antes começava 12 px antes, no meio do gutter) */
+  body.home main.homeV2 .o3-card { grid-template-columns: calc(50% + var(--g-gutter) / 2) minmax(0, 1fr); }
+
+  /* Ecossistema: hub nas colunas 1–6; podcast nas 7–12; diagnóstico 7–9 e biblioteca 10–12 */
+  body.home main.homeV2 .ecossistemaV2Bento { gap: var(--g-gutter); }
+  body.home main.homeV2 .ecossistemaV2Bento > .ecossistemaV2Card--hub {
+    flex: 0 0 calc((100% - 11 * var(--g-gutter)) / 12 * 6 + 5 * var(--g-gutter));
+    max-width: none;
+  }
+  body.home main.homeV2 .ecossistemaV2Col,
+  body.home main.homeV2 .ecossistemaV2Row { gap: var(--g-gutter); }
+  body.home main.homeV2 .ecossistemaV2Row > .ecossistemaV2Card { flex: 1 1 0; min-width: 0; }
+  /* Academy na largura toda do container */
+  body.home main.homeV2 .ecoAcademy { width: 100%; box-sizing: border-box; align-self: stretch; }
+}
+@media (min-width: 992px) {
+  /* a linha Diagnóstico + Biblioteca toma a altura do próprio conteúdo (título e apoio
+     não encolhem até sumir); o podcast fica com o resto da coluna */
+  body.home main.homeV2 .ecossistemaV2Row { flex: 0 0 auto; }
+  body.home main.homeV2 .ecossistemaV2Col > .ecossistemaV2Card--podcast { flex: 1 1 auto; }
+  body.home main.homeV2 .ecossistemaV2CardLink > * { flex-shrink: 0; }
+}
+
+/* etiquetas dos cartões: todas como sobretítulo de texto (como na Credibilidade e na
+   Orquestração), sem pílula; azul-claro sobre escuro/foto, azul royal sobre claro */
+body.home main.homeV2 .i3-rot,
+body.home main.homeV2 .ecossistemaV2CardTag,
+body.home main.homeV2 .ecoAcademyTag {
+  display: inline-block;
+  align-self: flex-start;
+  width: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-family: Outfit, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #0050B3;
+}
+body.home main.homeV2 .ecossistemaV2Card--hub .ecossistemaV2CardTag,
+body.home main.homeV2 .ecossistemaV2Card--tool .ecossistemaV2CardTag,
+body.home main.homeV2 .ecoAcademyTag { color: #7FC0FF; }
