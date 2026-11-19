@@ -83,6 +83,14 @@ body.home .preFooter .postPostContent {
 body.home main.homeV2 .h3.h3-in { padding-block: var(--sec-y); }
 body.home main.homeV2 .sectionWrap.ecossistemaV2 { padding-block: var(--sec-y); }
 body.home main.homeV2 .sectionWrap.socialProofV2 { padding-block: var(--sec-y-compact); }
+/* 19/11/2026: o degradê da faixa da cidade (fim do topo) já faz a respiração; os números
+   sobem colados nele e aparecem já na primeira rolagem, sem esperar a animação de entrada */
+body.home main.homeV2 .sectionWrap.socialProofV2 { padding-top: 16px; }
+body.home main.homeV2 .socialProofV2 [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 body.home main.homeV2 .sectionWrap.finalCtaV2 { padding-top: var(--sec-y); }
 body.home .preFooter { padding-block: var(--sec-y-compact); }
 
@@ -1647,42 +1655,31 @@ body.home main.homeV2 .orq3-hub__marca .h3-assinatura { height: 26px; opacity: .
 html.copia-encaixe-css { scroll-snap-type: y proximity; scroll-padding-top: var(--nav-h, 0px); }
 html.copia-encaixe-css body.home main.homeV2 .sectionWrap { scroll-snap-align: start; }
 
-/* ---------- 19. Fim: a foto da cidade vira o fundo inteiro da chamada final (19/11/2026) ----------
-   Antes: céu claro em cima e a foto numa faixa embaixo, com um véu azul-claro cortando as
-   serras. Agora a panorâmica cobre a seção toda, com um véu azul-marinho da esquerda (onde
-   fica o texto, em branco) para a direita (onde fica o formulário). Vence as regras das
+/* ---------- 19. Fim: a cidade nasce do céu da página (19/11/2026) ----------
+   Sem faixa de cor e sem véu: a panorâmica fica na parte de baixo da seção e o topo dela
+   se dissolve (máscara) no próprio fundo da página, que continua por trás. O texto fica
+   no céu, nas cores do tema; o formulário avança sobre a cidade. Vence as regras das
    seções 12 e 18 pela especificidade (.finalCtaV2 repetida). */
 body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 {
   aspect-ratio: auto;
   padding-top: var(--sec-y, 128px) !important;
-  padding-bottom: var(--sec-y, 128px) !important;
-  min-height: min(760px, calc(100vh - var(--nav-h, 72px)));
-  display: flex;
-  align-items: center;
+  padding-bottom: clamp(96px, 16vw, 240px) !important;
 }
 body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene {
-  inset: 0;
-  top: 0;
+  top: 18%;
   bottom: 0;
   height: auto;
-  background-position: 50% 78%;
+  background-position: 50% 100%;
   background-size: cover;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .18) 16%, rgba(0, 0, 0, .62) 34%, #000 52%);
+          mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .18) 16%, rgba(0, 0, 0, .62) 34%, #000 52%);
 }
-body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene::after {
-  background:
-    linear-gradient(90deg, rgba(0, 22, 58, .9) 0%, rgba(0, 22, 58, .74) 42%, rgba(0, 22, 58, .34) 100%),
-    linear-gradient(180deg, rgba(0, 22, 58, .35) 0%, rgba(0, 22, 58, 0) 30%, rgba(0, 22, 58, 0) 70%, rgba(0, 22, 58, .55) 100%);
-}
-body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Inner { flex: 1 1 auto; min-width: 0; }
-body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaTexto { align-self: center; padding-top: 0; }
-body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Kicker { color: #8FD3FF; }
-body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Headline { color: #FFFFFF; }
-body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Sub { color: rgba(255, 255, 255, .86); }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene::after { background: none; }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaTexto { align-self: start; padding-top: clamp(8px, 3vh, 40px); }
 body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Note {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: rgba(255, 255, 255, .72);
 }
 body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Note::before {
   content: "";
@@ -1692,12 +1689,12 @@ body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Note::before {
   background: linear-gradient(90deg, #2aa3e6, #67e0c6);
 }
 body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaForm {
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
+  box-shadow: 0 40px 80px -40px rgba(4, 18, 53, .55);
 }
 @media (max-width: 991px) {
-  body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 { min-height: 0; display: block; }
-  body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene { background-position: 50% 100%; }
-  body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene::after {
-    background: linear-gradient(180deg, rgba(0, 22, 58, .9) 0%, rgba(0, 22, 58, .78) 45%, rgba(0, 22, 58, .5) 100%);
+  body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene {
+    top: 30%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .5) 20%, #000 40%);
+            mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .5) 20%, #000 40%);
   }
 }
