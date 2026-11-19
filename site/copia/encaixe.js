@@ -14,7 +14,9 @@
 (function () {
   'use strict';
   var MQ = '(min-width: 992px) and (min-height: 600px)';
-  var ZOOM_MIN = 1;   // 1 = sem zoom: o grid de 12 colunas vale em todas as seções
+  // zoom só como último recurso em telas baixas (< 820 px de altura), no mínimo 82%;
+  // de 820 px para cima não há zoom e o grid de 12 colunas vale exato em todas as seções
+  function zoomMin() { return window.innerHeight < 760 ? 0.78 : window.innerHeight < 820 ? 0.82 : 1; }
   var PROXIMIDADE = 0.35;     // à frente (no sentido da rolagem): assenta se o começo da seção estiver a até 35% da tela
   var RECUO = 0.12;           // para trás: só puxa de volta se estiver bem perto (12%)
 
@@ -25,13 +27,14 @@
     funcoesV2:       { vars: ['--foco-w', '--foco-h'], max: 588, min: 280, fator: 1, passos: [588, 384] },   // só número par de colunas fica centrado no grid
     manifestoV2:     { vars: ['--video-w'],            max: 996, min: 520, fator: 9 / 16, passos: [996, 792, 588] },
     diferenciacaoV2: { vars: ['--linha-h'],            max: 80,  min: 52,  fator: 4 },
-    credibilidadeV2: { vars: ['--cred-h'],             max: 480, min: 380, fator: 1 },
-    casesV2:         { vars: ['--cases-h'],            max: 640, min: 540, fator: 1 }
+    credibilidadeV2: { vars: ['--cred-h'],             max: 480, min: 340, fator: 1 },
+    casesV2:         { vars: ['--cases-h'],            max: 640, min: 420, fator: 1 }
   };
-  // o passo mais próximo da largura que caberia (pode passar um pouco da tela; vale o grid)
+  // o maior passo que cabe (com 24 px de tolerância); se nenhum couber, o menor
   function noPasso(e, v) {
     if (!e.passos) return v;
-    return e.passos.reduce(function (m, p) { return Math.abs(p - v) < Math.abs(m - v) ? p : m; }, e.passos[0]);
+    for (var k = 0; k < e.passos.length; k++) { if (e.passos[k] <= v + 24) return e.passos[k]; }
+    return e.passos[e.passos.length - 1];
   }
   var SEM_PREENCHER = { heroV2: 1, socialProofV2: 1 };
 
@@ -81,6 +84,18 @@
     if (s.id === TOPO) return;
     var h = s.getBoundingClientRect().height;
     var nota = [];
+    // chamada final: quem cede é a faixa da cidade embaixo do formulário (sem zoom e sem
+    // respiro extra no topo): passou da tela, a faixa encolhe (até 48 px); sobrou, cresce
+    if (s.id === 'finalCtaV2') {
+      var pbF = parseFloat(getComputedStyle(s).paddingBottom) || 0;
+      var novoPb = Math.max(48, Math.round(pbF + (util - h)));
+      if (Math.abs(novoPb - pbF) > 1) {
+        s.style.setProperty('padding-bottom', novoPb + 'px', 'important');
+        nota.push('cidade=' + novoPb);
+      }
+      s.setAttribute('data-encaixe', nota.join(' ') || 'cabe');
+      return;
+    }
     var e = ELASTICOS[s.id];
     if (e && h > util + 1) {
       var excesso = h - util;
@@ -96,9 +111,9 @@
       h = s.getBoundingClientRect().height;
     }
     var i = interno(s);
-    if (i && h > util + 1 && ZOOM_MIN < 1) {
+    if (i && h > util + 1 && zoomMin() < 1) {
       var hi = i.getBoundingClientRect().height;
-      var z = Math.max(ZOOM_MIN, (hi - (h - util)) / hi);
+      var z = Math.max(zoomMin(), (hi - (h - util)) / hi);
       i.style.zoom = z.toFixed(3);
       nota.push('zoom=' + z.toFixed(2));
       h = s.getBoundingClientRect().height;

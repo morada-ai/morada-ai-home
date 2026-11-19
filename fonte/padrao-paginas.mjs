@@ -32,8 +32,18 @@ function linksLocais(html, prefixo) {
 // a home primeiro: o menu das páginas é derivado dela
 {
   const f = path.join(SITE, 'index.html');
-  const h0 = fs.readFileSync(f, 'utf8'), h1 = linksLocais(h0, '');
-  if (h1 !== h0) { fs.writeFileSync(f, h1); console.log('  ok    home: links locais'); }
+  const h0 = fs.readFileSync(f, 'utf8');
+  let h1 = linksLocais(h0, '');
+  // Integrações (encaixe por tela, 19/11/2026): os dois links de baixo da grade entram no
+  // cartão da MIA, ao lado do botão, para a seção caber numa tela
+  const links = h1.match(/<p class="i3-links">[\s\S]*?<\/p>/);
+  const acoes = '<div class="i3-acoes"><a class="h3-btn" href="#criesuamia">';
+  if (links && h1.includes(acoes)) {
+    h1 = h1.replace(links[0], '');
+    const i = h1.indexOf(acoes), fimA = h1.indexOf('</a>', i) + 4;
+    h1 = h1.slice(0, fimA) + links[0] + h1.slice(fimA);
+  }
+  if (h1 !== h0) { fs.writeFileSync(f, h1); console.log('  ok    home: links locais / integrações'); }
 }
 
 // bloco <section ...> completo a partir da abertura (respeita seções aninhadas)

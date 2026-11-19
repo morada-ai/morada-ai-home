@@ -1833,3 +1833,74 @@ body.home main.homeV2 .ecoAcademyTag {
 body.home main.homeV2 .ecossistemaV2Card--hub .ecossistemaV2CardTag,
 body.home main.homeV2 .ecossistemaV2Card--tool .ecossistemaV2CardTag,
 body.home main.homeV2 .ecoAcademyTag { color: #7FC0FF; }
+
+/* ---------- 21. Cada seção numa tela, sem zoom (19/11/2026) ----------
+   Com o zoom desligado (ele tirava os cartões das colunas), várias seções passavam da
+   altura útil. Aqui elas voltam a caber no desktop (≥ 992 × 600) só com espaço e peças
+   elásticas: respiro e vão do cabeçalho um pouco menores, carrossel com menos folga para
+   a sombra, faixa de imprensa mais baixa, conectores com a descrição numa linha (e os dois
+   links das Integrações dentro do cartão da MIA), hub do Ecossistema mais baixo e o
+   formulário da chamada final avançando mais sobre a cidade. */
+@media (min-width: 992px) and (min-height: 600px) {
+  :root {
+    --sec-y: clamp(40px, 5vh, 112px);
+    --cab-gap: clamp(24px, 3vh, 56px);
+  }
+  /* Funções: 40 px para a sombra em vez de 64 */
+  body.home main.homeV2 .f3-bento.copia-foco { height: calc(var(--foco-h) + 40px); }
+  body.home main.homeV2 .copia-foco > .f3-card { top: 12px; }
+  body.home main.homeV2 .copiaFocoSeta { --foco-topo: 12px; }
+  /* botões abaixo do vídeo e dos cases mais perto */
+  body.home main.homeV2 .m3-cta,
+  body.home main.homeV2 .c3-cta { margin-top: 16px; }
+  /* Credibilidade: faixa de imprensa mais baixa e mais perto */
+  body.home main.homeV2 .copiaCred__imprensa { margin-top: 16px; padding-top: 10px; padding-bottom: 10px; }
+  /* Integrações: tela de conectores mais justa; descrição numa linha */
+  body.home main.homeV2 .mos-con { padding: 18px; }
+  body.home main.homeV2 .mos-con__sub { display: none; }
+  body.home main.homeV2 .mos-con__grupo { margin-top: 12px; margin-bottom: 6px; }
+  body.home main.homeV2 .mos-con__card span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body.home main.homeV2 .mos-con__mcp { margin-top: 8px; }
+  body.home main.homeV2 .mos-con__card > div { min-width: 0; overflow: hidden; }
+  body.home main.homeV2 .mos-con__card b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* os dois links (Parceiros, Conectores do OS) agora ficam no cartão da MIA */
+  body.home main.homeV2 .i3-acoes { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  body.home main.homeV2 .i3-acoes .i3-links { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: flex-start; }
+  /* Ecossistema: hub mais baixo, Academy mais perto */
+  body.home main.homeV2 .ecossistemaV2Card--hub { min-height: clamp(300px, 36vh, 500px); }
+  body.home main.homeV2 .ecoAcademy { margin-top: 16px; }
+  /* Chamada final: o formulário avança mais sobre a cidade */
+  body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 { padding-bottom: calc(var(--foto-h) * .26) !important; }
+  /* Cases: painel com respiro e vão menores, número e citação um degrau abaixo */
+  body.home main.homeV2 .copiaCases__painel { padding-top: 28px; padding-bottom: 28px; row-gap: 16px; }
+  body.home main.homeV2 .copiaCases__kpi strong { font-size: 56px; line-height: 60px; }
+  body.home main.homeV2 .copiaCases__dep blockquote { font-size: 19px; line-height: 27px; }
+  /* Credibilidade: selo e respiro do cartão menores */
+  body.home main.homeV2 .copiaCred__palco .cr3-meta { padding-top: 24px; padding-bottom: 24px; gap: 10px; }
+  body.home main.homeV2 .copiaCred__palco .cr3-selo { padding: 8px 14px; }
+  body.home main.homeV2 .copiaCred__palco .cr3-selo img { width: 104px; }
+  /* Integrações: os dois links como links de texto, numa linha */
+  body.home main.homeV2 .i3-acoes { gap: 12px; }
+  body.home main.homeV2 .i3-acoes .i3-links a {
+    min-height: 0; padding: 0; border: 0; background: none; box-shadow: none;
+    font: 600 14px/20px Outfit, sans-serif; color: #0050B3;
+  }
+  /* Ecossistema: nos cartões pequenos fica título + chamada; podcast numa linha; Academy mais baixa */
+  body.home main.homeV2 .ecossistemaV2Row .ecossistemaV2CardDesc { display: none; }
+  body.home main.homeV2 .ecossistemaV2Card--podcast .ecossistemaV2CardDesc { -webkit-line-clamp: 1; }
+  body.home main.homeV2 .ecoAcademy { padding-top: 16px; padding-bottom: 16px; }
+  /* últimos ajustes finos: cartão da MIA e verificações da Credibilidade */
+  body.home main.homeV2 .i3-mia { padding: 20px 28px; }
+  body.home main.homeV2 .i3-chips { gap: 8px; }
+  body.home main.homeV2 .copiaCred__palco .cr3-checks { gap: 8px; }
+  body.home main.homeV2 .copiaCred__palco .cr3-checks li { padding-top: 10px; padding-bottom: 10px; }
+  /* o painel mais alto do palco (Investimento) define a altura dos cinco */
+  body.home main.homeV2 .copiaCred__palco .cr3-inv { padding-top: 24px; padding-bottom: 24px; gap: 10px; }
+  body.home main.homeV2 .copiaCred__palco .cr3-fundo { padding-top: 12px; gap: 10px; }
+  body.home main.homeV2 .copiaCred__palco .cr3-fundo__logo img { height: 40px; }
+}
