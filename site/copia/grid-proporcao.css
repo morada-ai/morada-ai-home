@@ -1357,6 +1357,104 @@ body.home main.homeV2 .copiaCred__palco .cr3-meta .cr3-checks {
   gap: 8px 16px;
 }
 body.home main.homeV2 .copiaCred__palco .cr3-cubo .cr3-cubo__foto { flex: 1 1 auto; min-height: 0; }
+/* 100 Open: a foto é vertical (900x1092) e o palco é largo; em 28% o topo das
+   cabeças saía do quadro. Em 10% sobra respiro acima do cabelo em qualquer largura. */
+body.home main.homeV2 .copiaCred__palco .cr3-open img { object-position: 50% 10%; }
+
+/* Investimento: gráfico de crescimento ilustrativo ao fundo (decorativo, sem dados) */
+body.home main.homeV2 .copiaCred__palco .cr3-inv::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 60%;
+  height: 86%;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400' preserveAspectRatio='none'><defs><linearGradient id='a' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23fff' stop-opacity='.3'/><stop offset='1' stop-color='%23fff' stop-opacity='0'/></linearGradient></defs><g fill='%23fff' fill-opacity='.07'><rect x='30' y='352' width='22' height='48'/><rect x='90' y='340' width='22' height='60'/><rect x='150' y='330' width='22' height='70'/><rect x='210' y='318' width='22' height='82'/><rect x='270' y='300' width='22' height='100'/><rect x='330' y='276' width='22' height='124'/><rect x='390' y='236' width='22' height='164'/><rect x='450' y='180' width='22' height='220'/><rect x='510' y='120' width='22' height='280'/></g><g stroke='%23fff' stroke-opacity='.14' fill='none'><path d='M0 100H600M0 200H600M0 300H600'/></g><path d='M0 372 C120 362 220 330 300 296 C380 262 440 196 500 132 C530 100 556 78 600 52 V400 H0Z' fill='url(%23a)'/><path d='M0 372 C120 362 220 330 300 296 C380 262 440 196 500 132 C530 100 556 78 600 52' fill='none' stroke='%23fff' stroke-opacity='.8' stroke-width='3' vector-effect='non-scaling-stroke'/></svg>") right bottom / 100% 100% no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+body.home main.homeV2 .copiaCred__palco .cr3-inv > * { position: relative; z-index: 1; }
+body.home main.homeV2 .copiaCred__palco .cr3-inv > .cr3-tag,
+body.home main.homeV2 .copiaCred__palco .cr3-inv > .cr3-num,
+body.home main.homeV2 .copiaCred__palco .cr3-inv > .cr3-p { max-width: 52%; }
+
+/* Valor: mockup de jornal com a manchete (montado pelo credibilidade.js) */
+body.home main.homeV2 .copiaCred__palco .cr3-valor > :not(.copiaCred__jornal) { position: relative; z-index: 1; max-width: 50%; }
+body.home main.homeV2 .copiaCred__jornal {
+  position: absolute;
+  top: 40px;
+  right: 22px;
+  bottom: -70px;
+  width: 45%;
+  box-sizing: border-box;
+  padding: 22px 24px;
+  background: #FBF9F4;
+  border-radius: 4px;
+  box-shadow: 0 34px 60px -30px rgba(4, 18, 53, .5), 0 2px 8px rgba(4, 18, 53, .08);
+  color: #1A1A1A;
+  transform: translateY(28px) rotate(7deg);
+  opacity: 0;
+  transition: transform .8s cubic-bezier(.2, .7, .2, 1) .2s, opacity .6s ease .2s;
+  pointer-events: none;
+}
+body.home main.homeV2 .copiaCred__palco .cr3-valor.is-ativo .copiaCred__jornal { transform: rotate(4deg); opacity: 1; }
+body.home main.homeV2 .copiaCred__jornal p { margin: 0; }
+body.home main.homeV2 .copiaCred__jornal-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 3px double #1A1A1A;
+  font: 700 9px/1.2 Lato, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #4A4A4A;
+}
+body.home main.homeV2 .copiaCred__jornal-chapeu {
+  margin-top: 14px !important;
+  font: 700 10px/1 Lato, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #0F6E68;
+}
+body.home main.homeV2 .copiaCred__jornal-titulo {
+  margin: 8px 0 14px !important;
+  font: 700 clamp(18px, 1.6vw, 22px)/1.14 Georgia, "Times New Roman", serif;
+  letter-spacing: -.01em;
+  color: #111111;
+}
+body.home main.homeV2 .copiaCred__jornal-linha {
+  margin: -6px 0 10px !important;
+  font: 400 12px/1.35 Georgia, "Times New Roman", serif;
+  color: #444444;
+}
+body.home main.homeV2 .copiaCred__jornal-por {
+  margin: 0 0 12px !important;
+  font: 700 9px/1.2 Lato, sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #6A6A6A;
+}
+body.home main.homeV2 .copiaCred__jornal-foto {
+  height: 112px;
+  margin-bottom: 14px;
+  background: url("../wp-content/uploads/2026/11/100open-copacabana-2025-900-otm.jpg") 50% 14% / cover no-repeat;
+  filter: grayscale(1) contrast(1.05);
+}
+body.home main.homeV2 .copiaCred__jornal-texto { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+body.home main.homeV2 .copiaCred__jornal-texto i { display: block; height: 5px; margin-bottom: 8px; border-radius: 2px; background: #DCD8CE; }
+@media (prefers-reduced-motion: reduce) {
+  body.home main.homeV2 .copiaCred__jornal { transition: none; }
+}
+@media (max-width: 767px) {
+  body.home main.homeV2 .copiaCred__jornal { display: none; }
+  body.home main.homeV2 .copiaCred__palco .cr3-valor > :not(.copiaCred__jornal),
+  body.home main.homeV2 .copiaCred__palco .cr3-inv > .cr3-tag,
+  body.home main.homeV2 .copiaCred__palco .cr3-inv > .cr3-num,
+  body.home main.homeV2 .copiaCred__palco .cr3-inv > .cr3-p { max-width: none; }
+}
 
 /* imprensa: uma linha (rótulo · 6 logos · link) */
 body.home main.homeV2 .copiaCred__imprensa {

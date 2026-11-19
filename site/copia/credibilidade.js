@@ -54,6 +54,33 @@
       return aba;
     });
 
+    // Valor: mockup de jornal com a manchete do próprio cartão (decorativo, aria-hidden)
+    var valor = palco.querySelector('.cr3-valor');
+    if (valor && !valor.querySelector('.copiaCred__jornal')) {
+      var manchete = txt(valor.querySelector('blockquote')).replace(/^[“"]|[”".]+$/g, '');
+      var quem = txt(valor.querySelector('.cr3-quem')).split('·');
+      var jornal = document.createElement('div');
+      jornal.className = 'copiaCred__jornal';
+      jornal.setAttribute('aria-hidden', 'true');
+      var colunas = [[100, 96, 100, 88, 100, 93, 100, 62], [100, 91, 100, 97, 84, 100, 95, 100]];
+      jornal.innerHTML =
+        '<div class="copiaCred__jornal-topo"><span></span><span></span></div>' +
+        '<p class="copiaCred__jornal-chapeu">Startups</p>' +
+        '<p class="copiaCred__jornal-titulo"></p>' +
+        // linha fina e assinatura da matéria do Pipeline (09/12/2025)
+        '<p class="copiaCred__jornal-linha">Aporte liderado pela Parceiro Ventures vai reforçar soluções que atendem quase 200 incorporadoras</p>' +
+        '<p class="copiaCred__jornal-por">Por Felipe Frisch — São Paulo · 09/12/2025</p>' +
+        '<div class="copiaCred__jornal-foto"></div>' +
+        '<div class="copiaCred__jornal-texto">' + colunas.map(function (c) {
+          return '<div>' + c.map(function (w) { return '<i style="width:' + w + '%"></i>'; }).join('') + '</div>';
+        }).join('') + '</div>';
+      var topo = jornal.querySelectorAll('.copiaCred__jornal-topo span');
+      topo[0].textContent = (quem[0] || 'Valor Econômico').replace(/,? do /, ' · ').trim();
+      topo[1].textContent = (quem[1] || '').trim();
+      jornal.querySelector('.copiaCred__jornal-titulo').textContent = manchete;
+      valor.appendChild(jornal);
+    }
+
     raiz.appendChild(lista);
     raiz.appendChild(palco);
     bento.parentNode.insertBefore(raiz, bento);
