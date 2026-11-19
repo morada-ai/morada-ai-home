@@ -374,3 +374,46 @@ html.lenis, html.lenis body { height: auto; }
     --lh-h2: calc(var(--fs-h2) + 4px);
   }
 }
+
+/* ---------- 11. Cada seção numa tela — Vendas (19/11/2026) ----------
+   Mesmo método da home: vão de cabeçalho fluido, peças mais justas e, como último
+   recurso, a redução proporcional do copia/encaixe.js (até 80%). */
+@media (min-width: 992px) and (min-height: 600px) {
+  :root body .mv-landing .mv3-in > .mv3-h2 + *,
+  :root body .mv-landing .mv3-in > .mv3-lead + * { margin-top: var(--cab-gap) !important; }
+  :root body .mv-landing .mv3-faixa,
+  :root body .mv-landing .mv3-prova,
+  :root body .mv-landing .mv3-compara,
+  :root body .mv-landing .mv3-nota { margin-top: 12px !important; }
+  /* Cases: título em duas linhas */
+  :root body #cases .mv3-h2 { max-width: none; }
+  /* maquetes de produto com altura limitada, esmaecendo embaixo */
+  :root body #time .mv3-card .mv-mock {
+    max-height: 150px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+  }
+  :root body #morada-os .mos-app {
+    max-height: 520px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 82%, transparent 100%);
+  }
+  /* a tela de conectores repetia a da home e a da página do Morada OS */
+  :root body #morada-os .mv3-os__con { display: none; }
+  /* Números: cartão royal com menos respiro */
+  :root body #numeros .mv3-royal { padding-top: 28px; padding-bottom: 28px; }
+  :root body #numeros .mv3-num { row-gap: 16px; }
+  :root body #numeros .mv3-numeros__txt { padding: 28px 40px; }
+  :root body #numeros .mv3-numeros__foto { min-height: 0; }
+  :root body #numeros .mv3-compara { padding-top: 14px; padding-bottom: 14px; margin-top: 8px !important; }
+  /* FAQ mais justa */
+  :root body .mv-faq { margin-top: var(--cab-gap) !important; }
+  :root body .mv-faq > * + * { margin-top: 0; }
+  :root body .mv-faq__q { padding-top: 14px; padding-bottom: 14px; }
+  /* seção final: foto do estande mais baixa */
+  :root body .mv-landing .mv-final { padding-bottom: clamp(180px, 28vh, 460px) !important; min-height: 0 !important; }
+  /* chamada final da home nas páginas: passagem do céu um pouco mais curta */
+  body.home main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 { padding-top: calc(var(--sec-y) + 80px) !important; }
+}

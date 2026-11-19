@@ -16,7 +16,12 @@
   var MQ = '(min-width: 992px) and (min-height: 600px)';
   // zoom só como último recurso em telas baixas (< 820 px de altura), no mínimo 82%;
   // de 820 px para cima não há zoom e o grid de 12 colunas vale exato em todas as seções
-  function zoomMin() { return window.innerHeight < 760 ? 0.78 : window.innerHeight < 820 ? 0.82 : 1; }
+  // páginas internas: as seções são mais longas que as da home, então a redução fica
+  // disponível em qualquer altura (até 80%; 74% abaixo de 760 px)
+  function zoomMin() {
+    if (PAGINA) return window.innerHeight < 760 ? 0.72 : 0.76;
+    return window.innerHeight < 760 ? 0.78 : window.innerHeight < 820 ? 0.82 : 1;
+  }
   var PROXIMIDADE = 0.35;     // à frente (no sentido da rolagem): assenta se o começo da seção estiver a até 35% da tela
   var RECUO = 0.12;           // para trás: só puxa de volta se estiver bem perto (12%)
 
@@ -68,7 +73,10 @@
     return cacheSecoes;
   }
   var TOPO = 'heroV2';
-  function interno(s) { return s.querySelector(':scope > .h3.h3-in, :scope > .sectionInner'); }
+  function interno(s) {
+    return s.querySelector(':scope > .h3.h3-in, :scope > .sectionInner, :scope > .mv3-in, :scope > .mv-wrap, :scope > .mr3-wrap, ' +
+      ':scope > .hubInner, :scope > .mt-wrap, :scope > .q3-wrap, :scope > .w, :scope > .im3-wrap');
+  }
   function alturaMenu() { var n = document.querySelector('.MainNavSiteHome'); return n ? Math.round(n.getBoundingClientRect().height) : 0; }
 
   function limpar(s) {
