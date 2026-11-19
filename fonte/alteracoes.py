@@ -207,5 +207,13 @@ for pag in PAGINAS:
         pp.write_text(ph.replace('</head>', LINK_PAG + '\n</head>', 1), encoding='utf-8')
         feito(pag + ': camada das páginas')
 
+# 16. Páginas internas com o menu da home (marcação, CSS e JS) — feito pelo script Node
+import subprocess
+r = subprocess.run(['node', str(RAIZ / 'fonte' / 'padrao-paginas.mjs')], capture_output=True, text=True)
+if r.returncode == 0:
+    relato.append(r.stdout.rstrip())
+else:
+    print('AVISO: fonte/padrao-paginas.mjs falhou (precisa do Node):', r.stderr.strip())
+
 print('Alterações da cópia:')
 print('\n'.join(relato))

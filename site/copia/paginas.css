@@ -186,3 +186,66 @@
 /* Vendas · "Base": as quatro etapas do funil tinham largura fixa e passavam do cartão em
    telas de ~1024 px; agora dividem o espaço do cartão */
 :root body .mv-pipe { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ---------- 6. Mesmo sistema da home: menu, céu, ritmo e escala (19/11/2026) ----------
+   O menu das páginas agora é o da home (fonte/padrao-paginas.mjs). Aqui: os tokens de
+   ritmo e de tipo da home, o recuo do menu fixo, o céu no azul da home e o espaçamento
+   padrão de seção (128/96/72) e de cabeçalho (sobretítulo 16 · título · 24 · apoio). */
+:root {
+  --sec-y: 128px;
+  --cab-gap: 64px;
+  --fs-h2: 48px; --lh-h2: 52px;
+  --fs-h3: 32px; --lh-h3: 38px;
+  --fs-lead: 18px; --lh-lead: 28px;
+  --fs-body: 15px; --lh-body: 24px;
+  --azul-ceu: #0D4D9B;
+}
+@media (max-width: 991px) { :root { --sec-y: 96px; --cab-gap: 48px; --fs-h2: 40px; --lh-h2: 44px; --fs-h3: 28px; --lh-h3: 34px; } }
+@media (max-width: 767px) { :root { --sec-y: 72px; --cab-gap: 40px; --fs-h2: 32px; --lh-h2: 38px; --fs-h3: 24px; --lh-h3: 30px; --fs-lead: 17px; --lh-lead: 26px; } }
+
+/* menu fixo da home por cima: o conteúdo começa abaixo dele */
+:root body .pageContainer { padding-top: var(--home-header-h, 77px); }
+
+/* céu: o azul com estrelas da home no lugar do céu noturno */
+html:has(.ceuX) { background: var(--azul-ceu) !important; }
+:root body .ceuX { background: var(--azul-ceu); }
+:root body .ceuX-ceu { background: linear-gradient(180deg, #0D4D9B 0%, #0D4D9B 45%, #0F5AB8 75%, #0D4D9B 100%); }
+
+/* títulos e apoio na escala da home */
+:root body .mv-h2, :root body .mv3-h2, :root body .mr3-h2, :root body .hubSectionTitle, :root body .hubAcademyT,
+:root body .hubPodcastTitle, :root body .mt-h2, :root body .q3-h2, :root body .mc2 .h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  margin-top: 0;
+}
+:root body .mv3-lead, :root body .mr3-frase, :root body .hubSectionSubtitle, :root body .hubAcademySub,
+:root body .hubPodcastDesc, :root body .mt-desc, :root body .q3-lead, :root body .mc2 .sub {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  margin-top: 24px;
+}
+:root body .mv-eyebrow, :root body .mv3-eb, :root body .mr3-kick, :root body .hubEyebrow, :root body .q3-eyebrow,
+:root body .mc2 .olho { margin-bottom: 16px; }
+
+/* ritmo de seção */
+:root body .mv-landing .mv3, :root body .mv-landing .mv-sec,
+:root body .mr3-sec,
+:root body .hubConteudo > section:not(.hubHero),
+:root body .mt-sec,
+:root body .q3-sec,
+:root body .mc2 .sec { padding-top: var(--sec-y) !important; padding-bottom: var(--sec-y) !important; }
+
+/* Blog: o topo passa a ser azul como o da home (o menu de vidro é branco); a foto da
+   cidade fica sob um véu azul que clareia até o fundo claro das trilhas */
+:root body .mt-hero { background: var(--azul-ceu); }
+:root body .mt-hero-veil {
+  background: linear-gradient(180deg, rgba(13, 77, 155, .94) 0%, rgba(13, 77, 155, .82) 45%, rgba(0, 115, 255, .55) 78%, rgba(247, 248, 250, 1) 100%) !important;
+}
+:root body .mt-crumbs, :root body .mt-crumbs li, :root body .mt-crumbs a { color: rgba(255, 255, 255, .78); }
+:root body .mt-eyebrow { font-family: Outfit, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #7FC0FF; margin-bottom: 16px; }
+:root body .mt-h1, :root body .mt-h1 span { color: #FFFFFF; }
+:root body .mt-sub { color: rgba(255, 255, 255, .86); font-size: var(--fs-lead); line-height: var(--lh-lead); }
+:root body .mt-search-btn { background: #0074FF; border-radius: var(--r-pill); font-family: Outfit, sans-serif; font-weight: 600; }
+/* atrás do menu fixo sempre o azul da home (o Blog tinha fundo claro) */
+:root body { background-color: var(--azul-ceu); }
+:root body .pageContainer { background-color: transparent; }
