@@ -193,7 +193,7 @@ html_p.write_text(html, encoding='utf-8')
 
 # 15. Páginas internas: camada de grid e linguagem (site/copia/paginas.css) no <head>
 PAGINAS = ['morada-vendas', 'morada-relacionamento', 'conteudo', 'blog', 'quem-somos',
-           'conbral', 'direcional', 'fraiha']
+           'conbral', 'direcional', 'fraiha', 'imprensa']
 LINK_PAG = '<link rel="stylesheet" id="copia-paginas-css" href="../copia/paginas.css" media="all" />'
 for pag in PAGINAS:
     pp = SITE / pag / 'index.html'

@@ -249,3 +249,28 @@ html:has(.ceuX) { background: var(--azul-ceu) !important; }
 /* atrás do menu fixo sempre o azul da home (o Blog tinha fundo claro) */
 :root body { background-color: var(--azul-ceu); }
 :root body .pageContainer { background-color: transparent; }
+
+/* ---------- 7. Imprensa (copiada em 19/11/2026) ---------- */
+:root body .im3-wrap { max-width: var(--g-max); box-sizing: border-box; margin-left: auto; margin-right: auto; }
+@media (min-width: 992px) {
+  :root body .im3-dest { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .im3-ouca { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--g-gutter); }
+  :root body .im3-kit { grid-template-columns: var(--s5) minmax(0, 1fr); gap: var(--g-gutter); }
+  :root body .im3-final { grid-template-columns: var(--s8) minmax(0, 1fr); gap: var(--g-gutter); }
+}
+:root body .im3-sec:not(.im3-sec--resumo) { padding-top: var(--sec-y) !important; padding-bottom: 0 !important; }
+:root body .im3-sec#im3-faq { padding-bottom: var(--sec-y) !important; }
+:root body .im3-eb { font-family: Outfit, sans-serif; font-weight: 600; font-size: 13px; line-height: 18px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 16px; color: #7FC0FF; }
+:root body .im3-eb--esc { color: #0050B3; }
+:root body .im3-h2 { font-family: Outfit, sans-serif; font-weight: 600; font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: -.025em; margin-top: 0; }
+:root body .im3-lead { font-family: Lato, sans-serif; font-size: var(--fs-lead); line-height: var(--lh-lead); margin-top: 24px; }
+:root body .im3-btn {
+  border-radius: var(--r-pill) !important;
+  font-family: Outfit, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+:root body .im3-d, :root body .im3-o, :root body .im3-kit > *, :root body .im3-resumo-card, :root body .im3-sobre,
+:root body .im3-pauta, :root body .im3-fato { border-radius: var(--r-card); }
