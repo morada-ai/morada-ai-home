@@ -19,7 +19,7 @@
 
   // peça elástica de cada seção: variável CSS, faixa e quanto a altura muda por px da variável
   var ELASTICOS = {
-    funcoesV2:       { vars: ['--foco-w', '--foco-h'], max: 486, min: 280, fator: 1 },
+    funcoesV2:       { vars: ['--foco-w', '--foco-h'], max: 588, min: 280, fator: 1 },
     manifestoV2:     { vars: ['--video-w'],            max: 996, min: 520, fator: 9 / 16 },
     diferenciacaoV2: { vars: ['--linha-h'],            max: 80,  min: 52,  fator: 4 },
     credibilidadeV2: { vars: ['--cred-h'],             max: 480, min: 380, fator: 1 },

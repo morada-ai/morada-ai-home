@@ -182,6 +182,13 @@ if FRASE in html or VID in html:
 else:
     pulado('orquestração: centro sem a frase')
 
+# 14. Faixa de logos em branco: converte os logos de fundo chapado (script da cópia)
+if 'copia/logos.js' in html:
+    pulado('faixa de logos: logos brancos')
+else:
+    html = html.replace('</body>', '<script src="copia/logos.js" defer></script>\n</body>')
+    feito('faixa de logos: logos brancos')
+
 html_p.write_text(html, encoding='utf-8')
 print('Alterações da cópia:')
 print('\n'.join(relato))

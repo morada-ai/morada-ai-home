@@ -1,14 +1,11 @@
 /* Cópia genérica · "O que a Morada resolve" em carrossel de foco (18/11/2026)
    Pegada da referência (pin "Clean Motion Design Idea"): um cartão grande no centro,
    os vizinhos menores dos dois lados cortados pela tela, e embaixo só o nome da frente,
-   a frase e o link. Os três giram em círculo a cada 6 s.
-   Pausa: botão (obrigatório para conteúdo que se move sozinho), foco de teclado, fora da
-   tela, aba escondida e mouse em cima (no CSS, por :hover). Sem troca automática para
-   quem pede menos movimento. Setas trocam; clique no vizinho traz ele ao centro; no
-   celular, deslize. */
+   a frase e o link. Giram em círculo só quando a pessoa pede (desde 19/11/2026 não há
+   troca automática): setas nas laterais do cartão central, setas do teclado, clique no
+   vizinho e, no celular, deslize. */
 (function () {
   'use strict';
-  var INTERVALO = 6000;
 
   function iniciar() {
     var trilho = document.querySelector('.homeV2 .f3-bento');
@@ -17,10 +14,7 @@
     var n = cartoes.length;
     if (n < 3) return;
 
-    var menosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var atual = 0;
-    var motivos = {};
-    if (menosMovimento) motivos.sistema = true;
 
     trilho.classList.add('copia-foco');
     trilho.setAttribute('role', 'region');
@@ -59,53 +53,23 @@
       return it;
     });
 
-    // controles: três traços de progresso + pausa
-    var controles = document.createElement('div');
-    controles.className = 'copiaFocoControles';
-    controles.style.setProperty('--intervalo', INTERVALO + 'ms');
-    var lista = document.createElement('div');
-    lista.className = 'copiaFocoTracos';
-    lista.setAttribute('role', 'tablist');
-    lista.setAttribute('aria-label', 'Frentes da Morada');
-    var tracos = dados.map(function (d, i) {
+    // 19/11/2026: sem troca automática, sem traços e sem pausa; duas setas nas laterais do
+    // cartão central (na fresta entre ele e os vizinhos)
+    var seta = function (lado, rotulo, d) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'copiaFocoTraco';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', d.nome);
-      b.setAttribute('aria-controls', itens[i].id);
-      b.innerHTML = '<span class="copiaFocoTraco__barra" aria-hidden="true"></span>';
-      b.addEventListener('click', function () { ir(i, true); });
-      lista.appendChild(b);
+      b.className = 'copiaFocoSeta copiaFocoSeta--' + lado;
+      b.setAttribute('aria-label', rotulo);
+      b.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
+      trilho.appendChild(b);
       return b;
-    });
-    var pausa = document.createElement('button');
-    pausa.type = 'button';
-    pausa.className = 'copiaFocoPausa';
-    var icPausa = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>';
-    var icPlay = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
-    function desenharPausa() {
-      var parado = !!motivos.usuario || !!motivos.sistema;
-      pausa.innerHTML = parado ? icPlay : icPausa;
-      pausa.setAttribute('aria-label', parado ? 'Retomar a troca automática' : 'Pausar a troca automática');
-      pausa.setAttribute('aria-pressed', parado ? 'true' : 'false');
-    }
-    pausa.addEventListener('click', function () {
-      if (motivos.sistema) { delete motivos.sistema; } else if (motivos.usuario) { delete motivos.usuario; } else { motivos.usuario = true; }
-      desenharPausa(); aplicarPausa();
-    });
-    controles.appendChild(lista);
-    controles.appendChild(pausa);
-    desenharPausa();
+    };
+    var antes = seta('ant', 'Frente anterior', 'M15 18l-6-6 6-6');
+    var depois = seta('prox', 'Próxima frente', 'M9 18l6-6-6-6');
+    antes.addEventListener('click', function () { ir(atual - 1, true); });
+    depois.addEventListener('click', function () { ir(atual + 1, true); });
 
     trilho.parentNode.insertBefore(legenda, trilho.nextSibling);
-    legenda.parentNode.insertBefore(controles, legenda.nextSibling);
-
-    function aplicarPausa() {
-      var pausado = Object.keys(motivos).length > 0;
-      controles.classList.toggle('is-pausado', pausado);
-      controles.setAttribute('data-pausas', Object.keys(motivos).join(' '));
-    }
 
     // posição relativa ao centro: -1 (esquerda), 0 (centro), 1 (direita)
     function posicao(i) {
@@ -134,20 +98,10 @@
         it.setAttribute('aria-hidden', k === atual ? 'false' : 'true');
         Array.prototype.forEach.call(it.querySelectorAll('a'), function (a) { a.setAttribute('tabindex', k === atual ? '0' : '-1'); });
       });
-      tracos.forEach(function (t, k) {
-        t.setAttribute('aria-selected', k === atual ? 'true' : 'false');
-        t.setAttribute('tabindex', k === atual ? '0' : '-1');
-        t.classList.remove('is-ativo');
-      });
-      void tracos[atual].offsetWidth;            // reinicia a barra
-      tracos[atual].classList.add('is-ativo');
-      if (peloUsuario === 'teclado') tracos[atual].focus({ preventScroll: true });
+      var nomeDe = function (k) { return dados[(k + n) % n].nome; };
+      antes.setAttribute('aria-label', 'Anterior: ' + nomeDe(atual - 1));
+      depois.setAttribute('aria-label', 'Próxima: ' + nomeDe(atual + 1));
     }
-
-    // a barra do traço ativo enche em INTERVALO ms; quando termina, avança
-    lista.addEventListener('animationend', function (e) {
-      if (e.target.classList.contains('copiaFocoTraco__barra')) ir(atual + 1, false);
-    });
 
     // clique no vizinho traz ele ao centro (o do centro segue como link)
     cartoes.forEach(function (c, k) {
@@ -157,35 +111,10 @@
     });
 
     // teclado
-    [trilho, controles].forEach(function (el) {
-      el.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight') { e.preventDefault(); ir(atual + 1, 'teclado'); }
-        else if (e.key === 'ArrowLeft') { e.preventDefault(); ir(atual - 1, 'teclado'); }
-      });
+    trilho.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); ir(atual + 1, true); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); ir(atual - 1, true); }
     });
-
-    // pausas: foco de teclado, aba escondida, fora da tela (o mouse fica no CSS)
-    [trilho, legenda, controles].forEach(function (el) {
-      el.addEventListener('focusin', function (e) {
-        var teclado = true;
-        try { teclado = e.target.matches(':focus-visible'); } catch (err) { teclado = true; }
-        if (teclado) { motivos.foco = true; aplicarPausa(); }
-      });
-      el.addEventListener('focusout', function (e) {
-        var r = e.relatedTarget;
-        if (!(r && (trilho.contains(r) || legenda.contains(r) || controles.contains(r)))) { delete motivos.foco; aplicarPausa(); }
-      });
-    });
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) { motivos.aba = true; } else { delete motivos.aba; }
-      aplicarPausa();
-    });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) {
-        if (es[0].isIntersecting) { delete motivos.foraDaTela; } else { motivos.foraDaTela = true; }
-        aplicarPausa();
-      }, { threshold: 0.35 }).observe(trilho);
-    }
 
     // deslize no celular
     var x0 = null, y0 = null;
@@ -198,7 +127,6 @@
     }, { passive: true });
 
     ir(0, false);
-    aplicarPausa();
   }
 
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', iniciar); } else { iniciar(); }

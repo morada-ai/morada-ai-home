@@ -252,6 +252,36 @@ body.home main.homeV2 .partnersMarquee {
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
           mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
 }
+/* 19/11/2026: logos brancos (monocromáticos) em cartões de vidro azul, no tom do
+   painel da Credibilidade, em vez das placas brancas */
+body.home main.homeV2 .partnerLogo {
+  padding: 18px 22px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: var(--r-card, 12px);
+  background: linear-gradient(180deg, rgba(4, 34, 98, .38) 0%, rgba(4, 34, 98, .26) 100%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 14px 30px -20px rgba(0, 0, 0, .55);
+}
+body.home main.homeV2 .partnerLogo:hover {
+  border-color: rgba(255, 255, 255, .26);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 14px 30px -18px rgba(0, 0, 0, .6);
+}
+/* logo com fundo transparente: silhueta branca */
+body.home main.homeV2 .partnerLogo img {
+  filter: brightness(0) invert(1);
+  opacity: .88;
+  transition: opacity .2s ease;
+}
+/* logos com fundo branco chapado (jpg, png sem transparência, webp sem alfa) são
+   convertidos pelo site/copia/logos.js antes de aparecer; até lá ficam escondidos */
+body.home main.homeV2 .partnerLogo img[src*="partners/adn.png"],
+body.home main.homeV2 .partnerLogo img[src*="partners/mpd.png"],
+body.home main.homeV2 .partnerLogo img[src*="partners/patrimar.png"],
+body.home main.homeV2 .partnerLogo img[src*="partners/plano-e-plano.png"],
+body.home main.homeV2 .partnerLogo img[src*="partners/pernambuco-construtora.jpg"],
+body.home main.homeV2 .partnerLogo img[src*="partners/vic-engenharia.webp"] { opacity: 0; }
+body.home main.homeV2 .partnerLogo:hover img { opacity: 1; }
 
 /* ---------- 5. Raios ---------- */
 body.home main.homeV2 .h3-card,
@@ -583,12 +613,12 @@ body.home main.homeV2 .copiaCtaForm input.hs-button:focus-visible { outline: 3px
    tela, e embaixo só o nome, a frase e o link. Cartão central quadrado de 5 colunas
    (486 px), cantos de 12 px. */
 :root {
-  --foco-w: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 5 + 4 * var(--g-gutter));  /* 486 */
+  --foco-w: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 6 + 5 * var(--g-gutter));  /* 588 (era 5 colunas, 486) */
   --foco-h: var(--foco-w);
   --foco-escala: .72;
   --foco-vao: 32px;
 }
-@media (max-width: 1263px) { :root { --foco-w: min(48vw, 486px); } }
+@media (max-width: 1263px) { :root { --foco-w: min(54vw, 588px); } }
 @media (max-width: 767px)  { :root { --foco-w: 72vw; --foco-escala: .8; --foco-vao: 12px; } }
 
 body.home main.homeV2 .f3-bento.copia-foco {
@@ -691,75 +721,37 @@ body.home main.homeV2 .copiaFocoLegenda__link:hover { color: #FFFFFF; }
 body.home main.homeV2 .copiaFocoLegenda__link:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; border-radius: 4px; }
 body.home main.homeV2 .copiaFocoLegenda__link .h3-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* traços de progresso + pausa */
-body.home main.homeV2 .copiaFocoControles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 32px;
-}
-body.home main.homeV2 .copiaFocoTracos { display: flex; gap: 8px; }
-body.home main.homeV2 .copiaFocoTraco {
-  position: relative;
-  width: 48px;
-  height: 44px;            /* área de toque; o traço visível tem 2 px */
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-body.home main.homeV2 .copiaFocoTraco::before {
-  content: "";
+/* setas nas laterais do cartão central, na fresta entre ele e os vizinhos (19/11/2026) */
+body.home main.homeV2 .copiaFocoSeta {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 21px;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, .24);
-}
-body.home main.homeV2 .copiaFocoTraco__barra {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 21px;
-  height: 2px;
-  border-radius: 2px;
-  background: #FFFFFF;
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-body.home main.homeV2 .copiaFocoTraco.is-ativo .copiaFocoTraco__barra { animation: copia-progresso var(--intervalo, 6000ms) linear forwards; }
-body.home main.homeV2 .copiaFocoControles.is-pausado .copiaFocoTraco.is-ativo .copiaFocoTraco__barra { animation-play-state: paused; }
-body.home main.homeV2 .copiaFocoTraco:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; border-radius: 4px; }
-@keyframes copia-progresso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-/* mouse em cima do carrossel pausa (só com mouse; no toque o :hover gruda) */
-@media (hover: hover) {
-  body.home main.homeV2 .copia-foco:hover ~ .copiaFocoControles .copiaFocoTraco.is-ativo .copiaFocoTraco__barra,
-  body.home main.homeV2 .copiaFocoLegenda:hover ~ .copiaFocoControles .copiaFocoTraco.is-ativo .copiaFocoTraco__barra,
-  body.home main.homeV2 .copiaFocoControles:hover .copiaFocoTraco.is-ativo .copiaFocoTraco__barra { animation-play-state: paused; }
-}
-body.home main.homeV2 .copiaFocoPausa {
+  top: calc(var(--foco-topo, 48px) + var(--foco-h) / 2);
+  z-index: 3;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, .28);
   border-radius: var(--r-pill);
-  background: transparent;
+  background: rgba(8, 40, 110, .42);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px -14px rgba(0, 0, 0, .55);
   color: #FFFFFF;
   cursor: pointer;
-  transition: background .2s ease;
+  transform: translate(-50%, -50%);
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
 }
-body.home main.homeV2 .copiaFocoPausa:hover { background: rgba(255, 255, 255, .1); }
-body.home main.homeV2 .copiaFocoPausa:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+body.home main.homeV2 .copiaFocoSeta--ant  { left: calc(50% - var(--foco-w) / 2 - var(--foco-vao) / 2); }
+body.home main.homeV2 .copiaFocoSeta--prox { left: calc(50% + var(--foco-w) / 2 + var(--foco-vao) / 2); }
+body.home main.homeV2 .copiaFocoSeta:hover { background: rgba(8, 40, 110, .66); border-color: rgba(255, 255, 255, .5); }
+body.home main.homeV2 .copiaFocoSeta:active { transform: translate(-50%, -50%) scale(.94); }
+body.home main.homeV2 .copiaFocoSeta:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
 
 @media (max-width: 767px) {
   body.home main.homeV2 .f3-bento.copia-foco { height: calc(var(--foco-h) + 64px); }
   body.home main.homeV2 .copia-foco > .f3-card { top: 24px; box-shadow: 0 16px 32px -16px rgba(0, 0, 0, .6); }
-  body.home main.homeV2 .copiaFocoControles { margin-top: 24px; }
+  body.home main.homeV2 .copiaFocoSeta { width: 44px; height: 44px; --foco-topo: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
   body.home main.homeV2 .copia-foco > .f3-card,
@@ -1626,6 +1618,7 @@ body.home main.homeV2 .orq3-hub__marca .h3-assinatura { height: 26px; opacity: .
   /* Funções: trilho mais justo (a sombra ainda cabe nos 48 px de baixo) e frase numa linha */
   body.home main.homeV2 .f3-bento.copia-foco { height: calc(var(--foco-h) + 64px); }
   body.home main.homeV2 .copia-foco > .f3-card { top: 16px; }
+  body.home main.homeV2 .copiaFocoSeta { --foco-topo: 16px; }
   body.home main.homeV2 .copiaFocoLegenda__frase { max-width: 62ch; }
 
   /* Ecossistema: título numa linha; o cartão grande e o do podcast sem altura mínima fixa */
@@ -1653,3 +1646,58 @@ body.home main.homeV2 .orq3-hub__marca .h3-assinatura { height: 26px; opacity: .
 /* sem o Lenis do tema (toque, menos movimento), o assentamento fica com o CSS */
 html.copia-encaixe-css { scroll-snap-type: y proximity; scroll-padding-top: var(--nav-h, 0px); }
 html.copia-encaixe-css body.home main.homeV2 .sectionWrap { scroll-snap-align: start; }
+
+/* ---------- 19. Fim: a foto da cidade vira o fundo inteiro da chamada final (19/11/2026) ----------
+   Antes: céu claro em cima e a foto numa faixa embaixo, com um véu azul-claro cortando as
+   serras. Agora a panorâmica cobre a seção toda, com um véu azul-marinho da esquerda (onde
+   fica o texto, em branco) para a direita (onde fica o formulário). Vence as regras das
+   seções 12 e 18 pela especificidade (.finalCtaV2 repetida). */
+body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 {
+  aspect-ratio: auto;
+  padding-top: var(--sec-y, 128px) !important;
+  padding-bottom: var(--sec-y, 128px) !important;
+  min-height: min(760px, calc(100vh - var(--nav-h, 72px)));
+  display: flex;
+  align-items: center;
+}
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene {
+  inset: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  background-position: 50% 78%;
+  background-size: cover;
+}
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene::after {
+  background:
+    linear-gradient(90deg, rgba(0, 22, 58, .9) 0%, rgba(0, 22, 58, .74) 42%, rgba(0, 22, 58, .34) 100%),
+    linear-gradient(180deg, rgba(0, 22, 58, .35) 0%, rgba(0, 22, 58, 0) 30%, rgba(0, 22, 58, 0) 70%, rgba(0, 22, 58, .55) 100%);
+}
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Inner { flex: 1 1 auto; min-width: 0; }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaTexto { align-self: center; padding-top: 0; }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Kicker { color: #8FD3FF; }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Headline { color: #FFFFFF; }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Sub { color: rgba(255, 255, 255, .86); }
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, .72);
+}
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Note::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2aa3e6, #67e0c6);
+}
+body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaForm {
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
+}
+@media (max-width: 991px) {
+  body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 { min-height: 0; display: block; }
+  body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene { background-position: 50% 100%; }
+  body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene::after {
+    background: linear-gradient(180deg, rgba(0, 22, 58, .9) 0%, rgba(0, 22, 58, .78) 45%, rgba(0, 22, 58, .5) 100%);
+  }
+}
