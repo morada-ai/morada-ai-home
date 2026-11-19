@@ -70,6 +70,9 @@ const navNovo = paraSubpasta(navHome);
 
 const CSS_HOME = "<link rel='stylesheet' id='moradaai-v2-menu-home-css' href='../wp-content/themes/moradaai-v2/css/menuStyleHome.css' media='all' />";
 const JS_HOME = '<script id="moradaai-v2-menu-home-js" src="../wp-content/themes/moradaai-v2/js/mainMenuHome.js"></script>';
+const GRID_CSS = '<link rel="stylesheet" id="copia-grid-css" href="../copia/grid-proporcao.css" media="all" />';
+const fimHome = bloco(home, '<section id="finalCtaV2"');
+const FIM_HOME = fimHome ? '<main class="homeV2 copiaFimHome">\n' + paraSubpasta(fimHome) + '\n</main>' : null;
 
 for (const p of PAGINAS) {
   const f = path.join(SITE, p, 'index.html');
@@ -90,6 +93,30 @@ for (const p of PAGINAS) {
   // 3. JS: sai o do menu antigo (quebra sem a marcação dele), entra o da home
   h = h.replace(/<script[^>]*id="moradaai-v2-menu-js"[^>]*><\/script>\s*/g, () => { relato.push('js antigo fora'); return ''; });
   if (!h.includes('moradaai-v2-menu-home-js')) { h = h.replace('</body>', JS_HOME + '\n</body>'); relato.push('js da home'); }
+
+  // 4. fim da página: as duas faixas azul-marinho (pré-rodapé e formulário) dão lugar à
+  //    chamada final da home (cidade dissolvendo no céu + formulário), dentro de um
+  //    <main class="homeV2"> para valer o CSS da home sem mudança
+  const form = bloco(h, '<section style="background-color:#00203C; color:white;">');
+  if (form && FIM_HOME) {
+    const pre = bloco(h, '<section class="preFooter"');
+    const ini = pre && pre.ini < form.ini ? pre.ini : form.ini;
+    h = h.slice(0, ini) + FIM_HOME + h.slice(form.fim);
+    relato.push('chamada final da home');
+  }
+
+  // 5. <body class="… home">: liga as regras da camada da home (menu e chamada final)
+  h = h.replace(/<body class="([^"]*)"/, (m, c) => {
+    if (/(^|\s)home(\s|$)/.test(c)) return m;
+    relato.push('body.home');
+    return `<body class="${c} home"`;
+  });
+
+  // 6. camada da home (grid-proporcao.css) antes da camada das páginas
+  if (!h.includes('copia-grid-css')) {
+    h = h.replace('<link rel="stylesheet" id="copia-paginas-css"', GRID_CSS + '\n<link rel="stylesheet" id="copia-paginas-css"');
+    relato.push('camada da home');
+  }
 
   if (h !== antes) { fs.writeFileSync(f, h); console.log('  ok   ', p + ':', relato.join(', ')); }
   else console.log('  já   ', p);

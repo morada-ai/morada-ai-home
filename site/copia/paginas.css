@@ -274,3 +274,14 @@ html:has(.ceuX) { background: var(--azul-ceu) !important; }
 }
 :root body .im3-d, :root body .im3-o, :root body .im3-kit > *, :root body .im3-resumo-card, :root body .im3-sobre,
 :root body .im3-pauta, :root body .im3-fato { border-radius: var(--r-card); }
+
+/* ---------- 8. Chamada final da home nas páginas (19/11/2026) ----------
+   Na home ela fica no trecho claro do céu. Aqui a página é azul até o fim, então a
+   própria seção faz a mesma passagem do céu da home (azul → azul-claro) antes do
+   texto; a foto da cidade continua dissolvendo no azul-claro. */
+body.home main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 {
+  background: linear-gradient(180deg, #0D4D9B 0, #0073FF 96px, #1EA6FF 168px, #83DBFF 232px, #B6EAFF 288px, #B6EAFF 100%);
+  padding-top: calc(var(--sec-y) + 200px) !important;
+}
+/* Blog: a faixa "Pronto para dar o próximo passo?" repetia o convite da chamada final */
+:root body .mt-cta { display: none !important; }
