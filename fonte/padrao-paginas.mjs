@@ -118,6 +118,14 @@ for (const p of PAGINAS) {
     relato.push('camada da home');
   }
 
+  // 7. encaixe por tela da home: Lenis, rolagem suave e copia/encaixe.js
+  if (!h.includes('copia/encaixe.js')) {
+    const extra = (h.includes('lenis.min.js') ? '' : '<script src="../_cdn/cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" defer></script>\n') +
+      '<script src="../copia/rolagem.js" defer></script>\n<script src="../copia/encaixe.js" defer></script>\n';
+    h = h.replace('</body>', extra + '</body>');
+    relato.push('encaixe por tela');
+  }
+
   if (h !== antes) { fs.writeFileSync(f, h); console.log('  ok   ', p + ':', relato.join(', ')); }
   else console.log('  já   ', p);
 }

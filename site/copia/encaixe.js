@@ -38,12 +38,33 @@
   var raiz = document.documentElement;
   var navH = 0, ativo = false, assentando = false, timer = null, ultimoY = 0, sentido = 0;
 
-  // as seções ficam dentro de faixas de fundo (div.pageSky), não direto no <main>
+  // home: as seções ficam dentro de faixas de fundo (div.pageSky), não direto no <main>.
+  // Páginas internas (19/11/2026): as seções de primeiro nível do conteúdo da página, mais a
+  // chamada final da home; a primeira é o topo (como o #heroV2 da home) e as listas que só
+  // continuam a seção anterior (anos da Imprensa, resumo colado no topo) ficam de fora.
+  var PAGINA = !!document.querySelector('.pageContainer, .hubConteudo');
+  var FORA = '.MainNavSiteHome, .pageTemplate, .im3-ano, .im3-sec--resumo, .preFooter';
+  var cacheSecoes = null;
   function secoes() {
-    return Array.prototype.filter.call(document.querySelectorAll('main.homeV2 .sectionWrap'), function (s) {
-      return !s.parentNode.closest('.sectionWrap');
+    if (!PAGINA) {
+      return Array.prototype.filter.call(document.querySelectorAll('main.homeV2 .sectionWrap'), function (s) {
+        return !s.parentNode.closest('.sectionWrap');
+      });
+    }
+    if (cacheSecoes) return cacheSecoes;
+    var todas = document.querySelectorAll('.pageContainer section, .hubConteudo > section, .copiaFimHome > .sectionWrap');
+    cacheSecoes = Array.prototype.filter.call(todas, function (s) {
+      if (s.matches(FORA) || s.closest('.MainNavSiteHome, footer')) return false;
+      var pai = s.parentElement && s.parentElement.closest('section:not(.pageTemplate)');
+      if (pai) return false;
+      var c = getComputedStyle(s);
+      return c.display !== 'none' && c.position !== 'fixed' && s.offsetHeight > 120;
     });
+    if (cacheSecoes[0] && !cacheSecoes[0].id) cacheSecoes[0].id = 'copia-topo';
+    if (cacheSecoes[0]) TOPO = cacheSecoes[0].id;
+    return cacheSecoes;
   }
+  var TOPO = 'heroV2';
   function interno(s) { return s.querySelector(':scope > .h3.h3-in, :scope > .sectionInner'); }
   function alturaMenu() { var n = document.querySelector('.MainNavSiteHome'); return n ? Math.round(n.getBoundingClientRect().height) : 0; }
 
@@ -57,7 +78,7 @@
   }
 
   function encaixar(s, util) {
-    if (s.id === 'heroV2') return;
+    if (s.id === TOPO) return;
     var h = s.getBoundingClientRect().height;
     var nota = [];
     var e = ELASTICOS[s.id];
@@ -85,8 +106,9 @@
     if (h < util - 1 && !SEM_PREENCHER[s.id]) {
       var cs = getComputedStyle(s), folga = util - h;
       var pt = parseFloat(cs.paddingTop) || 0, pb = parseFloat(cs.paddingBottom) || 0;
-      if (s.id === 'finalCtaV2') { s.style.paddingTop = (pt + folga) + 'px'; }
-      else { s.style.paddingTop = (pt + folga / 2) + 'px'; s.style.paddingBottom = (pb + folga / 2) + 'px'; }
+      // com 'important': as camadas fixam o respiro das seções com !important
+      if (s.id === 'finalCtaV2') { s.style.setProperty('padding-top', (pt + folga) + 'px', 'important'); }
+      else { s.style.setProperty('padding-top', (pt + folga / 2) + 'px', 'important'); s.style.setProperty('padding-bottom', (pb + folga / 2) + 'px', 'important'); }
       nota.push('folga=' + Math.round(folga));
     }
     s.setAttribute('data-encaixe', nota.join(' ') || 'cabe');
@@ -109,7 +131,7 @@
   function alvos() {
     return secoes().map(function (s) {
       var top = s.getBoundingClientRect().top + scrollY;
-      return s.id === 'heroV2' ? 0 : Math.max(0, Math.round(top - navH));
+      return s.id === TOPO ? 0 : Math.max(0, Math.round(top - navH));
     });
   }
   function aoParar() {

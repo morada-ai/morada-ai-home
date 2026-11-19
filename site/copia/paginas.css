@@ -280,8 +280,8 @@ html:has(.ceuX) { background: var(--azul-ceu) !important; }
    própria seção faz a mesma passagem do céu da home (azul → azul-claro) antes do
    texto; a foto da cidade continua dissolvendo no azul-claro. */
 body.home main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 {
-  background: linear-gradient(180deg, #0D4D9B 0, #0073FF 96px, #1EA6FF 168px, #83DBFF 232px, #B6EAFF 288px, #B6EAFF 100%);
-  padding-top: calc(var(--sec-y) + 200px) !important;
+  background: linear-gradient(180deg, #0D4D9B 0, #0073FF 48px, #1EA6FF 88px, #83DBFF 124px, #B6EAFF 152px, #B6EAFF 100%);
+  padding-top: calc(var(--sec-y) + 104px) !important;
 }
 /* Blog: a faixa "Pronto para dar o próximo passo?" repetia o convite da chamada final */
 :root body .mt-cta { display: none !important; }
@@ -359,3 +359,18 @@ body.home main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 {
   padding-right: 24px !important;
 }
 :root body .mv-btn--ghost:hover, :root body .q3-btn:hover { background: rgba(255, 255, 255, .1) !important; }
+
+/* ---------- 10. Encaixe por tela, como na home (19/11/2026) ----------
+   No desktop (≥ 992 × 600) cada seção cabe entre o menu e o pé da tela: ritmo e títulos
+   fluidos pela altura (os mesmos valores da seção 18 da camada da home); o
+   copia/encaixe.js completa a seção curta até uma tela e assenta a rolagem no começo dela. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+@media (min-width: 992px) and (min-height: 600px) {
+  :root {
+    --sec-y: clamp(40px, 6.5vh, 112px);
+    --cab-gap: clamp(24px, 4vh, 56px);
+    --fs-h2: clamp(36px, 5.2vh, 48px);
+    --lh-h2: calc(var(--fs-h2) + 4px);
+  }
+}
