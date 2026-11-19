@@ -285,3 +285,77 @@ body.home main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 {
 }
 /* Blog: a faixa "Pronto para dar o próximo passo?" repetia o convite da chamada final */
 :root body .mt-cta { display: none !important; }
+
+/* ---------- 9. Cartões e botões da home (19/11/2026) ----------
+   Cada cartão das páginas cai num dos quatro tipos da home, com o mesmo fundo, borda e
+   sombra (tokens --u-* da camada da home): claro (branco → azul-gelo), royal (degradê
+   azul), azul-marinho e vidro. Fotos, telas de celular e maquetes de produto ficam
+   como estão. Botões: principal azul #0074FF; secundário em contorno. */
+:root body .mv3-claro, :root body .mv3-case,
+:root body .mr3-claro, :root body .mr3-branco, :root body .mr-form-card,
+:root body .hubCase, :root body .hubEventoCard, :root body .hubToolCard, :root body .hubAcademyItem,
+:root body .hubAcademyCard, :root body .hubArtigosInner, :root body .mt-card,
+:root body .q3-hist, :root body .q3-faq, :root body .q3-tile--branco, :root body .q3-tile--ceu,
+:root body .mc2 .fx, :root body .mc2 .hist:not(.fim), :root body .mc2 .ficha2, :root body .mc2 .agente3,
+:root body .mc2 .citacao, :root body .mc2 .form, :root body .mc2 .mid,
+:root body .im3-d:not(.im3-d--maior), :root body .im3-lista, :root body .im3-sobre, :root body .im3-faq {
+  background: var(--u-claro) !important;
+  border: 1px solid var(--u-claro-borda) !important;
+  box-shadow: var(--u-claro-sombra) !important;
+  border-radius: var(--r-card);
+}
+:root body .mv3-royal, :root body .mr3-royal,
+:root body .q3-nome, :root body .q3-pilar--royal, :root body .q3-tile--royal, :root body .q3-ev-card, :root body .q3-vagas,
+:root body .mc2 .vira-b, :root body .mc2 .hist.fim,
+:root body .im3-d--maior, :root body .im3-contato {
+  background: linear-gradient(140deg, #0074FF 0%, #0A54D6 45%, #0A3A9C 100%) !important;
+  border: 0 !important;
+  box-shadow: 0 40px 80px -40px rgba(0, 116, 255, .7) !important;
+  border-radius: var(--r-card);
+}
+:root body .mv-stats, :root body .hubPodcastCard, :root body .q3-os, :root body .q3-tile--navy, :root body .mc2 .outro {
+  background: var(--u-escuro) !important;
+  border: 1px solid var(--u-escuro-borda) !important;
+  box-shadow: var(--u-escuro-sombra) !important;
+  border-radius: var(--r-card);
+}
+:root body .mv3-vidro, :root body .mv3-compara, :root body .mr3-vidro,
+:root body .hubMaterialCard,
+:root body .q3-vidro, :root body .q3-stats, :root body .q3-ev, :root body .q3-time,
+:root body .mc2 .pv, :root body .mc2 .vira-a, :root body .mc2 .num,
+:root body .im3-resumo-card, :root body .im3-o, :root body .im3-k {
+  background: linear-gradient(180deg, rgba(4, 34, 98, .38) 0%, rgba(4, 34, 98, .26) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, .14) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 14px 30px -20px rgba(0, 0, 0, .55) !important;
+  border-radius: var(--r-card);
+}
+
+/* botões: principal */
+:root body .mv-btn:not(.mv-btn--ghost), :root body .mr-btn, :root body .hubAcademyBtn, :root body .hubSearchBtn,
+:root body .mt-search-btn, :root body .im3-btn, :root body .mc2 .btn:not(.btn--ghost):not(.ghost) {
+  background: #0074FF !important;
+  border: 0 !important;
+  color: #FFFFFF !important;
+  min-height: 48px;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  box-shadow: none;
+  transition: background .2s ease, transform .2s ease;
+}
+:root body .mv-btn:not(.mv-btn--ghost):hover, :root body .mr-btn:hover, :root body .hubAcademyBtn:hover, :root body .hubSearchBtn:hover,
+:root body .mt-search-btn:hover, :root body .im3-btn:hover, :root body .mc2 .btn:not(.btn--ghost):not(.ghost):hover {
+  background: #0062DB !important;
+  transform: translateY(-1px);
+}
+/* botões: secundário em contorno (fundo escuro) */
+:root body .mv-btn--ghost, :root body .q3-btn {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, .28) !important;
+  color: #FFFFFF !important;
+  min-height: 48px;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+:root body .mv-btn--ghost:hover, :root body .q3-btn:hover { background: rgba(255, 255, 255, .1) !important; }
