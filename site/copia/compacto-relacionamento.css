@@ -1,0 +1,144 @@
+/* =========================================================================
+   Cópia genérica · Morada Relacionamento em formato compacto (19/11/2026)
+   Com site/copia/compacto-relacionamento.js. Só no desktop (≥ 992 px); abaixo disso
+   cada seção mantém o empilhamento original. Sem JS, tudo continua aparecendo: só a
+   seção 1 (CSS puro, nada some) vale sem o script.
+   1. "Três frentes" (.mr3-frentes): título numa linha, os três cartões-foto mais
+      baixos e alinhados (sem o degrau do cartão do meio) e a faixa mais perto.
+   2. "Integração e Morada OS" (.mr3-erp): duas abas, "Integração com o ERP" (o
+      cartão royal) e "Telas do Morada OS" (as duas maquetes), uma por vez, no
+      mesmo palco (a mais alta define a altura, nada corta).
+   3. FAQ (.mr-faq): as 4 primeiras perguntas e o botão "Ver todas as perguntas (9)";
+      aberta, a lista inteira aparece e a seção cresce (sem redução do encaixe).
+   As classes copia-erp-on / copia-faq-on / copia-faq-todas são postas pelo JS.
+   ========================================================================= */
+
+@media (min-width: 992px) {
+
+  /* ---------- 1. Três frentes ---------- */
+  :root body.page-id-12513 .mr3-frentes .mr3-cab { max-width: none; margin-bottom: 24px; }
+  :root body.page-id-12513 .mr3-frentes .mr3-cab .mr3-h2 { max-width: none; }
+  :root body.page-id-12513 .mr3-frentes .mr3-frentes__g { align-items: stretch; }
+  /* 560 px + degrau de 56 → 46% da altura da tela (414 px em 900), sem degrau */
+  :root body.page-id-12513 .mr3-frentes .mr3-frente { min-height: clamp(360px, 46vh, 560px); }
+  :root body.page-id-12513 .mr3-frentes .mr3-frente:nth-child(2) { margin-top: 0; }
+  :root body.page-id-12513 .mr3-frentes .mr3-faixa { margin-top: 24px; }
+
+  /* ---------- 2. Integração e Morada OS: abas ---------- */
+  :root body.page-id-12513 .mr3-erp.copia-erp-on > .copiaErp {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 12px;
+    border-radius: 0;
+  }
+  /* abas: pílula de vidro com dois botões (mesmo vidro das setas da home) */
+  :root body.page-id-12513 .copiaAbas {
+    justify-self: start;
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: var(--r-pill, 999px);
+    background: rgba(8, 40, 110, .42);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px -14px rgba(0, 0, 0, .55);
+  }
+  :root body.page-id-12513 .copiaAbas__aba {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    margin: 0;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: var(--r-pill, 999px);
+    background: none;
+    color: rgba(255, 255, 255, .78);
+    font: 600 15px/1 Outfit, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+  }
+  :root body.page-id-12513 .copiaAbas__aba:hover { background-color: rgba(255, 255, 255, .06); color: #FFFFFF; }
+  :root body.page-id-12513 .copiaAbas__aba[aria-selected="true"] {
+    background-color: rgba(255, 255, 255, .14);
+    border-color: rgba(255, 255, 255, .28);
+    color: #FFFFFF;
+  }
+  :root body.page-id-12513 .copiaAbas__aba:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+  :root body.page-id-12513 .copiaAbas__num {
+    font: 600 13px/1 Outfit, sans-serif;
+    letter-spacing: .08em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, .42);
+    transition: color .3s ease;
+  }
+  :root body.page-id-12513 .copiaAbas__aba[aria-selected="true"] .copiaAbas__num { color: #7FC0FF; }
+
+  /* palco: os dois blocos empilhados na mesma célula; o ativo aparece */
+  :root body.page-id-12513 .copiaErp__palco { display: grid; grid-template-columns: minmax(0, 1fr); }
+  :root body.page-id-12513 .copiaErp__painel {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    border-radius: var(--r-card, 20px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
+  }
+  :root body.page-id-12513 .copiaErp__painel.is-ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .55s ease .1s, transform .55s ease .1s, visibility 0s;
+  }
+  :root body.page-id-12513 .copiaErp__painel:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; }
+  /* o cartão royal ocupa o palco inteiro (o conteúdo fica centrado nele) */
+  :root body.page-id-12513 .copiaErp__painel > .mr3-erp__g { width: 100%; height: 100%; margin: 0; }
+  :root body.page-id-12513 .copiaErp__painel > .mr3-os-telas { width: 100%; margin: 0; align-self: start; }
+
+  /* ---------- 3. FAQ: 4 perguntas + "Ver todas" ---------- */
+  :root body.page-id-12513 .mr-faq.copia-faq-on .mr-faq__item[hidden] { display: none !important; }
+  /* aberta, a seção cresce: a redução do encaixe não vale para ela */
+  :root body.page-id-12513 .mr-faq.copia-faq-todas > .mr3-wrap { zoom: 1 !important; }
+  /* botão secundário em contorno, versão para fundo claro */
+  :root body.page-id-12513 .copiaFaqMais {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    margin: 8px 0 0;
+    padding: 0 24px;
+    border: 1px solid #0050B3;
+    border-radius: var(--r-pill, 999px);
+    background: transparent;
+    color: #0050B3;
+    font: 600 16px/1 Outfit, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: pointer;
+    transition: background-color .2s ease, transform .2s ease;
+  }
+  :root body.page-id-12513 .copiaFaqMais:hover { background-color: rgba(0, 80, 179, .06); }
+  :root body.page-id-12513 .copiaFaqMais:active { transform: scale(.98); }
+  :root body.page-id-12513 .copiaFaqMais:focus-visible { outline: 2px solid #0050B3; outline-offset: 3px; }
+  :root body.page-id-12513 .copiaFaqMais svg { flex: 0 0 auto; transition: transform .3s ease; }
+  :root body.page-id-12513 .copiaFaqMais[aria-expanded="true"] svg { transform: rotate(180deg); }
+}
+
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  :root body.page-id-12513 .copiaAbas__aba,
+  :root body.page-id-12513 .copiaAbas__num,
+  :root body.page-id-12513 .copiaErp__painel,
+  :root body.page-id-12513 .copiaErp__painel.is-ativo,
+  :root body.page-id-12513 .copiaFaqMais,
+  :root body.page-id-12513 .copiaFaqMais svg { transition: none !important; }
+  :root body.page-id-12513 .copiaErp__painel { transform: none; }
+}

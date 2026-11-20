@@ -1,0 +1,203 @@
+/* =========================================================================
+   Cópia genérica · cases em formato compacto (19/11/2026)
+   Conbral, Direcional e Fraiha (mesmo modelo, tudo dentro de .mc2), com
+   site/copia/compacto-cases.js. Só no desktop (≥ 992 px); abaixo disso, e sem JS,
+   cada seção mantém o empilhamento original.
+   1. "Em resumo" (#resumo): a história (Desafio, Solução, Resultado) vira um palco
+      de 7 colunas com um passo por vez (abas + setas de vidro + deslize no toque);
+      a ficha do cliente fica ao lado, nas 5 colunas restantes, mais justa.
+   2. "Onde acontece" (#onde) com mapa alto (Direcional, 720 × 700): mapa e lista
+      em 6 + 6, o mapa mais baixo (recortado em volta dos pinos pelo JS) e a lista
+      mais justa. Os mapas baixos (Conbral, Fraiha) ficam como estão.
+   As classes copia-resumo-on / copia-onde-on são postas pelo JS.
+   ========================================================================= */
+
+/* sem JS ou abaixo de 992 px os controles não aparecem */
+:root body .mc2 .copiaHist__nav[hidden] { display: none !important; }
+
+@media (min-width: 992px) {
+
+  /* ---------- 1. Em resumo ---------- */
+  :root body .mc2 #resumo.copia-resumo-on > .w {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--g-gutter, 24px);
+    align-items: start;
+  }
+  :root body .mc2 #resumo.copia-resumo-on > .w > * { grid-column: 1 / -1; min-width: 0; }
+  :root body .mc2 #resumo.copia-resumo-on > .w > .olho { justify-self: start; }
+  /* título numa linha e a frase em duas */
+  :root body .mc2 #resumo.copia-resumo-on .h2 { max-width: none; }
+  :root body .mc2 #resumo.copia-resumo-on .frase {
+    max-width: none;
+    margin-top: 16px;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  /* coluna da história: 7 colunas (abas, palco, data) */
+  :root body .mc2 #resumo.copia-resumo-on .copiaHist__nav { grid-column: 1 / span 7; grid-row: 4; margin-top: 28px; }
+  :root body .mc2 #resumo.copia-resumo-on .historia {
+    grid-column: 1 / span 7;
+    grid-row: 5;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-top: 12px;
+    touch-action: pan-y;
+  }
+  :root body .mc2 #resumo.copia-resumo-on .atualizado { grid-column: 1 / span 7; grid-row: 6; margin-top: 12px; }
+
+  /* um passo por vez: os três cartões na mesma célula (o mais alto define a altura) */
+  :root body .mc2 #resumo.copia-resumo-on .historia > .hist {
+    grid-area: 1 / 1;
+    opacity: 0 !important;
+    visibility: hidden;
+    transform: translateX(16px) !important;
+    transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s !important;
+  }
+  :root body .mc2 #resumo.copia-resumo-on .historia > .hist.is-ativo {
+    opacity: 1 !important;
+    visibility: visible;
+    transform: none !important;
+    transition: opacity .45s ease .05s, transform .45s ease .05s, visibility 0s !important;
+  }
+  :root body .mc2 #resumo.copia-resumo-on .historia > .hist:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+  /* foto em faixa (mais baixa que o 3:2 original) e texto mais justo */
+  :root body .mc2 #resumo.copia-resumo-on .hist-foto {
+    aspect-ratio: auto;
+    height: clamp(180px, calc(100vh - 680px), 300px);
+  }
+  :root body .mc2 #resumo.copia-resumo-on .hist-txt { padding: 18px 24px 20px; }
+  :root body .mc2 #resumo.copia-resumo-on .hist.fim .hist-n { margin: 0 0 8px; font-size: 36px; }
+
+  /* abas dos passos (como o explorador da Credibilidade, na horizontal) */
+  :root body .mc2 #resumo .copiaHist__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  :root body .mc2 #resumo .copiaHist__abas { display: flex; flex-wrap: wrap; gap: 8px; }
+  :root body .mc2 #resumo .copiaHist__aba {
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 18px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: var(--r-pill, 999px);
+    background: rgba(255, 255, 255, .04);
+    box-shadow: none;
+    color: rgba(255, 255, 255, .78);
+    font: 600 15px/1 Outfit, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: pointer;
+    transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+  }
+  :root body .mc2 #resumo .copiaHist__aba:hover { background: rgba(255, 255, 255, .1); color: #FFFFFF; }
+  :root body .mc2 #resumo .copiaHist__aba[aria-selected="true"] { background: #FFFFFF; border-color: #FFFFFF; color: #0B1E3A; }
+  :root body .mc2 #resumo .copiaHist__aba:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+  :root body .mc2 #resumo .copiaHist__num {
+    font: 600 13px/1 Outfit, sans-serif;
+    letter-spacing: .08em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, .5);
+  }
+  :root body .mc2 #resumo .copiaHist__aba[aria-selected="true"] .copiaHist__num { color: #0074FF; }
+  :root body .mc2 #resumo .copiaHist__setas { display: flex; gap: 12px; flex: 0 0 auto; }
+
+  /* setas de vidro (as mesmas da home: .copiaFocoSeta) */
+  :root body .mc2 .copiaSeta {
+    -webkit-appearance: none;
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: var(--r-pill, 999px);
+    background: rgba(8, 40, 110, .42);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px -14px rgba(0, 0, 0, .55);
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease, opacity .2s ease;
+  }
+  :root body .mc2 .copiaSeta:hover { background: rgba(8, 40, 110, .66); border-color: rgba(255, 255, 255, .5); }
+  :root body .mc2 .copiaSeta:active { transform: scale(.94); }
+  :root body .mc2 .copiaSeta:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+  :root body .mc2 .copiaSeta[aria-disabled="true"] { opacity: .38; cursor: default; }
+  :root body .mc2 .copiaSeta[aria-disabled="true"]:hover { background: rgba(8, 40, 110, .42); border-color: rgba(255, 255, 255, .28); }
+  :root body .mc2 .copiaSeta[aria-disabled="true"]:active { transform: none; }
+  :root body .mc2 .copiaSeta svg { display: block; width: 20px; height: 20px; }
+
+  /* ficha ao lado: 5 colunas, da altura da coluna da história */
+  :root body .mc2 #resumo.copia-resumo-on .ficha2 {
+    grid-column: 8 / span 5;
+    grid-row: 4 / span 3;
+    align-self: stretch;
+    margin-top: 28px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-logo {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 14px 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--linha, #e1e7f0);
+    text-align: left;
+  }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-logo img { max-width: 120px; max-height: 44px; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-logo span { font-size: 13px; line-height: 1.4; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade { grid-auto-rows: auto; align-content: stretch; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade > div {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 2px 12px;
+    padding: 10px 16px;
+  }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade .ic { width: 36px; height: 36px; border-radius: 10px; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade .ic svg { width: 20px; height: 20px; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade dt { font-size: 11px; line-height: 1.4; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade dd { font-size: 14px; line-height: 1.3; }
+  /* 7 itens em 2 colunas: o último ocupa a linha inteira; a última linha sem filete embaixo */
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade > div:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade > div:last-child { border-bottom: 0; }
+  :root body .mc2 #resumo.copia-resumo-on .ficha-grade > div:nth-last-child(2):nth-child(odd) { border-bottom: 0; }   /* nº par de itens */
+
+  /* ---------- 2. Onde acontece (mapa alto) ---------- */
+  :root body .mc2 #onde.copia-onde-on .h2,
+  :root body .mc2 #onde.copia-onde-on .sub { max-width: none; }
+  :root body .mc2 #onde.copia-onde-on .atua3-grade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));   /* 6 + 6 */
+    gap: var(--g-gutter, 24px);
+    margin-top: 24px;
+  }
+  /* mais baixo: a altura cede à tela; o JS recorta o viewBox em volta dos pinos */
+  :root body .mc2 #onde.copia-onde-on .mapa3 svg {
+    height: auto;
+    max-height: clamp(320px, calc(100vh - var(--nav-h, 77px) - 2 * var(--sec-y, 58px) - 250px), 640px);
+  }
+  :root body .mc2 #onde.copia-onde-on .mapa3 figcaption { padding: 6px 16px; }
+  /* lista mais justa */
+  :root body .mc2 #onde.copia-onde-on .emps3 { gap: 8px; }
+  :root body .mc2 #onde.copia-onde-on .emp3 { gap: 12px; padding: 9px 14px; }
+  :root body .mc2 #onde.copia-onde-on .emp3-t strong { font-size: 15px; line-height: 1.3; }
+  :root body .mc2 #onde.copia-onde-on .emp3-t small { font-size: 12.5px; line-height: 1.35; }
+}
+
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  :root body .mc2 #resumo.copia-resumo-on .historia > .hist,
+  :root body .mc2 #resumo.copia-resumo-on .historia > .hist.is-ativo { transform: none !important; transition: none !important; }
+  :root body .mc2 #resumo .copiaHist__aba,
+  :root body .mc2 .copiaSeta { transition: none; }
+}

@@ -10,9 +10,9 @@
   // foto da Fraiha (não há no cartão da home): fachada aérea do 145 Vianna, da página do case
   var FOTO_EXTRA = { fraiha: 'wp-content/uploads/2026/11/fraiha-145-vianna-fachada-vista-aerea-1200.jpg' };
   // versões maiores para a foto em tela cheia
-  var FOTO_MAIOR = { simoplan: 'wp-content/uploads/2026/11/simoplan-altitude-cambui-fachada-1920.jpg' };
+  var FOTO_MAIOR = { simoplan: 'wp-content/uploads/2026/11/simoplan-fachada-2026.webp' };   // foto nova (19/11/2026), sem marca d'água
   // enquadramento de cada foto no cartão largo
-  var FOCO = { direcional: '50% 45%', fraiha: '62% 50%', conbral: '50% 55%', simoplan: '55% 40%' };
+  var FOCO = { direcional: '50% 45%', fraiha: '62% 50%', conbral: '50% 55%', simoplan: '50% 4%' };
   // logos em branco (copia/logos) para o cartão escuro; sem versão branca, usa o original numa pílula
   var LOGO_BRANCO = { direcional: 1, fraiha: 1, conbral: 1, simoplan: 1 };
   // tamanho óptico: todos os logos com a mesma área, sem passar da altura máxima

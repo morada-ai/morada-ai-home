@@ -1,0 +1,273 @@
+/* =========================================================================
+   Cópia genérica · Quem Somos em formato compacto (19/11/2026)
+   Com site/copia/compacto-quem-somos.js. Só no desktop (≥ 992 px); abaixo disso
+   cada seção mantém o empilhamento original. Sem JS, tudo continua aparecendo: só a
+   seção 3 (CSS puro, nada some) vale sem o script.
+   1. "O que fazemos" (#o-que-fazemos): o mosaico vira explorador, como a
+      Credibilidade da home: lista de 4 abas (4 colunas: Morada OS, MIA Pré-vendas,
+      MIA Copiloto, MIA Pós-vendas) e palco de 8 colunas com um cartão por vez.
+      Os quatro números e os dois módulos continuam à vista, embaixo.
+   2. "As pessoas" (#pessoas): foto do time mais baixa; os 5 líderes num carrossel
+      de uma linha (8 colunas, 3 por vez, setas de vidro) e o cartão de vagas ao
+      lado (4 colunas), mais justo.
+   3. Fechamento (.q3-fecho): sem a altura mínima de uma tela inteira; respiros
+      menores (o encaixe completa a seção até a tela).
+   As classes copia-faz-on / copia-pes-on são postas pelo JS.
+   ========================================================================= */
+
+@media (min-width: 992px) {
+
+  /* ---------- 1. O que fazemos: explorador ---------- */
+  :root body.page-id-18 #o-que-fazemos.copia-faz-on .q3-head { margin-bottom: 24px; }
+  :root body.page-id-18 #o-que-fazemos.copia-faz-on .q3-head .q3-h2 { max-width: none; }
+
+  :root body.page-id-18 .copiaFaz {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--g-gutter, 24px);
+    align-items: stretch;
+  }
+  :root body.page-id-18 .copiaFaz__lista {
+    grid-column: 1 / span 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  :root body.page-id-18 .copiaFaz__aba {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 64px;
+    margin: 0;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: var(--r-inner, 12px);
+    background: none;
+    color: #FFFFFF;
+    text-align: left;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: pointer;
+    transition: background-color .3s ease, border-color .3s ease;
+  }
+  :root body.page-id-18 .copiaFaz__aba::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 14px;
+    bottom: 14px;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #2aa3e6 0%, #67e0c6 35%, #7f67c8 70%, #ffed6b 100%);
+    transform: scaleY(0);
+    transition: transform .4s cubic-bezier(.65, 0, .35, 1);
+  }
+  :root body.page-id-18 .copiaFaz__aba:hover { background-color: rgba(255, 255, 255, .06); }
+  :root body.page-id-18 .copiaFaz__aba[aria-selected="true"] { background-color: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .18); }
+  :root body.page-id-18 .copiaFaz__aba[aria-selected="true"]::before { transform: scaleY(1); }
+  :root body.page-id-18 .copiaFaz__aba:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+  :root body.page-id-18 .copiaFaz__num {
+    flex: 0 0 auto;
+    font: 600 13px/1 Outfit, sans-serif;
+    letter-spacing: .08em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, .42);
+    transition: color .3s ease;
+  }
+  :root body.page-id-18 .copiaFaz__txt { display: block; min-width: 0; }
+  :root body.page-id-18 .copiaFaz__titulo {
+    display: block;
+    font: 600 15px/20px Outfit, sans-serif;
+    color: rgba(255, 255, 255, .78);
+    transition: color .3s ease;
+  }
+  :root body.page-id-18 .copiaFaz__sub {
+    display: block;
+    margin-top: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font: 400 13px/18px Lato, sans-serif;
+    color: rgba(255, 255, 255, .55);
+  }
+  :root body.page-id-18 .copiaFaz__aba[aria-selected="true"] .copiaFaz__num,
+  :root body.page-id-18 .copiaFaz__aba[aria-selected="true"] .copiaFaz__titulo { color: #FFFFFF; }
+
+  /* palco: o próprio mosaico, com os 4 cartões empilhados na mesma célula */
+  :root body.page-id-18 .copiaFaz > .q3-bento.copiaFaz__palco {
+    grid-column: 5 / span 8;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 0;
+    min-width: 0;
+    min-height: clamp(300px, 36vh, 420px);
+  }
+  :root body.page-id-18 .copiaFaz__painel {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    border-radius: var(--r-card, 20px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
+  }
+  :root body.page-id-18 .copiaFaz__painel.is-ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity .55s ease .1s, transform .55s ease .1s, visibility 0s;
+  }
+  :root body.page-id-18 .copiaFaz__painel:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; }
+  :root body.page-id-18 .copiaFaz__painel > .q3-os,
+  :root body.page-id-18 .copiaFaz__painel > .q3-foto { grid-column: auto; grid-row: auto; min-height: 0; height: 100%; }
+
+  /* Morada OS no palco largo: texto à esquerda (5 partes), diagrama à direita (7) */
+  :root body.page-id-18 .copiaFaz__painel > .q3-os {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: repeat(4, auto) minmax(0, 1fr);
+    column-gap: 32px;
+    row-gap: 12px;
+    align-content: center;
+    padding: 32px 40px;
+  }
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > .q3-eyebrow,
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > h3,
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > p,
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > .q3-selo,
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > .q3-link { grid-column: 1; }
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > .q3-diag { grid-column: 2; grid-row: 1 / 6; align-self: center; margin: 0; }
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > .q3-selo { justify-self: start; align-self: start; }
+  :root body.page-id-18 .copiaFaz__painel > .q3-os > .q3-link { align-self: end; margin-top: 0; }
+
+  /* números e módulos: continuam à vista, mais justos */
+  :root body.page-id-18 #o-que-fazemos.copia-faz-on .q3-stats { margin-top: 16px; padding-top: 18px; padding-bottom: 18px; }
+  :root body.page-id-18 #o-que-fazemos.copia-faz-on .q3-modulos { margin-top: 16px; }
+
+  /* ---------- 2. As pessoas: carrossel de líderes + vagas ---------- */
+  /* foto do time: de até 520 px para 34% da altura da tela (306 px em 900) */
+  :root body.page-id-18 #pessoas.copia-pes-on .q3-time { min-height: clamp(260px, 34vh, 520px); }
+
+  :root body.page-id-18 .copiaPes {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--g-gutter, 24px);
+    align-items: stretch;
+    margin-top: 24px;
+  }
+  :root body.page-id-18 .copiaPes__carrossel {
+    grid-column: 1 / span 8;
+    position: relative;
+    display: flex;
+    min-width: 0;
+  }
+  :root body.page-id-18 .copiaPes__janela {
+    flex: 1 1 auto;
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+    overflow: clip;
+    border-radius: 22px;
+  }
+  :root body.page-id-18 .copiaPes .q3-lideres {
+    position: relative;
+    display: flex;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    gap: var(--g-gutter, 24px);
+    transition: transform .5s cubic-bezier(.65, 0, .35, 1);
+  }
+  :root body.page-id-18 .copiaPes .q3-lider {
+    flex: 0 0 calc((100% - 2 * var(--g-gutter, 24px)) / 3);
+    min-width: 0;
+    min-height: 300px;
+    aspect-ratio: auto;
+  }
+  :root body.page-id-18 .copiaPes__aviso {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* setas de vidro (as mesmas do carrossel da home), por dentro das bordas */
+  :root body.page-id-18 .copiaSeta {
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: var(--r-pill, 999px);
+    background: rgba(8, 40, 110, .42);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px -14px rgba(0, 0, 0, .55);
+    color: #FFFFFF;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background .2s ease, border-color .2s ease, opacity .2s ease, transform .2s ease;
+  }
+  :root body.page-id-18 .copiaSeta--ant { left: 16px; }
+  :root body.page-id-18 .copiaSeta--prox { right: 16px; }
+  :root body.page-id-18 .copiaSeta:hover { background: rgba(8, 40, 110, .66); border-color: rgba(255, 255, 255, .5); }
+  :root body.page-id-18 .copiaSeta:active { transform: translateY(-50%) scale(.94); }
+  :root body.page-id-18 .copiaSeta:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+  :root body.page-id-18 .copiaSeta[aria-disabled="true"] { opacity: .35; cursor: default; }
+  :root body.page-id-18 .copiaSeta[aria-disabled="true"]:hover { background: rgba(8, 40, 110, .42); border-color: rgba(255, 255, 255, .28); }
+  :root body.page-id-18 .copiaSeta[aria-disabled="true"]:active { transform: translateY(-50%); }
+  :root body.page-id-18 .copiaSeta svg { display: block; width: 20px; height: 20px; }
+
+  /* vagas: 4 colunas, empilhado e mais justo */
+  :root body.page-id-18 .copiaPes > .q3-vagas {
+    grid-column: 9 / span 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    min-width: 0;
+    margin: 0;
+    padding: 28px;
+  }
+  :root body.page-id-18 .copiaPes > .q3-vagas h3 { max-width: none; margin-top: 12px; font-size: 28px; line-height: 1.12; }
+  :root body.page-id-18 .copiaPes > .q3-vagas p { max-width: none; margin-top: 10px; font-size: 16px; line-height: 1.5; }
+  :root body.page-id-18 .copiaPes > .q3-vagas .q3-btn { min-height: 48px; padding: 0 24px; }
+
+  /* ---------- 3. Fechamento: sem altura mínima de uma tela ---------- */
+  /* era min-height 100vh + respiros de 126 / 396 px (900 px de altura): passava em 77 px */
+  :root body.page-id-18 .q3-fecho {
+    min-height: 0;
+    padding-top: clamp(56px, 8vh, 96px);
+    padding-bottom: clamp(240px, 36vh, 400px);
+  }
+  :root body.page-id-18 .q3-fecho img.q3-fecho-cidade { height: clamp(260px, 40vh, 460px); min-height: 0; }
+}
+
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  :root body.page-id-18 .copiaFaz__aba,
+  :root body.page-id-18 .copiaFaz__aba::before,
+  :root body.page-id-18 .copiaFaz__num,
+  :root body.page-id-18 .copiaFaz__titulo,
+  :root body.page-id-18 .copiaFaz__painel,
+  :root body.page-id-18 .copiaFaz__painel.is-ativo,
+  :root body.page-id-18 .copiaPes .q3-lideres,
+  :root body.page-id-18 .copiaSeta { transition: none !important; }
+  :root body.page-id-18 .copiaFaz__painel { transform: none; }
+}

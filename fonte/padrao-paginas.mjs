@@ -29,6 +29,14 @@ function linksLocais(html, prefixo) {
   }
   return html;
 }
+// case Simoplan: foto nova da fachada (19/11/2026), no lugar da que tinha marca d'água
+function fotoSimoplan(html) {
+  const nova = 'wp-content/uploads/2026/11/simoplan-fachada-2026.webp';
+  if (!fs.existsSync(path.join(SITE, nova))) return html;
+  return html.split('wp-content/uploads/2026/11/simoplan-altitude-cambui-fachada-800.jpg').join(nova)
+    .split('wp-content/uploads/2026/11/simoplan-altitude-cambui-fachada-1920.jpg').join(nova);
+}
+
 // a home primeiro: o menu das páginas é derivado dela
 {
   const f = path.join(SITE, 'index.html');
@@ -52,7 +60,8 @@ function linksLocais(html, prefixo) {
       .split('partners/logo-mrv.webp').join('partners/mrv-2026.png');
     h1 = h1.slice(0, ini) + faixa + h1.slice(fim);
   }
-  if (h1 !== h0) { fs.writeFileSync(f, h1); console.log('  ok    home: links locais / integrações / logos'); }
+  h1 = fotoSimoplan(h1);
+  if (h1 !== h0) { fs.writeFileSync(f, h1); console.log('  ok    home: links locais / integrações / logos / foto da Simoplan'); }
 }
 
 // bloco <section ...> completo a partir da abertura (respeita seções aninhadas)
@@ -144,6 +153,9 @@ for (const p of PAGINAS) {
     h = h.replace('</body>', extra + '</body>');
     relato.push('encaixe por tela');
   }
+
+  // 9. foto nova do case Simoplan
+  { const h2 = fotoSimoplan(h); if (h2 !== h) { h = h2; relato.push('foto da Simoplan'); } }
 
   // 8. formato compacto das seções longas (carrossel, abas, "ver todas"): CSS + JS por página
   {

@@ -332,6 +332,59 @@ body.home main.homeV2 #integracoesV2 .cr3-checks li > span small {
 @media (min-width: 768px) {
   body.home main.homeV2 #integracoesV2 .cr3-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ---------- 5. Cada seção numa tela (19/11/2026) ----------
+   Como a seção 21 da camada fez na home: no desktop (≥ 992 × 600, a mesma faixa do
+   copia/encaixe.js) as seções cabem entre o menu e o pé da tela só com espaço e
+   densidade, sem zoom e sem tirar conteúdo. Celular e telas baixas: nada muda. */
+@media (min-width: 992px) and (min-height: 600px) {
+  /* Parceiros oficiais: os painéis ficam empilhados na mesma célula do palco e o mais
+     cheio (Softwares e Ferramentas, 7 parceiros) define a altura. Grade de 3 colunas,
+     placa de logo menor, nome e descrição numa linha cada (o texto inteiro continua no
+     HTML para leitores de tela) e a seta no canto do item. Alvo: palco ≤ ~480 px. */
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .mos-con__grupo { margin: 0 0 6px !important; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr + .mos-con__grupo { margin-top: 12px !important; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr__it { position: relative; gap: 10px; padding: 8px 24px 8px 8px; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr__logo { width: 72px; height: 40px; border-radius: var(--r-thumb); }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr__logo img { max-width: 62px; max-height: 30px; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr__txt {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr__txt small {
+    margin-top: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .cr3-pr__it > svg { position: absolute; top: 8px; right: 8px; margin: 0; }
+  /* grupos do mesmo painel na mesma grade de 3 colunas: CRM (4) na largura toda; ERP (2) e
+     Gestão Financeira (1) lado a lado na linha de baixo, com os itens do mesmo tamanho.
+     Nos painéis de um grupo só (a lista é o 1º filho), a lista ocupa a largura toda. */
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .pcr-grupos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 8px; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .pcr-grupos > * { grid-column: 1 / -1; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .pcr-grupos > :nth-child(3) { grid-row: 3; grid-column: 1 / span 2; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .pcr-grupos > :nth-child(4) { grid-row: 4; grid-column: 1 / span 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .pcr-grupos > :nth-child(5) { grid-row: 3; grid-column: 3; }
+  body.home main.homeV2 .copiaCred__palco .pcr-cat .pcr-grupos > :nth-child(6) { grid-row: 4; grid-column: 3; grid-template-columns: minmax(0, 1fr); }
+  /* links "Nossas integrações" numa linha só */
+  body.home main.homeV2 .copiaCred__palco .pcr-integ { gap: 0 12px; padding-top: 8px; }
+  body.home main.homeV2 .copiaCred__palco .pcr-integ .cr3-fonte { min-height: 28px; font-size: var(--fs-micro); }
+
+  /* Meta Business Partner: cartão escuro mais baixo (selo menor, respiro e vãos menores,
+     texto na largura do cartão em vez de 44ch); o cartão claro acompanha a altura */
+  body.home main.homeV2 #integracoesV2 .i3-os > .cr3-meta { padding: 28px 32px; gap: 12px; }
+  body.home main.homeV2 #integracoesV2 .cr3-selo { padding: 8px 14px; }
+  body.home main.homeV2 #integracoesV2 .cr3-selo img { width: 120px; }
+  body.home main.homeV2 #integracoesV2 .cr3-meta .cr3-p { max-width: none; }
+  body.home main.homeV2 #integracoesV2 .cr3-checks { gap: 8px; }
+  body.home main.homeV2 #integracoesV2 .cr3-checks li { padding: 10px 12px; }
+}
 </style>
 </head>
 <body class="home wp-singular page-template page-template-template-Home page-template-template-Home-php page page-id-15 wp-theme-moradaai-v2">

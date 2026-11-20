@@ -1,0 +1,56 @@
+/* =========================================================================
+   Cópia genérica · Imprensa em formato compacto (19/11/2026)
+   Com site/copia/compacto-imprensa.js. Só no desktop (≥ 992 px).
+   "Todas as publicações": ficam os filtros e só os itens do ano mais recente que
+   couberem na tela; o botão secundário "Ver todas as matérias (N)" abre a lista
+   inteira (aberta, a seção cresce, sem a redução do encaixe). Os filtros da página
+   continuam valendo, nos dois estados. Sem JS, ou abaixo de 992 px, a lista inteira
+   continua como antes. As classes copia-im-* são postas pelo JS.
+   ========================================================================= */
+
+:root body .im3-lista .copiaImMais[hidden] { display: none !important; }
+
+@media (min-width: 992px) {
+  /* compacta: anos seguintes e itens que não couberam saem da vista */
+  :root body .im3-sec.copia-im-compacta .copia-im-extra { display: none !important; }
+  /* aberta: a seção cresce inteira (sem o zoom de último recurso do encaixe) */
+  :root body .im3-sec.copia-im-aberta > .im3-wrap { zoom: 1 !important; }
+
+  :root body .im3-lista .copiaImMais {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  /* botão secundário em contorno, versão para fundo claro */
+  :root body .im3-lista .copiaImMais__btn {
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    margin: 0;
+    padding: 0 24px;
+    border: 1px solid #0050B3;
+    border-radius: var(--r-pill, 999px);
+    background: transparent;
+    box-shadow: none;
+    color: #0050B3;
+    font: 600 16px/1.2 Outfit, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    cursor: pointer;
+    transition: background-color .2s ease, transform .2s ease;
+  }
+  :root body .im3-lista .copiaImMais__btn:hover { background: rgba(0, 80, 179, .07); transform: translateY(-1px); }
+  :root body .im3-lista .copiaImMais__btn:focus-visible { outline: 2px solid #0050B3; outline-offset: 3px; }
+  :root body .im3-lista .copiaImMais__btn svg { display: block; width: 18px; height: 18px; transition: transform .25s ease; }
+  :root body .im3-lista .copiaImMais__btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+}
+
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  :root body .im3-lista .copiaImMais__btn,
+  :root body .im3-lista .copiaImMais__btn svg { transition: none; }
+  :root body .im3-lista .copiaImMais__btn:hover { transform: none; }
+}

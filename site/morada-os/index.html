@@ -336,6 +336,126 @@ body.home main.homeV2 #faq .h3-eb { color: #0050B3; text-shadow: none; }
 body.home main.homeV2 #em-breve .h3-h2,
 body.home main.homeV2 #faq .h3-h2 { color: var(--u-texto); text-shadow: none; }
 body.home main.homeV2 #faq .h3-lead { color: rgba(11, 30, 58, .78); }
+
+/* ---------- 7. Conectores em abas (com morada-os/compacto.js) ----------
+   Os quatro grupos da tela viram abas dentro da própria tela, um grupo por vez. As
+   listas ficam empilhadas na mesma célula (a mais longa define a altura, e a seção não
+   pula ao trocar de aba). No cartão claro ao lado fica à vista só o texto do grupo
+   ativo; os outros três continuam lá para leitores de tela. Sem JS, tudo como antes. */
+body.home main.homeV2 .mos-con.os-con-abas .mos-con__grupo { display: none; }
+body.home main.homeV2 .os-con__abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 12px;
+}
+body.home main.homeV2 .os-con__aba {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid #2C2F36;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: #A3AAB6;
+  font: 600 var(--fs-badge)/var(--lh-badge) Outfit, sans-serif;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+body.home main.homeV2 .os-con__aba:hover { color: #FFFFFF; border-color: #5A6170; }
+body.home main.homeV2 .os-con__aba[aria-selected="true"] { background: #FFFFFF; border-color: #FFFFFF; color: #1D1D1B; }
+body.home main.homeV2 .os-con__aba:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+body.home main.homeV2 .os-con__num { font-variant-numeric: tabular-nums; opacity: .64; }
+body.home main.homeV2 .os-con__paineis { display: grid; }
+body.home main.homeV2 .os-con__paineis > .mos-con__grade {
+  grid-area: 1 / 1;
+  align-self: start;
+  transition: opacity .3s ease;
+}
+body.home main.homeV2 .os-con__paineis > .mos-con__grade.is-oculto { visibility: hidden; opacity: 0; }
+body.home main.homeV2 .os-con__paineis > .mos-con__grade:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 4px; border-radius: var(--r-inner); }
+body.home main.homeV2 .i3-mia .os-con__fora {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.home main.homeV2 .os-con__aba,
+  body.home main.homeV2 .os-con__paineis > .mos-con__grade { transition: none; }
+}
+
+/* ---------- 8. FAQ: 4 perguntas à vista e "Ver todas" (com morada-os/compacto.js) ---------- */
+body.home main.homeV2 .os-faq.is-compacto > .os-faq__item:nth-child(n+5) { display: none; }
+body.home main.homeV2 .os-faq__mais { margin: 16px 0 0; text-align: center; }
+body.home main.homeV2 .os-faq__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  margin: 0;
+  padding: 0 24px;
+  border: 1px solid #0050B3;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: #0050B3;
+  font: 600 var(--fs-body)/1 Outfit, sans-serif;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+body.home main.homeV2 .os-faq__btn:hover { background-color: rgba(0, 80, 179, .08); }
+body.home main.homeV2 .os-faq__btn:focus-visible { outline: 2px solid #0050B3; outline-offset: 3px; }
+body.home main.homeV2 .os-faq__btn svg { transition: transform .3s ease; }
+body.home main.homeV2 .os-faq__btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  body.home main.homeV2 .os-faq__btn,
+  body.home main.homeV2 .os-faq__btn svg { transition: none; }
+}
+
+/* ---------- 9. Cada seção numa tela (19/11/2026) ----------
+   Como a seção 21 da camada fez na home: no desktop (≥ 992 × 600, a mesma faixa do
+   copia/encaixe.js) as seções cabem entre o menu e o pé da tela só com espaço e
+   densidade, sem zoom e sem tirar conteúdo. Celular e telas baixas: nada muda. */
+@media (min-width: 992px) and (min-height: 600px) {
+  /* Conectores: a tela fica com um grupo por vez (seção 7); o rodapé MCP mais perto */
+  body.home main.homeV2 #conectores .mos-con__mcp { margin-top: 12px !important; }
+
+  /* Habilidades: trilho com 32 px para a sombra (a sombra do cartão ocupa 24) e a legenda
+     em 10 colunas, para a frase caber em 2 linhas sem descer do tamanho de apoio */
+  body.home main.homeV2 #funcoesV2 .f3-bento.copia-foco { height: calc(var(--foco-h) + 32px); }
+  body.home main.homeV2 #funcoesV2 .copia-foco > .f3-card { top: 8px; }
+  body.home main.homeV2 #funcoesV2 .copiaFocoSeta { --foco-topo: 8px; }
+  body.home main.homeV2 #funcoesV2 .copiaFocoLegenda {
+    max-width: calc((var(--g-max) - 11 * var(--g-gutter)) / 12 * 10 + 9 * var(--g-gutter));
+    margin-top: 4px;
+  }
+  body.home main.homeV2 #funcoesV2 .copiaFocoLegenda__frase { max-width: none; margin-top: 8px; }
+  body.home main.homeV2 #funcoesV2 .copiaFocoLegenda__rod { margin-top: 10px; }
+
+  /* Governança: apoio do cabeçalho em 8 colunas (3 linhas em vez de 4), números mais
+     baixos e os quatro pilares (6 + 6) com respiro e vão menores */
+  body.home main.homeV2 #governanca .h3-lead { max-width: none; }
+  body.home main.homeV2 #governanca .socialProofV2Stats.os-numeros { margin-bottom: 16px; }
+  body.home main.homeV2 #governanca .os-numeros .socialProofV2Stat { padding-top: 8px; padding-bottom: 8px; }
+  body.home main.homeV2 #governanca .os-numeros .socialProofV2StatLabel { max-width: 40ch; }   /* 2 linhas em vez de 3 */
+  body.home main.homeV2 #governanca .cr3-bento.os-grade-2 > .cr3-b { padding: 20px 32px; gap: 8px; }
+
+  /* Implantação: abas das etapas mais baixas, palco no tamanho delas (o conteúdo de cada
+     etapa ocupa ~220 px) e a faixa das garantias mais baixa e mais perto */
+  body.home main.homeV2 #credibilidadeV2 .copiaCred__lista { gap: 6px; }
+  body.home main.homeV2 #credibilidadeV2 .copiaCred__aba { min-height: 52px; padding-top: 6px; padding-bottom: 6px; }
+  body.home main.homeV2 #credibilidadeV2 .copiaCred__palco { min-height: min(var(--cred-h, 480px), 300px); }
+  body.home main.homeV2 #credibilidadeV2 .cr3-checks.os-garantias { margin-top: 16px; }
+  body.home main.homeV2 #credibilidadeV2 .os-garantias li { padding-top: 8px; padding-bottom: 8px; }
+
+  /* FAQ: lista e botão mais perto do fecho */
+  body.home main.homeV2 #faq .os-faq__fim { margin-top: 24px; }
+}
 </style>
 </head>
 <body class="home wp-singular page-template page-template-template-Home page-template-template-Home-php page page-id-15 wp-theme-moradaai-v2">
@@ -1711,5 +1831,6 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 <script src="../copia/credibilidade.js" defer></script>
 <script src="../copia/encaixe.js" defer></script>
 <script src="ajustes.js" defer></script>
+<script src="compacto.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,89 @@
+/* =========================================================================
+   Cópia genérica · blog em formato compacto (19/11/2026)
+   Com site/copia/compacto-blog.js. Só no desktop (≥ 992 px).
+   Cada trilha (section.mt-sec) mostra os cartões numa linha só: carrossel de 3 por
+   vez, com setas de vidro no cabeçalho (ao lado da contagem) e deslize no toque
+   (rolagem lateral nativa com encaixe). O "Ver mais" continua: aberto, a trilha volta
+   à grade completa e pode crescer. A busca continua filtrando os cartões do carrossel.
+   Sem JS, ou abaixo de 992 px, a grade original de 2 linhas continua.
+   A classe copia-trilho é posta pelo JS.
+   ========================================================================= */
+
+:root body .mt-trilhas .copiaTrilho__nav[hidden] { display: none !important; }
+:root body .mt-trilhas .copiaTrilho__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 992px) {
+  /* cabeçalho: selo · título e apoio · contagem · setas */
+  :root body .mt-trilhas .mt-sec.copia-trilho .mt-head { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+  :root body .mt-trilhas .copiaTrilho__nav {
+    align-self: end;
+    display: flex;
+    gap: 12px;
+  }
+
+  /* trilho de uma linha, 3 cartões por vez (cada um com 4 colunas do grid) */
+  :root body .mt-trilhas .mt-sec.copia-trilho:not(.is-open) .mt-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 2 * var(--g-gutter, 24px)) / 3);
+    gap: var(--g-gutter, 24px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 6px;
+    /* respiro para o hover, a sombra e o anel de foco dos cartões não serem cortados;
+       a margem negativa devolve a largura exata das 12 colunas */
+    padding: 6px 6px 28px;
+    margin: -6px -6px -28px;
+    scrollbar-width: none;
+  }
+  :root body .mt-trilhas .mt-sec.copia-trilho:not(.is-open) .mt-grid::-webkit-scrollbar { display: none; }
+  :root body .mt-trilhas .mt-sec.copia-trilho:not(.is-open) .mt-card { scroll-snap-align: start; }
+  :root body .mt-trilhas .mt-sec.copia-trilho:not(.is-open) .mt-grid:focus-visible { outline: 2px solid #0050B3; outline-offset: 2px; border-radius: var(--r-card, 20px); }
+
+  /* aberta ("Ver mais"): a trilha cresce com a grade inteira, sem a redução do encaixe */
+  :root body .mt-trilhas .mt-sec.copia-trilho.is-open > .mt-wrap { zoom: 1 !important; }
+
+  /* setas de vidro (as da home, na versão para fundo claro: contorno e chevron #0050B3) */
+  :root body .mt-trilhas .copiaSeta {
+    -webkit-appearance: none;
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(0, 80, 179, .28);
+    border-radius: var(--r-pill, 999px);
+    background: rgba(255, 255, 255, .62);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px -14px rgba(4, 18, 53, .35);
+    color: #0050B3;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease, opacity .2s ease;
+  }
+  :root body .mt-trilhas .copiaSeta:hover { background: rgba(255, 255, 255, .92); border-color: rgba(0, 80, 179, .5); }
+  :root body .mt-trilhas .copiaSeta:active { transform: scale(.94); }
+  :root body .mt-trilhas .copiaSeta:focus-visible { outline: 2px solid #0050B3; outline-offset: 3px; }
+  :root body .mt-trilhas .copiaSeta[aria-disabled="true"] { opacity: .38; cursor: default; }
+  :root body .mt-trilhas .copiaSeta[aria-disabled="true"]:hover { background: rgba(255, 255, 255, .62); border-color: rgba(0, 80, 179, .28); }
+  :root body .mt-trilhas .copiaSeta[aria-disabled="true"]:active { transform: none; }
+  :root body .mt-trilhas .copiaSeta svg { display: block; width: 20px; height: 20px; }
+}
+
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  :root body .mt-trilhas .copiaSeta { transition: none; }
+}
