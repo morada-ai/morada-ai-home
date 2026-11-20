@@ -43,7 +43,16 @@ function linksLocais(html, prefixo) {
     const i = h1.indexOf(acoes), fimA = h1.indexOf('</a>', i) + 4;
     h1 = h1.slice(0, fimA) + links[0] + h1.slice(fimA);
   }
-  if (h1 !== h0) { fs.writeFileSync(f, h1); console.log('  ok    home: links locais / integrações'); }
+  // Faixa de logos (19/11/2026): logos novos da Novolar e da MRV, recortados rente ao
+  // desenho. Só dentro da faixa: a janela "Crie sua MIA" continua com os coloridos
+  const ini = h1.indexOf('<div class="partnersMarquee"'), fim = ini < 0 ? -1 : h1.indexOf('</div>', h1.indexOf('</ul>', ini));
+  if (ini >= 0 && fim > ini) {
+    const faixa = h1.slice(ini, fim)
+      .split('partners/novolar.svg').join('partners/novolar-2026.png')
+      .split('partners/logo-mrv.webp').join('partners/mrv-2026.png');
+    h1 = h1.slice(0, ini) + faixa + h1.slice(fim);
+  }
+  if (h1 !== h0) { fs.writeFileSync(f, h1); console.log('  ok    home: links locais / integrações / logos'); }
 }
 
 // bloco <section ...> completo a partir da abertura (respeita seções aninhadas)
@@ -134,6 +143,21 @@ for (const p of PAGINAS) {
       '<script src="../copia/rolagem.js" defer></script>\n<script src="../copia/encaixe.js" defer></script>\n';
     h = h.replace('</body>', extra + '</body>');
     relato.push('encaixe por tela');
+  }
+
+  // 8. formato compacto das seções longas (carrossel, abas, "ver todas"): CSS + JS por página
+  {
+    const nome = { 'morada-relacionamento': 'compacto-relacionamento', 'quem-somos': 'compacto-quem-somos',
+      conbral: 'compacto-cases', direcional: 'compacto-cases', fraiha: 'compacto-cases',
+      blog: 'compacto-blog', imprensa: 'compacto-imprensa' }[p];
+    if (nome && fs.existsSync(path.join(SITE, 'copia', nome + '.css')) && !h.includes('copia/' + nome + '.css')) {
+      h = h.replace('</head>', '<link rel="stylesheet" id="copia-compacto-css" href="../copia/' + nome + '.css" media="all" />\n</head>');
+      relato.push('compacto css');
+    }
+    if (nome && fs.existsSync(path.join(SITE, 'copia', nome + '.js')) && !h.includes('copia/' + nome + '.js')) {
+      h = h.replace('</body>', '<script src="../copia/' + nome + '.js" defer></script>\n</body>');
+      relato.push('compacto js');
+    }
   }
 
   if (h !== antes) { fs.writeFileSync(f, h); console.log('  ok   ', p + ':', relato.join(', ')); }

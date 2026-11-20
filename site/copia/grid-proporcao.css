@@ -288,7 +288,8 @@ body.home main.homeV2 .partnerLogo img[src*="partners/mpd.png"],
 body.home main.homeV2 .partnerLogo img[src*="partners/patrimar.png"],
 body.home main.homeV2 .partnerLogo img[src*="partners/plano-e-plano.png"],
 body.home main.homeV2 .partnerLogo img[src*="partners/pernambuco-construtora.jpg"],
-body.home main.homeV2 .partnerLogo img[src*="partners/vic-engenharia.webp"] { opacity: 0; }
+body.home main.homeV2 .partnerLogo img[src*="partners/vic-engenharia.webp"],
+body.home main.homeV2 .partnerLogo img[src*="partners/novolar-2026.png"] { opacity: 0; }
 body.home main.homeV2 .partnerLogo:hover img { opacity: 1; }
 
 /* ---------- 5. Raios ---------- */
