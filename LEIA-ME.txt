@@ -1,5 +1,7 @@
 MORADA.AI — cópia estática do site (https://morada.ai), tirada em 17/11/2026
              e atualizada em 18/11/2026 (home, Relacionamento e Quem Somos reformuladas)
+             e em 19/11/2026 (todas as páginas no sistema da home; Imprensa, Parceiros
+             e Morada OS trazidos para dentro da cópia)
 
 NO AR
     Vercel (time morada-back):  https://morada-ai-home.vercel.app
@@ -119,10 +121,32 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
     que já está aplicado.
     A camada site/copia/grid-proporcao.css não é tocada pela atualização.
 
+    19/11/2026 · Um sistema só em todas as páginas (o mesmo design da home)
+      - Grid: container de 1200, 12 colunas, gutter 24, em todas as páginas; toda caixa
+        começa e termina numa coluna. Sobretítulo, título, apoio, botões (pílula azul
+        #0074FF e contorno) e os quatro tipos de cartão da home (claro, royal,
+        azul-marinho, vidro) aplicados às páginas internas.
+        Camada: site/copia/paginas.css (link id="copia-paginas-css" em cada página).
+      - Menu, céu azul com estrelas, chamada final (cidade + formulário) e rodapé da home
+        em todas as páginas; <body> ganha a classe "home" e a camada grid-proporcao.css.
+        Feito pelo fonte/padrao-paginas.mjs (Node), que o alteracoes.py chama no passo 16.
+      - Encaixe por tela em todas as páginas: cada seção cabe entre o menu e o pé da
+        tela (medido em 1440×900 e 1920×1080), com a mesma rolagem suave (Lenis).
+        Seções longas viraram formato compacto (abas, carrossel com setas de vidro,
+        "Ver todas"): site/copia/compacto-*.css/js e site/morada-os/compacto.js.
+        Redução proporcional só como último recurso (home: telas < 820 px de altura;
+        páginas internas: até 76%). Arquivos: site/copia/encaixe.js e rolagem.js.
+      - Home: faixa de logos em branco sobre vidro (site/copia/logos.js converte os
+        de fundo chapado), logos novos da Novolar e da MRV, carrossel com setas e sem
+        troca automática, chamada final com a cidade nascendo do céu da página.
+      - Case Simoplan: foto nova da fachada (simoplan-fachada-2026.webp), sem marca d'água.
+
 PÁGINAS COPIADAS (as dos menus do site)
 
     Home ..................... site/index.html
     Soluções
+      Morada OS .............. site/morada-os/index.html   (montada com os componentes
+                               da home a partir de os.morada.ai; não é espelhada)
       Morada Vendas .......... site/morada-vendas/index.html
       Morada Relacionamento .. site/morada-relacionamento/index.html
     Resultados (cases da home)
@@ -134,19 +158,22 @@ PÁGINAS COPIADAS (as dos menus do site)
       Blog ................... site/blog/index.html
     Sobre
       Quem Somos ............. site/quem-somos/index.html
+      Imprensa ............... site/imprensa/index.html   (espelhada de morada.ai/imprensa)
+      Parceiros e integrações  site/parceiros/index.html  (montada com os componentes
+                               da home a partir de partners.morada.ai; não é espelhada)
 
     Na Vercel cada uma abre no mesmo endereço do site original
     (ex.: morada-ai-home.vercel.app/quem-somos/).
 
-    Continuam indo para o site no ar: Morada OS (os.morada.ai) e Parceiros
-    (partners.morada.ai), que são outros sites; Carreiras (plataforma da TOTVS);
-    os 149 posts do blog (a listagem está copiada, cada post abre no morada.ai);
-    Política de Privacidade e demais páginas fora dos menus.
+    Continuam indo para fora: Carreiras (plataforma da TOTVS); as páginas de detalhe
+    e de contato de cada parceiro (partners.morada.ai); os 149 posts do blog (a
+    listagem está copiada, cada post abre no morada.ai); Política de Privacidade e
+    demais páginas fora dos menus.
 
 site/
     Cópia que abre offline (duplo clique em qualquer index.html) e é a que vai para a
-    Vercel. 9 páginas + 534 arquivos do tema (CSS, JS, imagens, vídeos, ícones),
-    161 MB, caminhos relativos. Os links entre as páginas copiadas navegam dentro da cópia.
+    Vercel. 12 páginas + arquivos do tema (CSS, JS, imagens, vídeos, ícones), cerca de
+    200 MB, caminhos relativos. Os links entre as páginas copiadas navegam dentro da cópia.
 
 fonte/originais/
     O HTML de cada página exatamente como o servidor entrega, sem nenhuma alteração
@@ -193,3 +220,9 @@ PARA ATUALIZAR A CÓPIA (Terminal, dentro desta pasta)
 
     python3 fonte/alteracoes.py
     Depois: git add -A && git commit -m "atualiza a cópia" && git push
+
+    O alteracoes.py chama o node fonte/padrao-paginas.mjs (precisa do Node), que pode
+    ser rodado sozinho e quantas vezes quiser. A Imprensa entra na atualização igual às
+    outras (acrescente https://morada.ai/imprensa/ no curl e no espelhar.mjs).
+    Parceiros e Morada OS não são espelhados: são páginas próprias da cópia e não são
+    tocadas pela atualização.
