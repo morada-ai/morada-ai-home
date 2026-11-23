@@ -215,5 +215,22 @@ if r.returncode == 0:
 else:
     print('AVISO: fonte/padrao-paginas.mjs falhou (precisa do Node):', r.stderr.strip())
 
+# 17. Relacionamento: a foto da obra nasce do céu azul da página (céu do dia trocado pelo
+#     azul, linha a linha, com brilho no horizonte; feito por fonte/tratar-foto-ceu.py)
+FOTO_REL = 'relacionamento-obra-15h-ceu.jpg'
+destino = SITE / 'wp-content' / 'uploads' / '2026' / '11' / FOTO_REL
+if not destino.exists():
+    shutil.copyfile(RAIZ / 'fonte' / 'alteracoes' / 'relacionamento' / FOTO_REL, destino)
+pp = SITE / 'morada-relacionamento' / 'index.html'
+ph = pp.read_text(encoding='utf-8')
+ANT = 'class="ceuX-predios" src="../wp-content/uploads/2026/11/relacionamento-obra-15h.jpg"'
+if FOTO_REL in ph:
+    pulado('relacionamento: foto da obra no céu azul')
+elif ANT in ph:
+    pp.write_text(ph.replace(ANT, ANT.replace('relacionamento-obra-15h.jpg', FOTO_REL)), encoding='utf-8')
+    feito('relacionamento: foto da obra no céu azul')
+else:
+    print('AVISO: a foto do topo do Relacionamento mudou no site; trate a nova com fonte/tratar-foto-ceu.py')
+
 print('Alterações da cópia:')
 print('\n'.join(relato))

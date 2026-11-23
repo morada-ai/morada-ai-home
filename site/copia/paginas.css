@@ -417,3 +417,32 @@ html.lenis, html.lenis body { height: auto; }
   /* chamada final da home nas páginas: passagem do céu um pouco mais curta */
   body.home main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 { padding-top: calc(var(--sec-y) + 80px) !important; }
 }
+
+/* ---------- 12. Relacionamento: topo encaixado (23/11/2026) ----------
+   - A foto da obra nasce do céu azul: o céu do dia foi trocado pelo azul da página
+     (relacionamento-obra-15h-ceu.jpg, passo 17 do alteracoes.py).
+   - O topo ocupa a tela exata (do menu ao pé) e o cartão dos números sobe sobre a foto,
+     como na Vendas: aparece no pé da primeira tela e convida a rolar. Antes ele ficava
+     sozinho numa tela azul vazia. O encaixe trata os números como continuação do topo.
+   - A legenda do celular no vidro escuro dos selos, com o mesmo fio fino. */
+@media (min-width: 992px) {
+  :root body .mr-landing .mr3-hero {
+    box-sizing: border-box;
+    min-height: calc(100vh - var(--home-header-h, 77px));
+    min-height: calc(100svh - var(--home-header-h, 77px));
+    padding-bottom: 104px;
+  }
+  :root body .mr-landing .mr3-nums { position: relative; z-index: 2; margin-top: -76px; padding-top: 0 !important; }
+  /* telas baixas: o celular encolhe junto, para o cartão dos números ainda aparecer no pé */
+  :root body .mr-landing .mr3-hero .mr-chat__screen { height: clamp(400px, calc(100vh - 330px), 548px); }
+}
+:root body .mr-landing .mr3-hero .mr-chat figcaption {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(4, 18, 53, .5);
+  color: rgba(255, 255, 255, .86);
+  font-size: var(--fs-micro);
+  line-height: var(--lh-micro);
+  text-align: center;
+}

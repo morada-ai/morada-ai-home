@@ -49,9 +49,10 @@
   // home: as seções ficam dentro de faixas de fundo (div.pageSky), não direto no <main>.
   // Páginas internas (19/11/2026): as seções de primeiro nível do conteúdo da página, mais a
   // chamada final da home; a primeira é o topo (como o #heroV2 da home) e as listas que só
-  // continuam a seção anterior (anos da Imprensa, resumo colado no topo) ficam de fora.
+  // continuam a seção anterior (anos da Imprensa, resumo colado no topo, números encaixados
+  // no pé do topo do Relacionamento) ficam de fora.
   var PAGINA = !!document.querySelector('.pageContainer, .hubConteudo');
-  var FORA = '.MainNavSiteHome, .pageTemplate, .im3-ano, .im3-sec--resumo, .preFooter';
+  var FORA = '.MainNavSiteHome, .pageTemplate, .im3-ano, .im3-sec--resumo, .mr3-nums, .preFooter';
   var cacheSecoes = null;
   function secoes() {
     if (!PAGINA) {

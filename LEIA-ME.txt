@@ -111,6 +111,20 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         Arquivos: site/copia/encaixe.js + seção 18 da camada; passo 11 expõe o Lenis
         do tema como window.copiaLenis.
 
+    23/11/2026 · Morada Relacionamento, topo encaixado
+      - A foto da obra (relacionamento-obra-15h.jpg) tinha o céu claro do dia e ficava
+        colada no céu azul da página, com uma faixa clara entre os dois. A versão nova,
+        relacionamento-obra-15h-ceu.jpg, troca o céu do dia pelo azul da página linha a
+        linha (guindastes e prédios intactos), com um brilho suave no horizonte e o
+        primeiro plano um pouco menos saturado. Feita por fonte/tratar-foto-ceu.py
+        (precisa de numpy e Pillow); cópia em fonte/alteracoes/relacionamento/.
+        Passo 17 do alteracoes.py.
+      - Os números (+300, 30 das 100, +5 milhões, +R$ 15 bi) ficavam sozinhos numa tela
+        azul vazia; agora sobem sobre a foto no pé do topo, como na Vendas. O topo ocupa a
+        tela exata e o celular encolhe em telas baixas. O encaixe trata os números como
+        continuação do topo. Legenda do celular no vidro escuro dos selos.
+        Seção 12 do site/copia/paginas.css + site/copia/encaixe.js.
+
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode
         python3 fonte/alteracoes.py
