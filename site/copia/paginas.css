@@ -462,3 +462,25 @@ html.lenis, html.lenis body { height: auto; }
   line-height: var(--lh-micro);
   text-align: center;
 }
+
+/* ---------- 13. Relacionamento: a chamada final continua no céu azul (23/11/2026) ----------
+   Nas outras páginas a seção faz a passagem azul → azul-claro em 150 px (vira uma tarja).
+   Aqui a página segue azul até o fim: a seção nasce transparente sobre o céu da página, a
+   panorâmica de BH tem o céu trocado pelo mesmo azul (belo-horizonte-panorama-ceu.jpg, feita
+   por fonte/tratar-foto-ceu.py, com névoa azul nas serras) e o texto fica claro. */
+body.home.page-id-12513 main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCtaV2 {
+  background: linear-gradient(180deg, rgba(13, 77, 155, 0) 0, #0D4D9B 96px, #0D4D9B 100%);
+  padding-top: calc(var(--sec-y) + 48px) !important;
+}
+body.home.page-id-12513 main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene {
+  background-image: url("../wp-content/themes/moradaai-v2/assets/home-v2/final/belo-horizonte-panorama-ceu.jpg");
+  /* entrada longa: as serras surgem como névoa do azul (o texto de apoio fica legível sobre
+     elas) e a cidade aparece nítida da metade para baixo */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .22) 20%, rgba(0, 0, 0, .66) 36%, #000 52%);
+          mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .22) 20%, rgba(0, 0, 0, .66) 36%, #000 52%);
+}
+body.home.page-id-12513 main.homeV2 #finalCtaV2 .v2Kicker,
+body.home.page-id-12513 main.homeV2 #finalCtaV2 .finalCtaV2Kicker { color: #7FC0FF; }
+body.home.page-id-12513 main.homeV2 #finalCtaV2 .finalCtaV2Headline { color: #FFFFFF; }
+body.home.page-id-12513 main.homeV2 #finalCtaV2 .finalCtaV2Sub { color: rgba(255, 255, 255, .86); }
+body.home.page-id-12513 main.homeV2 #finalCtaV2 .finalCtaV2Note { color: rgba(255, 255, 255, .72); }
