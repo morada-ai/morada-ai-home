@@ -124,6 +124,19 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         tela exata e o celular encolhe em telas baixas. O encaixe trata os números como
         continuação do topo. Legenda do celular no vidro escuro dos selos.
         Seção 12 do site/copia/paginas.css + site/copia/encaixe.js.
+      - Espaçamento vertical da página inteira: o encaixe esticava cada seção curta até
+        uma tela e centralizava o conteúdo, o que deixava vãos de 200 a 400 px entre os
+        blocos. No Relacionamento ele não estica nem reduz (zoom) mais: o vão entre
+        blocos é sempre o mesmo (2 × --sec-y, 117 px em 1440x900). As três seções mais
+        altas ficaram compactas no CSS e cabem na tela a partir de ~800 px de altura:
+        "Como funciona" (respiro do cartão e dos passos pela altura da tela), "Três
+        frentes" (frase numa linha, cartões-foto em 38% da altura) e "Integração e
+        Morada OS" (maquetes da segunda aba em 80%/74%, o cartão royal sem vão interno).
+      - Corrigido no encaixe: o zoom posto num elemento que depois era reorganizado (as
+        abas do ERP) ficava preso e deixava o cartão a 76% da largura do grid.
+      - Chamada final em janelas bem mais largas que altas (2:1 ou mais, ex.: 1877x803):
+        a faixa da cidade fica em 46% da altura, para o título não cair sobre os prédios
+        (vale para todas as páginas; nos tamanhos comuns nada muda).
 
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode

@@ -435,6 +435,22 @@ html.lenis, html.lenis body { height: auto; }
   :root body .mr-landing .mr3-nums { position: relative; z-index: 2; margin-top: -76px; padding-top: 0 !important; }
   /* telas baixas: o celular encolhe junto, para o cartão dos números ainda aparecer no pé */
   :root body .mr-landing .mr3-hero .mr-chat__screen { height: clamp(400px, calc(100vh - 330px), 548px); }
+
+  /* ritmo vertical uniforme: o encaixe não estica nem reduz as seções desta página, então
+     as três mais altas ficam compactas no próprio CSS e cabem na tela a partir de ~800 px */
+  /* "Como funciona": respiro do cartão e dos passos acompanham a altura da tela */
+  :root body .mr-landing .mr3-como__g { padding: clamp(40px, 6vh, 64px) clamp(40px, 4.5vw, 64px); }
+  :root body .mr-landing .mr3-como__txt { gap: clamp(20px, 3vh, 36px); }
+  :root body .mr-landing .mr3-como__foto { min-height: clamp(420px, 56vh, 520px); }
+  /* "Três frentes": frase numa linha e cartões-foto pela altura da tela */
+  :root body .mr-landing .mr3-frentes .mr3-frase { max-width: 72ch; }
+  :root body.page-id-12513 .mr-landing .mr3-frentes .mr3-frente { min-height: clamp(300px, 38vh, 520px); }
+  /* "Integração e Morada OS": as duas maquetes da segunda aba em escala menor; o palco
+     (a aba mais alta) deixa de ter 648 px e o cartão royal perde o vão interno */
+  :root body.page-id-12513 .mr-landing .copiaErp__painel > .mr3-os-telas { zoom: .8; justify-self: center; }
+}
+@media (min-width: 992px) and (max-height: 860px) {
+  :root body.page-id-12513 .mr-landing .copiaErp__painel > .mr3-os-telas { zoom: .74; }
 }
 :root body .mr-landing .mr3-hero .mr-chat figcaption {
   margin-left: auto;

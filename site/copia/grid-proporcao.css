@@ -1700,6 +1700,13 @@ body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Note::before {
 body.home main.homeV2 .finalCtaV2.finalCtaV2 .copiaCtaForm {
   box-shadow: 0 40px 80px -40px rgba(4, 18, 53, .55);
 }
+/* janela bem mais larga que alta (2:1 ou mais, ex.: 1877x803): a panorâmica inteira ficaria
+   mais alta que a tela e o título cairia sobre os prédios. A faixa fica em 46% da altura e
+   corta o céu de cima da foto (que já se dissolve), nunca a cidade (23/11/2026). */
+@media (min-width: 992px) and (min-aspect-ratio: 2/1) {
+  body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 { --foto-h: 46vh; }
+  body.home main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene { background-size: cover; }
+}
 /* celular: a foto ganha altura (corta as laterais, nunca o céu) */
 @media (max-width: 767px) {
   body.home main.homeV2 .sectionWrap.finalCtaV2.finalCtaV2 { --foto-h: 340px; padding-bottom: 210px !important; }

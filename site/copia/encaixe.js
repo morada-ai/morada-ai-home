@@ -6,7 +6,8 @@
       comparação, palco da Credibilidade, visor dos cases, sobreposição do formulário).
    3. Se ainda passar: a seção fica mais alta que a tela. (Até 19/11/2026 ela era reduzida
       por igual com zoom, mas isso tirava os cartões das colunas do grid; desligado.)
-   4. Se sobrar: centraliza o conteúdo, e a seção fica exatamente uma tela.
+   4. Se sobrar: centraliza o conteúdo, e a seção fica exatamente uma tela (no
+      Relacionamento, não: lá o ritmo vertical é uniforme).
    Assentamento: quando a rolagem para perto do começo de uma seção (à frente, no sentido
    em que a pessoa rolava), a página desliza até ele; no meio da seção, nada acontece.
    Assentamento: pelo Lenis do tema (window.copiaLenis) ou, sem ele, pelo scroll-snap do CSS.
@@ -42,6 +43,11 @@
     return e.passos[e.passos.length - 1];
   }
   var SEM_PREENCHER = { heroV2: 1, socialProofV2: 1 };
+  // Relacionamento (23/11/2026): a seção curta não é esticada até uma tela; o ritmo vertical
+  // fica uniforme (o respiro de sempre, --sec-y, em cima e embaixo). Esticar e centralizar
+  // deixava vãos de 200 a 400 px entre os blocos. Também sem zoom (tirava os cartões das
+  // colunas do grid): as seções altas foram compactadas no CSS (paginas.css, seção 12).
+  var SEM_FOLGA = !!document.querySelector('.mr-landing');
 
   var raiz = document.documentElement;
   var navH = 0, ativo = false, assentando = false, timer = null, ultimoY = 0, sentido = 0;
@@ -86,6 +92,9 @@
     var e = ELASTICOS[s.id];
     if (e) e.vars.forEach(function (v) { s.style.removeProperty(v); });
     var i = interno(s); if (i) i.style.removeProperty('zoom');
+    // zoom posto antes em outro elemento (a seção pode ter sido reorganizada depois, como
+    // as abas do ERP no Relacionamento): limpa todos os marcados, não só o interno de agora
+    Array.prototype.forEach.call(s.querySelectorAll('[data-copia-zoom]'), function (z) { z.style.removeProperty('zoom'); z.removeAttribute('data-copia-zoom'); });
     s.removeAttribute('data-encaixe');
   }
 
@@ -120,14 +129,15 @@
       h = s.getBoundingClientRect().height;
     }
     var i = interno(s);
-    if (i && h > util + 1 && zoomMin() < 1) {
+    if (i && h > util + 1 && zoomMin() < 1 && !SEM_FOLGA) {
       var hi = i.getBoundingClientRect().height;
       var z = Math.max(zoomMin(), (hi - (h - util)) / hi);
       i.style.zoom = z.toFixed(3);
+      i.setAttribute('data-copia-zoom', '');
       nota.push('zoom=' + z.toFixed(2));
       h = s.getBoundingClientRect().height;
     }
-    if (h < util - 1 && !SEM_PREENCHER[s.id]) {
+    if (h < util - 1 && !SEM_PREENCHER[s.id] && !SEM_FOLGA) {
       var cs = getComputedStyle(s), folga = util - h;
       var pt = parseFloat(cs.paddingTop) || 0, pb = parseFloat(cs.paddingBottom) || 0;
       // com 'important': as camadas fixam o respiro das seções com !important
