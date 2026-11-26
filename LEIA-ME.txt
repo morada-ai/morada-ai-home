@@ -145,6 +145,20 @@ ALTERAÇÕES FEITAS NA CÓPIA (não estão no morada.ai)
         --fim 0.4), entra num degradê longo e o texto fica claro. Seção 13 do
         site/copia/paginas.css; a foto volta pelo passo 17 se faltar.
 
+    26/11/2026 · Morada Vendas, céu de noite
+      - A foto do topo é o estande à noite e o azul royal da página brigava com ela. O
+        céu fixo do tema desliza com a rolagem; na Vendas o começo e o fim da página
+        viraram noite (degradê linear, mais escuro no alto e um pouco mais azul no
+        horizonte, que encontra o céu da foto, com estrelas) e o meio segue no azul royal
+        das seções. A passagem acontece sozinha enquanto se rola.
+      - Chamada final da Vendas sem a tarja azul-clara: segue a mesma noite, com a
+        panorâmica de BH num céu noturno (belo-horizonte-panorama-noite.jpg, por
+        fonte/tratar-foto-ceu.py --horizonte 0.2 --fim 0.42 --topo '#03113C' --meio
+        '#0A2456' --brilho '#2E5FA6' --detalhe 0.25), estrelas e texto claro.
+        O script ganhou --detalhe (quanto das nuvens originais fica; na noite, pouco,
+        senão as nuvens do pôr do sol ficam vermelhas).
+        Seções 13 e 14 do site/copia/paginas.css; a foto volta pelo passo 17 se faltar.
+
     Atenção: atualizar a cópia com o fonte/espelhar.mjs baixa de novo o HTML, o
     style.css e as imagens do site e desfaz esta lista. Depois de atualizar, rode
         python3 fonte/alteracoes.py

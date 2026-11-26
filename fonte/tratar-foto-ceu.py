@@ -4,18 +4,24 @@
 # Precisa de numpy e Pillow (python3 -m venv v && v/bin/pip install numpy pillow).
 #
 # uso: python3 tratar-foto-ceu.py <entrada> <saida> [--horizonte 0.51] [--fim 0.62]
-#        [--topo #0E55AE] [--meio #1D64BE] [--brilho #5C9BE0]
+#        [--topo #0E55AE] [--meio #1D64BE] [--brilho #5C9BE0] [--detalhe 1]
 #   --horizonte  fração da altura onde o céu acaba (sem ela, é achada sozinha: a última
 #                linha com cara de céu claro e azulado)
 #   --fim        fração da altura onde a troca termina (névoa sobre serras e cidade)
+#   --detalhe    quanto do desenho do céu original (nuvens) fica acima do horizonte: 1 = tudo,
+#                0 = céu liso (para a noite, 0.25: nuvens do pôr do sol ficariam vermelhas)
 # Usada em 23/11/2026 para:
 #   relacionamento-obra-15h.jpg -> relacionamento-obra-15h-ceu.jpg   (padrão)
 #   belo-horizonte-panorama.jpg -> belo-horizonte-panorama-ceu.jpg   --horizonte 0.2 --fim 0.4
+# e em 26/11/2026 (Vendas, noite):
+#   belo-horizonte-panorama.jpg -> belo-horizonte-panorama-noite.jpg --horizonte 0.2 --fim 0.42
+#        --topo '#03113C' --meio '#0A2456' --brilho '#2E5FA6' --detalhe 0.25
 import sys, argparse, numpy as np
 from PIL import Image
 ap = argparse.ArgumentParser()
 ap.add_argument('entrada'); ap.add_argument('saida')
 ap.add_argument('--horizonte', type=float); ap.add_argument('--fim', type=float, default=.62)
+ap.add_argument('--detalhe', type=float, default=1.0)
 ap.add_argument('--topo', default='#0E55AE'); ap.add_argument('--meio', default='#1D64BE'); ap.add_argument('--brilho', default='#5C9BE0')
 a = ap.parse_args()
 
@@ -49,7 +55,10 @@ alvo = alvo * (1 - q)[:, None] + brilho[None] * q[:, None]
 
 # 3. quanto trocar em cada linha: tudo até o horizonte, sumindo até --fim
 w = 1 - ss((t - horiz) / max(.01, a.fim - horiz))
-out = im + (w[:, None] * (alvo - sky))[:, None, :]
+#    acima do horizonte, só uma parte do desenho do céu original fica (--detalhe)
+d = a.detalhe + (1 - a.detalhe) * ss((t - horiz * .85) / (horiz * .15))
+liso = alvo[:, None, :] + d[:, None, None] * (im - sky[:, None, :])
+out = im * (1 - w)[:, None, None] + liso * w[:, None, None]
 
 # 4. primeiro plano: um pouco menos saturado e levemente mais frio, para conversar com o azul
 fp = ss((t - horiz) / .25)[:, None, None]

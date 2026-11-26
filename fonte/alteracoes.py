@@ -222,10 +222,10 @@ destino = SITE / 'wp-content' / 'uploads' / '2026' / '11' / FOTO_REL
 if not destino.exists():
     shutil.copyfile(RAIZ / 'fonte' / 'alteracoes' / 'relacionamento' / FOTO_REL, destino)
 # chamada final do Relacionamento: panorâmica de BH com o céu azul (usada por copia/paginas.css)
-FOTO_FIM = 'belo-horizonte-panorama-ceu.jpg'
-destino_fim = SITE / 'wp-content' / 'themes' / 'moradaai-v2' / 'assets' / 'home-v2' / 'final' / FOTO_FIM
-if not destino_fim.exists():
-    shutil.copyfile(RAIZ / 'fonte' / 'alteracoes' / 'relacionamento' / FOTO_FIM, destino_fim)
+for FOTO_FIM in ('belo-horizonte-panorama-ceu.jpg', 'belo-horizonte-panorama-noite.jpg'):   # Relacionamento / Vendas
+    destino_fim = SITE / 'wp-content' / 'themes' / 'moradaai-v2' / 'assets' / 'home-v2' / 'final' / FOTO_FIM
+    if not destino_fim.exists():
+        shutil.copyfile(RAIZ / 'fonte' / 'alteracoes' / 'relacionamento' / FOTO_FIM, destino_fim)
 pp = SITE / 'morada-relacionamento' / 'index.html'
 ph = pp.read_text(encoding='utf-8')
 ANT = 'class="ceuX-predios" src="../wp-content/uploads/2026/11/relacionamento-obra-15h.jpg"'
