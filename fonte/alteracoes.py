@@ -222,7 +222,7 @@ destino = SITE / 'wp-content' / 'uploads' / '2026' / '11' / FOTO_REL
 if not destino.exists():
     shutil.copyfile(RAIZ / 'fonte' / 'alteracoes' / 'relacionamento' / FOTO_REL, destino)
 # chamada final do Relacionamento: panorâmica de BH com o céu azul (usada por copia/paginas.css)
-for FOTO_FIM in ('belo-horizonte-panorama-ceu.jpg', 'belo-horizonte-panorama-noite.jpg'):   # Relacionamento / Vendas
+for FOTO_FIM in ('belo-horizonte-panorama-ceu.jpg', 'belo-horizonte-panorama-noite-luzes.jpg'):   # Relacionamento / Vendas
     destino_fim = SITE / 'wp-content' / 'themes' / 'moradaai-v2' / 'assets' / 'home-v2' / 'final' / FOTO_FIM
     if not destino_fim.exists():
         shutil.copyfile(RAIZ / 'fonte' / 'alteracoes' / 'relacionamento' / FOTO_FIM, destino_fim)

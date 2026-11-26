@@ -485,6 +485,9 @@ body.home:is(.page-id-12513, .page-id-11942) main.homeV2 #finalCtaV2 .finalCtaV2
 body.home:is(.page-id-12513, .page-id-11942) main.homeV2 #finalCtaV2 .finalCtaV2Headline { color: #FFFFFF; }
 body.home:is(.page-id-12513, .page-id-11942) main.homeV2 #finalCtaV2 .finalCtaV2Sub { color: rgba(255, 255, 255, .86); }
 body.home:is(.page-id-12513, .page-id-11942) main.homeV2 #finalCtaV2 .finalCtaV2Note { color: rgba(255, 255, 255, .72); }
+/* sombra suave: o texto segue legível onde encosta na serra e nas luzes da cidade */
+body.home:is(.page-id-12513, .page-id-11942) main.homeV2 #finalCtaV2 .copiaCtaTexto > * { text-shadow: 0 1px 14px rgba(2, 10, 38, .75), 0 0 2px rgba(2, 10, 38, .5); }
+body.home.page-id-11942 main.homeV2 #finalCtaV2 .finalCtaV2Note { color: rgba(255, 255, 255, .86); }
 
 /* ---------- 14. Vendas: céu de noite no começo e no fim (26/11/2026) ----------
    A foto do topo é o estande à noite (céu quase preto-azulado, #000D39), e o azul royal
@@ -493,7 +496,9 @@ body.home:is(.page-id-12513, .page-id-11942) main.homeV2 #finalCtaV2 .finalCtaV2
    noite, em degradê linear (mais escuro no alto, um pouco mais azul no horizonte, que
    encontra o céu da foto), e o de cima segue no azul royal das seções do meio. As estrelas
    ficam visíveis na noite e somem no azul. A chamada final, no fim da página, fica na
-   mesma noite: panorâmica de BH com o céu noturno (belo-horizonte-panorama-noite.jpg). */
+   mesma noite: a panorâmica de BH à noite, com a cidade acesa (gerada no Magnific a partir da
+   original, Nano Banana 2.1, e com o céu passado para o azul da página por
+   fonte/tratar-foto-ceu.py): belo-horizonte-panorama-noite-luzes.jpg. */
 html:has(body.page-id-11942) { background: #020A26 !important; }
 :root body.page-id-11942 .ceuX { background: #020A26; }
 :root body.page-id-11942 .ceuX-ceu {
@@ -505,6 +510,15 @@ body.home.page-id-11942 main.homeV2.copiaFimHome .sectionWrap.finalCtaV2.finalCt
     radial-gradient(1.4px 1.4px at 8% 40px, rgba(255, 255, 255, 0.85) 50%, transparent 51%), radial-gradient(1px 1px at 19% 118px, rgba(255, 255, 255, 0.6) 50%, transparent 51%), radial-gradient(1.6px 1.6px at 31% 64px, rgba(255, 255, 255, 0.9) 50%, transparent 51%), radial-gradient(1px 1px at 44% 22px, rgba(255, 255, 255, 0.55) 50%, transparent 51%), radial-gradient(1.2px 1.2px at 57% 150px, rgba(255, 255, 255, 0.7) 50%, transparent 51%), radial-gradient(1.8px 1.8px at 68% 52px, rgba(255, 255, 255, 0.9) 50%, transparent 51%), radial-gradient(1px 1px at 79% 128px, rgba(255, 255, 255, 0.6) 50%, transparent 51%), radial-gradient(1.3px 1.3px at 91% 30px, rgba(255, 255, 255, 0.8) 50%, transparent 51%), radial-gradient(1px 1px at 14% 210px, rgba(255, 255, 255, 0.5) 50%, transparent 51%), radial-gradient(1.2px 1.2px at 86% 236px, rgba(255, 255, 255, 0.6) 50%, transparent 51%), radial-gradient(1px 1px at 50% 260px, rgba(255, 255, 255, 0.45) 50%, transparent 51%), radial-gradient(1.5px 1.5px at 38% 190px, rgba(255, 255, 255, 0.7) 50%, transparent 51%),
     linear-gradient(180deg, rgba(2, 10, 38, 0) 0, #020C2C 96px, #03113C 100%);
 }
+/* jornada ("Continue rolando · passo 05 de 05"): o brilho de amanhecer nascia no pé da tela
+   e terminava reto onde começa "O problema". Agora ele some antes do pé: sem divisão. */
+:root body.page-id-11942 .mv-landing [data-dawn] {
+  -webkit-mask-image: linear-gradient(0deg, transparent 0, #000 32%);
+          mask-image: linear-gradient(0deg, transparent 0, #000 32%);
+}
 body.home.page-id-11942 main.homeV2 .finalCtaV2.finalCtaV2 .finalCtaV2Scene {
-  background-image: url("../wp-content/themes/moradaai-v2/assets/home-v2/final/belo-horizonte-panorama-noite.jpg");
+  background-image: url("../wp-content/themes/moradaai-v2/assets/home-v2/final/belo-horizonte-panorama-noite-luzes.jpg");
+  /* o céu da foto já é o da página: entrada curta, a serra aparece inteira em silhueta */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .5) 10%, #000 22%);
+          mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .5) 10%, #000 22%);
 }

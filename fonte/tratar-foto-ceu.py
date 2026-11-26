@@ -4,24 +4,28 @@
 # Precisa de numpy e Pillow (python3 -m venv v && v/bin/pip install numpy pillow).
 #
 # uso: python3 tratar-foto-ceu.py <entrada> <saida> [--horizonte 0.51] [--fim 0.62]
-#        [--topo #0E55AE] [--meio #1D64BE] [--brilho #5C9BE0] [--detalhe 1]
+#        [--topo #0E55AE] [--meio #1D64BE] [--brilho #5C9BE0] [--detalhe 1] [--primeiro-plano 1]
 #   --horizonte  fração da altura onde o céu acaba (sem ela, é achada sozinha: a última
 #                linha com cara de céu claro e azulado)
 #   --fim        fração da altura onde a troca termina (névoa sobre serras e cidade)
 #   --detalhe    quanto do desenho do céu original (nuvens) fica acima do horizonte: 1 = tudo,
 #                0 = céu liso (para a noite, 0.25: nuvens do pôr do sol ficariam vermelhas)
+#   --primeiro-plano  quanto o primeiro plano é dessaturado/esfriado: 1 = padrão, 0 = intacto
+#                (foto noturna com as luzes acesas: 0, para não apagar o âmbar das luzes)
 # Usada em 23/11/2026 para:
 #   relacionamento-obra-15h.jpg -> relacionamento-obra-15h-ceu.jpg   (padrão)
 #   belo-horizonte-panorama.jpg -> belo-horizonte-panorama-ceu.jpg   --horizonte 0.2 --fim 0.4
-# e em 26/11/2026 (Vendas, noite):
-#   belo-horizonte-panorama.jpg -> belo-horizonte-panorama-noite.jpg --horizonte 0.2 --fim 0.42
-#        --topo '#03113C' --meio '#0A2456' --brilho '#2E5FA6' --detalhe 0.25
+# e em 26/11/2026 (Vendas, versão final, noite com as luzes acesas gerada no Magnific, Nano Banana 2.1):
+#   belo-horizonte-panorama-noite-luzes-magnific.jpg -> belo-horizonte-panorama-noite-luzes.jpg
+#        --horizonte 0.2 --fim 0.27 --topo '#03113C' --meio '#06194A' --brilho '#1B3570'
+#        --detalhe 0.7 --primeiro-plano 0
 import sys, argparse, numpy as np
 from PIL import Image
 ap = argparse.ArgumentParser()
 ap.add_argument('entrada'); ap.add_argument('saida')
 ap.add_argument('--horizonte', type=float); ap.add_argument('--fim', type=float, default=.62)
 ap.add_argument('--detalhe', type=float, default=1.0)
+ap.add_argument('--primeiro-plano', dest='pp', type=float, default=1.0)
 ap.add_argument('--topo', default='#0E55AE'); ap.add_argument('--meio', default='#1D64BE'); ap.add_argument('--brilho', default='#5C9BE0')
 a = ap.parse_args()
 
@@ -61,7 +65,7 @@ liso = alvo[:, None, :] + d[:, None, None] * (im - sky[:, None, :])
 out = im * (1 - w)[:, None, None] + liso * w[:, None, None]
 
 # 4. primeiro plano: um pouco menos saturado e levemente mais frio, para conversar com o azul
-fp = ss((t - horiz) / .25)[:, None, None]
+fp = ss((t - horiz) / .25)[:, None, None] * a.pp
 cinza = (out @ np.array([.299, .587, .114], np.float32))[..., None]
 grad = (cinza + (out - cinza) * .86) * np.array([.95, .975, 1.02], np.float32)
 out = out * (1 - fp) + grad * fp
